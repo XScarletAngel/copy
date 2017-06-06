@@ -1,0 +1,45 @@
+.clear{clear:both;height:0;line-height:0;margin:0 auto;font-size:1px}
+.clearfix:after { content:"."; display:block; height:0; visibility:hidden; clear:both;}
+.clearfix { zoom:1;}
+.fl{float: left;}
+.fr{float: right;}
+
+/*表单*/
+ul.fromUl{padding: 0;margin:0}
+ul.fromUl li{list-style: none;float: left;margin:0 15px 20px 0}
+.frombtn{text-align: center}
+.frombtn input{margin: 0 10px;outline: none}
+
+/*分页*/
+.page{margin:10px 0 20px 0;text-align: right;}
+.page span{border: 1px solid #ddd;padding:4px 10px;line-height: 20px;cursor: default;color: #999;margin-right: 2px}
+.page a{border: 1px solid #ddd;padding:4px 10px;line-height: 20px;color: #0d638f;margin-right: 2px}
+.page a.next,.page a.end,.page a.prev{border-left-width: 1px}
+
+/*表格*/
+.table thead th{vertical-align: middle}
+.table th, .table td{text-align: center}
+.textLeft th, .textLeft td{text-align: left}
+
+
+.input_common{line-height: 26px !important;height: 26px !important;margin-top: 5px}
+.controls .radio,.controls input[type='checkbox']{margin: 0 !important}
+.controls em{padding-right: 10px;display: inline-block;padding-left: 5px;font-style: normal!important;}
+.mt8{margin-top: 8px}
+.lh32{line-height: 32px;}
+.redtext{color: red}
+.page-content .breadcrumb{font-size: 14px}
+
+.loginlog{font-size: 20px;color:#797979;padding-left: 20px}
+.indexHtml-a a{padding:80px 0}
+.indexHtml-a a span{font-size: 46px;padding-bottom:30px}
+.indexHtml-a a span,.indexHtml-a a em{text-align:center !important}
+.blog-line{position: relative;}
+.blog-line:before{content: '';position: absolute;width:3px;top: 0;bottom: 0;left: 5%;background-color: #ccc}
+.blog-line p{padding:20px 0;padding-left:20%;position: relative;color: #797979}
+.blog-line i{width:15px;height:15px;border: 3px solid #ccc;background-color: #fff;border-radius: 50%;position: absolute;left: 5%;top: 20px;margin-left: -9px;}
+
+.news-index{border-bottom: 1px solid #dedede;padding:10px 0}
+.news-index:hover{border-bottom: 1px solid #ccc;}
+.news-index span{display: block;text-align: right;padding-right: 20px}
+.news-index p{padding-left: 20px}

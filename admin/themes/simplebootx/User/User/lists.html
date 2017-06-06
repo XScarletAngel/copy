@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+
+<!--[if !IE]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+
+<!-- BEGIN HEAD -->
+
+<head>
+
+	<meta charset="utf-8" />
+
+	<title>Metronic | Admin Dashboard Template</title>
+
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+	<meta content="" name="description" />
+
+	<meta content="" name="author" />
+
+	<!-- 引入顶部样式文件 -->
+
+	<admintpl file="head_css" />
+	<script src="__PUBLIC__/js/jquery.js"></script>
+    <script src="__PUBLIC__/js/wind.js"></script>
+    <!-- <script src="__PUBLIC__/simpleboot/bootstrap/js/bootstrap.min.js"></script> -->
+    <script>
+    	$(function(){
+    		$("[data-toggle='tooltip']").tooltip();
+    	});
+    </script>
+	<style>.expander{margin-left: -20px;}</style>
+
+</head>
+
+<!-- END HEAD -->
+
+<!-- BEGIN BODY -->
+
+<body class="page-header-fixed">
+
+	<!-- 引入顶部开始 -->
+
+	<admintpl file="head" />
+
+	<!-- 引入顶部结束 -->
+
+	<!-- BEGIN CONTAINER -->
+
+	<div class="page-container">
+
+		<!-- 引入左侧边栏开始 -->
+
+		<admintpl file="lefter" />
+
+		<!-- 引入左侧边栏结束 -->
+
+		<!-- BEGIN PAGE -->
+
+		<div class="page-content">
+
+			<!-- BEGIN PAGE CONTAINER-->
+
+			<div class="container-fluid">
+
+				<admintpl file="style_bn" />
+
+				<!-- END PAGE HEADER-->
+
+				<!-- 右边主页面开始 -->
+				<div class="wrap js-check-wrap">
+					<form class="well form-search" method="post" action="{:U('User/lists')}">
+						<ul class="fromUl clearfix">
+							<li>
+								<select name="usertype" style="width: 120px;">
+									<option value='user_login' <if condition="$Think.request.usertype eq 'user_login'">selected</if>>学员账号</option>
+									<option value='user_no' <if condition="$Think.request.usertype eq 'user_no'">selected</if>>学员编号</option>
+									<option value='user_name' <if condition="$Think.request.usertype eq 'user_name'">selected</if>>学员姓名</option>
+								</select> &nbsp;&nbsp;
+							</li>
+							<li>
+								<input type="text" name="user_con" value="{$Think.request.user_con}"/>
+							</li>
+							<li>
+								学员：
+								<select name="stu" style="width: 120px;">
+									<option value=''>全部</option>
+									<option value='1' <if condition="$Think.request.stu eq 1">selected</if>>是</option>
+									<option value='2' <if condition="$Think.request.stu eq 2">selected</if>>否</option>
+								</select> &nbsp;&nbsp;
+							</li>
+							<li>
+								<!-- <input type="hidden" id="zone_sub_name"/> -->
+								老师：
+								<select name="teacher" style="width: 120px;">
+									<option value=''>全部</option>
+									<option value='1' <if condition="$Think.request.teacher eq 1">selected</if>>是</option>
+									<option value='2' <if condition="$Think.request.teacher eq 2">selected</if>>否</option>
+								</select> &nbsp;&nbsp;
+							</li>
+							<li>
+								注册时间：
+								<input type="text" name="start_time" class="js-datetime" value="{$Think.request.start_time}" style="width: 120px;" autocomplete="off">-
+								<input autocomplete="off" type="text" class="js-datetime" name="end_time" value="{$Think.request.end_time}" style="width: 120px;"><br/>
+							</li>
+							<li>
+								来源渠道：
+								<select name="source" style="width: 120px;">
+									<option value=''>全部</option>
+									<option value='1' <if condition="$Think.request.source eq 1">selected</if>>后台创建</option>
+									<option value='2' <if condition="$Think.request.source eq 2">selected</if>>手机端注册</option>
+									<option value='3' <if condition="$Think.request.source eq 3">selected</if>>web端注册</option>
+								</select> &nbsp;&nbsp;
+							</li>
+						</ul>
+						<div class="frombtn">
+							<input type="submit" class="btn btn-primary" value="搜索" />
+							<input type="reset" class="btn btn-primary" value="清空" />
+						</div>
+					</form>
+						<table class="table table-hover table-bordered table-list">
+							<thead>
+								<tr>
+									<th width="50">用户账号</th>
+									<th width="50">是否学员</th>
+									<th width="50">是否教师</th>
+									<th width="90">姓名</th>
+									<th width="90">昵称</th>
+									<th width="90">创建时间</th>
+									<th width="50">操作</th>
+								</tr>
+							</thead>
+							<foreach name="data" item="vo">
+							<tr>
+			                    <td>{$vo.user_login}</td>
+								<td><if condition="($vo.user_type eq 1) or ($vo.user_type eq 3)">是<else/>否</if></td>
+								<td><if condition="($vo.user_type eq 2) or ($vo.user_type eq 3)">是<else/>否</if></td>
+								<td>{$vo.user_name}</td>
+								<td>{$vo.user_nicename}</td>
+							    <td>{$vo.create_time}</td>
+								<td id="status">
+									<a href="{:U('User/info?id='.$vo['id'])}">详情</a>
+								</td>
+							</tr>
+							</foreach>
+						</table>
+						<div class="page clearfix">{$page}</div>
+				</div>
+				<!-- 右边主页面结束 -->
+				<script src="__PUBLIC__/js/common.js"></script>
+				<script type="text/javascript" src="__PUBLIC__/js/datePicker/datePicker.js?v="></script>
+			</div>
+			<!-- END PAGE CONTAINER-->
+
+		</div>
+
+		<!-- END PAGE -->
+
+	</div>
+<!-- 加载的右边框架 -->
+
+
+	<!-- END CONTAINER -->
+
+	<!-- 引入底部开始 -->
+
+	<admintpl file="footer" />
+
+	<!-- 引入底部结束 -->
+
+	<admintpl file="footer_js" />
+
+</body>
+
+<!-- END BODY -->
+
+</html>

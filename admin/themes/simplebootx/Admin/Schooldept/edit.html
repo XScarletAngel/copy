@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+
+<!--[if !IE]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+
+<!-- BEGIN HEAD -->
+
+<head>
+
+	<meta charset="utf-8" />
+
+	<title>星空海天教育</title>
+
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+	<meta content="" name="description" />
+
+	<meta content="" name="author" />
+
+	<!-- 引入顶部样式文件 -->
+
+	<admintpl file="head_css" />
+	<script src="__PUBLIC__/js/jquery.js"></script>
+    <script src="__PUBLIC__/js/wind.js"></script>
+    <!-- <script src="__PUBLIC__/simpleboot/bootstrap/js/bootstrap.min.js"></script> -->
+    <script>
+    	$(function(){
+    		$("[data-toggle='tooltip']").tooltip();
+    	});
+    </script>
+	<style>
+		.expander{margin-left: -20px;}
+		.controls input[type="radio"] {margin-left:0px;}
+		* {margin:0;padding:0;}
+
+		.dropdown2 {display:inline-block;width:220px;height:20px;
+			position:relative;margin-left:20px;}
+		.dropdown2 .editor {display:block;border:0;padding:0;width:100%;box-shadow: inset 1px 2px 3px #ddd;height:inherit;}
+		.dropdown2 .trigger {position:absolute;top:0;right:0;padding:3px;}
+		.dropdown2 ul {display:none;width:98%;height:140px;padding:2px;position:absolute;top:100%;background-color:#FFF;border:1px solid #DDD;border-radius: 0 0 5px 5px;overflow-y:auto;overflow-x:hidden;margin:0px;z-index: 10;margin-top:8px;}
+		.dropdown2 ul li {height:20px;display:block;font-size:12px;overflow:hidden;cursor:pointer;}
+		.dropdown2 ul li .hot {color: red;}
+		.dropdown2 ul li:hover {background-color: #EEE;}
+		.dropdown2 ul .search {display:block;backgound: url(imgs/search.gif) no-repeat scroll center right;border-bottom: 1px solid #808080;}
+		.dropdown2 ul .search:hover{background-color:#FFF;}
+		.dropdown2 ul .search input {padding:2px;width:100%;border:0;font-size:14px;background:none;}
+	</style>
+
+</head>
+
+<!-- END HEAD -->
+
+<!-- BEGIN BODY -->
+
+<body class="page-header-fixed">
+
+	<!-- 引入顶部开始 -->
+
+	<admintpl file="head" />
+
+	<!-- 引入顶部结束 -->
+
+	<!-- BEGIN CONTAINER -->
+
+	<div class="page-container">
+
+		<!-- 引入左侧边栏开始 -->
+
+		<admintpl file="lefter" />
+
+		<!-- 引入左侧边栏结束 -->
+
+		<!-- BEGIN PAGE -->
+
+		<div class="page-content">
+
+			<!-- BEGIN PAGE CONTAINER-->
+
+			<div class="container-fluid">
+
+				<admintpl file="style_bn" />
+
+				<!-- END PAGE HEADER-->
+
+				<!-- 右边主页面开始 -->
+				<div class="wrap">
+					<ul class="nav nav-tabs">
+						<li><a href="{:U('Schooldept/index')}">院系列表</a></li>
+						<li class="active"><a href="{:U('Schooldept/edit')}">编辑院系</a></li>
+					</ul>
+					<form method="post" class="form-horizontal js-ajax-forms" action="{:U('Schooldept/edit_post')}">
+						<fieldset>
+							<div class="control-group">
+								<label class="control-label">名称:</label>
+								<div class="controls">
+									<input type="text" name="dept_name" value="{$dept.dept_name}">
+									<span class="form-required">*</span>
+								</div>
+							</div>
+							<input type="hidden" name="id" value="{$dept.id}">
+							<div class="control-group">
+								<label class="control-label">院系编号:</label>
+								<div class="controls">
+									<input type="text" name="dept_code" value="{$dept.dept_code}">
+									<span class="form-required">*</span>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">所属院校:</label>
+								<div class="dropdown2" id="dropdown_sel">  <!-- 模拟 select 的标记， -->
+									<input class="editor2" type="text" disabled="disabled" value="{$dept.school_name}"/> <!-- 显示当前值的输入框 -->
+									<input class="school_id" type="hidden" name="school_id" id="school_id" value="{$dept.school_id}"/>
+									<input class="trigger"  type="button" value="↓" /> <!-- 用于显示下拉列表的按钮 -->
+									<ul>   <!-- 列表菜单 -->
+										<li class="search"><input type="text"/></li>   <!-- 过滤输入的列表， -->
+										<!-- 添加数据的时候，都添加在这个地方 -->
+										<foreach name="school" item="vo">
+											<li data-value="{$vo.school_name}" id-value="{$vo.id}" code-value="{$vo.code}">{$vo.school_name}</li>
+										</foreach>
+									</ul>
+								</div>
+							</div>	
+							<div class="control-group">
+								<label class="control-label">院校编码:</label>
+								<div class="controls">
+									<input type="text" id="school_code" disabled="disabled" value="{$dept.school_code}"/>
+									<input type="hidden" id="school_co" name="school_code" value="{$dept.school_code}"/>
+									<span class="form-required">*</span>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">状态:</label>
+								<div class="controls">
+									<input type="radio" name="dept_status" value="1" <if condition="$dept[dept_status] eq 1">checked</if>>启用
+									<input type="radio" name="dept_status" value="0" <if condition="$dept[dept_status] eq 0">checked</if>>禁用
+								</div>
+							</div>
+						</fieldset>
+						<div class="form-actions">
+							<button type="submit" class="btn btn-primary js-ajax-submit">{:L('EDIT')}</button>
+							<a class="btn" href="javascript:history.back(-1);">{:L('BACK')}</a>
+						</div>
+					</form>
+				</div>
+				<script src="__PUBLIC__/js/common.js"></script>
+				<!-- 右边主页面结束 -->
+				<script type="text/javascript" src="__PUBLIC__/js/jquery-1.7.2.min.js"></script>
+				<script type="text/javascript">
+			
+					$(function(){
+						//当列表项被点击时，把列表项的值放在输入框里面，
+						$(".dropdown2").delegate("li", "click", function(e){
+							var v  = $(this).attr("data-value"),
+								drop = $(this).closest(".dropdown2");
+							var id = $(this).attr('id-value');
+							var code = $(this).attr('code-value');
+							document.getElementById("school_id").value = id;
+							document.getElementById("school_code").value = code;
+							document.getElementById("school_co").value = code;
+							drop.attr("data-value", v);
+							drop.find(".editor2").val(v);
+							$(this).parent().hide();
+							e.stopPropagation();
+						}).delegate(".trigger", "click", function(e){    //当下拉按钮被点击时，显示数据列表
+							$(this).closest(".dropdown2").find("ul").show();
+							e.stopPropagation();  //阻止冒泡，因为冒泡到 document 的时候，会隐藏列表
+						}).delegate(".search input", "click", function(e){
+							e.stopPropagation(); 
+						}).delegate(".search input", "keyup", function(e){    //当检测到列表中的输入框的时候，启动过滤，不满足的项隐藏
+							var v = $.trim(this.value), list = $(this).closest("ul").children("li");
+							if(v == "") {    //特殊情况，过滤输入框中没有值的时候迭代所有的列表项并显示它们
+								list.each(function(){
+									if(this.className.indexOf("search") != -1) {return;}//不考虑过滤输入框所在的列表项
+									$(this).text(this.innerText || this.textContent).show();
+								});
+							} else {
+								list.each(function(){   //迭代列表，
+									if(this.className.indexOf("search") != -1) {return;}  //不考虑过滤输入框所在的列表项
+									var lv = $(this).text();   //列表的文本
+									if(lv.indexOf(v) === -1) {   //不匹配过滤文本，就隐藏
+										$(this).hide();
+									} else {                 //匹配，把匹配的文本替换会含有标记的文本（红色）
+										$(this).html(lv.replace(v, '<span class="hot">'+v+'</span>')).show();
+									}
+								});
+							}
+							
+						});
+						
+						$(this).click(function(){   //当数据列表在显示时，如果点击了页面其它区域，则隐藏列表
+							$(".dropdown ul:visible").hide();   
+						});
+					});
+				</script>
+			</div>
+			<!-- END PAGE CONTAINER-->
+			<script type="text/javascript">
+                $(function() {
+                    /////---------------------
+                    Wind.use('validate', 'ajaxForm', 'artDialog', function() {
+
+                        var form = $('form.js-ajax-forms');
+                        //ie处理placeholder提交问题
+                        if ($.browser && $.browser.msie) {
+                            form.find('[placeholder]').each(function() {
+                                var input = $(this);
+                                if (input.val() == input.attr('placeholder')) {
+                                    input.val('');
+                                }
+                            });
+                        }
+
+                        var formloading = false;
+                        //表单验证开始
+                        form.validate({
+                            //是否在获取焦点时验证
+                            onfocusout : false,
+                            //是否在敲击键盘时验证
+                            onkeyup : false,
+                            //当鼠标掉级时验证
+                            onclick : false,
+                            //验证错误
+                            showErrors : function(errorMap, errorArr) {
+                                //errorMap {'name':'错误信息'}
+                                //errorArr [{'message':'错误信息',element:({})}]
+                                try {
+                                    $(errorArr[0].element).focus();
+                                    art.dialog({
+                                        id : 'error',
+                                        icon : 'error',
+                                        lock : true,
+                                        fixed : true,
+                                        background : "#CCCCCC",
+                                        opacity : 0,
+                                        content : errorArr[0].message,
+                                        cancelVal : '确定',
+                                        cancel : function() {
+                                            $(errorArr[0].element).focus();
+                                        }
+                                    });
+                                } catch (err) {
+                                }
+                            },
+                            //验证规则
+                            rules : {
+                                'dept_name' : {
+                                    required : 1
+                                },
+                                'dept_code' : {
+                                    required : 1
+                                }
+                            },
+                            //验证未通过提示消息
+                            messages : {
+                                'dept_name' : {
+                                    required : '请输入名称'
+                                },
+                                'dept_code' : {
+                                    required : '院系编号不能为空'
+                                }
+                            },
+                            //给未通过验证的元素加效果,闪烁等
+                            highlight : false,
+                            //是否在获取焦点时验证
+                            onfocusout : false,
+                            //验证通过，提交表单
+                            submitHandler : function(forms) {
+                                if (formloading)
+                                    return;
+                                $(forms).ajaxSubmit({
+                                    url : form.attr('action'), //按钮上是否自定义提交地址(多按钮情况)
+                                    dataType : 'json',
+                                    beforeSubmit : function(arr, $form, options) {
+                                        formloading = true;
+                                    },
+                                    success : function(data, statusText, xhr, $form) {
+                                        formloading = false;
+                                        if (data.status) {
+                                            setCookie("refersh_time", 1);
+                                            //添加成功
+                                            Wind.use("artDialog", function() {
+                                                art.dialog({
+                                                    id : "succeed",
+                                                    icon : "succeed",
+                                                    fixed : true,
+                                                    lock : true,
+                                                    background : "#CCCCCC",
+                                                    opacity : 0,
+                                                    content : data.info,
+                                                    button : [ {
+                                                        name : '继续添加？',
+                                                        callback : function() {
+                                                            reloadPage(window);
+                                                            return true;
+                                                        },
+                                                        focus : true
+                                                    }, {
+                                                        name : '返回列表页',
+                                                        callback : function() {
+                                                            location = "{:U('Schooldept/index')}";
+                                                            return true;
+                                                        }
+                                                    } ]
+                                                });
+                                            });
+                                        } else {
+                                            artdialog_alert(data.info);
+                                        }
+                                    }
+                                });
+                            }
+                        });
+                    });
+                    ////-------------------------
+                });
+			</script>
+		</div>
+
+		<!-- END PAGE -->
+
+	</div>
+<!-- 加载的右边框架 -->
+
+
+	<!-- END CONTAINER -->
+			
+	<!-- 引入底部开始 -->
+
+	<admintpl file="footer" />
+
+	<!-- 引入底部结束 -->
+
+	<admintpl file="footer_js" />
+
+</body>
+
+<!-- END BODY -->
+
+</html>

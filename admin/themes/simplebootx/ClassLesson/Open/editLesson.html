@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+
+<!--[if !IE]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+
+<!-- BEGIN HEAD -->
+
+<head>
+
+	<meta charset="utf-8" />
+
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+	<link href="__PUBLIC__/media/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+
+	<link href="__PUBLIC__/media/css/daterangepicker.css" rel="stylesheet" type="text/css" />
+
+	<script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+
+	<!--ajaxForm begin-->
+	<script>
+        //全局变量
+        var GV = {
+            HOST:"{$_SERVER['HTTP_HOST']}",
+            ROOT: "__ROOT__/",
+            WEB_ROOT: "__WEB_ROOT__/",
+            JS_ROOT: "public/js/"
+        };
+	</script>
+
+	<script src="__PUBLIC__/js/jquery.js"></script>
+	<script src="__PUBLIC__/js/wind.js"></script>
+	<!-- <script src="__PUBLIC__/simpleboot/bootstrap/js/bootstrap.min.js"></script> -->
+	<script>
+        $(function(){
+            $("[data-toggle='tooltip']").tooltip();
+        });
+	</script>
+	<!--ajaxForm end-->
+
+
+
+
+
+</head>
+
+<!-- END HEAD -->
+
+<!-- BEGIN BODY -->
+
+<body style="overflow-x:hidden;">
+<form action="{:U('Open/updateLesson')}"  method="post">
+	<input type="hidden" name="lesson_id" value="{$data.lesson_id}"/>
+	<!--上课内容：<input type="text" name="course_title" value="{$data.course_title}"/>
+	<br><br>
+	课程编号：<input type="text" name="course_no"    value="{$data.course_no}"/>
+	<br><br>-->
+	上课日期：<input type="text" name="class_date" value="{$data.class_date}" class="js-date">
+	<br><br>
+	上课老师：<select name="tch_id" id="tch_id" style="width: 120px;">
+				<option value=''>--请选择--</option>
+				<foreach name="teachers" item="to">
+					<option  value="{$to.id}" name-value="{$to.user_name}"
+					<?php if($to['id'] == $data['tch_id']){ ?> selected="selected" <?php } ?>
+					>{$to.user_name}</option>
+				</foreach>
+			</select>
+	<input class="tch_name" type="hidden" name="tch_name" id="tch_name" value="{$data.tch_name}"/>
+	<br><br>
+	<if condition="empty($data['room_addr'])">
+	上课教室：<select name="room_id" id = "room_id" style="width: 120px;">
+				<option value=''>--请选择--</option>
+				<foreach name="rooms" item="ro">
+					<option value="{$ro.id}" name-value="{$ro.room_name}"
+					 <?php if($ro['id'] == $data['room_id']){ ?> selected="selected" <?php } ?>
+					>{$ro.room_name}</option>
+				</foreach>
+			</select>
+		<input class="room_name" type="hidden" name="room_name" id="room_name" value="{$data.room_name}"/>
+	</if>
+	<if condition="!empty($data['room_addr'])">
+		上课教室：<input type="text" name="room_name" value="{$data.room_name}">
+		<br><br>
+		教室地点：<input type="text" name="room_addr" value="{$data.room_addr}">
+	</if>
+
+	<br><br>
+<span>上课时间:</span><br>
+<select name="lesson_start_hour" class="lesson_start_hour">
+	<option value="06" <if condition="$data['start_time'][0] eq '06' ">selected="selected" </if> >06时</option>
+	<option value="07" <if condition="$data['start_time'][0] eq '07' ">selected="selected" </if> >07时</option>
+	<option value="08" <if condition="$data['start_time'][0] eq '08' ">selected="selected" </if> >08时</option>
+	<option value="09" <if condition="$data['start_time'][0] eq '09' ">selected="selected" </if> >09时</option>
+	<option value="10" <if condition="$data['start_time'][0] eq '10' ">selected="selected" </if> >10时</option>
+	<option value="11" <if condition="$data['start_time'][0] eq '11' ">selected="selected" </if> >11时</option>
+	<option value="12" <if condition="$data['start_time'][0] eq '12' ">selected="selected" </if> >12时</option>
+	<option value="13" <if condition="$data['start_time'][0] eq '13' ">selected="selected" </if> >13时</option>
+	<option value="14" <if condition="$data['start_time'][0] eq '14' ">selected="selected" </if> >14时</option>
+	<option value="15" <if condition="$data['start_time'][0] eq '15' ">selected="selected" </if> >15时</option>
+	<option value="16" <if condition="$data['start_time'][0] eq '16' ">selected="selected" </if> >16时</option>
+	<option value="17" <if condition="$data['start_time'][0] eq '17' ">selected="selected" </if> >17时</option>
+	<option value="18" <if condition="$data['start_time'][0] eq '18' ">selected="selected" </if> >18时</option>
+	<option value="19" <if condition="$data['start_time'][0] eq '19' ">selected="selected" </if> >19时</option>
+	<option value="20" <if condition="$data['start_time'][0] eq '20' ">selected="selected" </if> >20时</option>
+	<option value="21" <if condition="$data['start_time'][0] eq '21' ">selected="selected" </if> >21时</option>
+	<option value="22" <if condition="$data['start_time'][0] eq '22' ">selected="selected" </if> >22时</option>
+	<option value="23" <if condition="$data['start_time'][0] eq '23' ">selected="selected" </if> >23时</option>
+</select>
+
+<select name="lesson_start_minutes" class="lesson_start_minutes">
+	<option value="00" <if condition="$data['start_time'][1] eq '00' ">selected="selected" </if> >00分</option>
+	<option value="05" <if condition="$data['start_time'][1] eq '05' ">selected="selected" </if> >05分</option>
+	<option value="10" <if condition="$data['start_time'][1] eq '10' ">selected="selected" </if> >10分</option>
+	<option value="15" <if condition="$data['start_time'][1] eq '15' ">selected="selected" </if> >15分</option>
+	<option value="20" <if condition="$data['start_time'][1] eq '20' ">selected="selected" </if> >20分</option>
+	<option value="25" <if condition="$data['start_time'][1] eq '25' ">selected="selected" </if> >25分</option>
+	<option value="30" <if condition="$data['start_time'][1] eq '30' ">selected="selected" </if> >30分</option>
+	<option value="35" <if condition="$data['start_time'][1] eq '35' ">selected="selected" </if> >35分</option>
+	<option value="40" <if condition="$data['start_time'][1] eq '40' ">selected="selected" </if> >40分</option>
+	<option value="45" <if condition="$data['start_time'][1] eq '45' ">selected="selected" </if> >45分</option>
+	<option value="50" <if condition="$data['start_time'][1] eq '50' ">selected="selected" </if> >50分</option>
+	<option value="55" <if condition="$data['start_time'][1] eq '55' ">selected="selected" </if> >55分</option>
+</select>
+	-
+<select name="lesson_end_hour" class="lesson_end_hour">
+	<option value="06" <if condition="$data['end_time'][0] eq '06' ">selected="selected" </if> >06时</option>
+	<option value="07" <if condition="$data['end_time'][0] eq '07' ">selected="selected" </if> >07时</option>
+	<option value="08" <if condition="$data['end_time'][0] eq '08' ">selected="selected" </if> >08时</option>
+	<option value="09" <if condition="$data['end_time'][0] eq '09' ">selected="selected" </if> >09时</option>
+	<option value="10" <if condition="$data['end_time'][0] eq '10' ">selected="selected" </if> >10时</option>
+	<option value="11" <if condition="$data['end_time'][0] eq '11' ">selected="selected" </if> >11时</option>
+	<option value="12" <if condition="$data['end_time'][0] eq '12' ">selected="selected" </if> >12时</option>
+	<option value="13" <if condition="$data['end_time'][0] eq '13' ">selected="selected" </if> >13时</option>
+	<option value="14" <if condition="$data['end_time'][0] eq '14' ">selected="selected" </if> >14时</option>
+	<option value="15" <if condition="$data['end_time'][0] eq '15' ">selected="selected" </if> >15时</option>
+	<option value="16" <if condition="$data['end_time'][0] eq '16' ">selected="selected" </if> >16时</option>
+	<option value="17" <if condition="$data['end_time'][0] eq '17' ">selected="selected" </if> >17时</option>
+	<option value="18" <if condition="$data['end_time'][0] eq '18' ">selected="selected" </if> >18时</option>
+	<option value="19" <if condition="$data['end_time'][0] eq '19' ">selected="selected" </if> >19时</option>
+	<option value="20" <if condition="$data['end_time'][0] eq '20' ">selected="selected" </if> >20时</option>
+	<option value="21" <if condition="$data['end_time'][0] eq '21' ">selected="selected" </if> >21时</option>
+	<option value="22" <if condition="$data['end_time'][0] eq '22' ">selected="selected" </if> >22时</option>
+	<option value="23" <if condition="$data['end_time'][0] eq '23' ">selected="selected" </if> >23时</option>
+</select>
+
+<select name="lesson_end_minutes" class="lesson_end_minutes">
+	<option value="00" <if condition="$data['end_time'][1] eq '00' ">selected="selected" </if> >00分</option>
+	<option value="05" <if condition="$data['end_time'][1] eq '05' ">selected="selected" </if> >05分</option>
+	<option value="10" <if condition="$data['end_time'][1] eq '10' ">selected="selected" </if> >10分</option>
+	<option value="15" <if condition="$data['end_time'][1] eq '15' ">selected="selected" </if> >15分</option>
+	<option value="20" <if condition="$data['end_time'][1] eq '20' ">selected="selected" </if> >20分</option>
+	<option value="25" <if condition="$data['end_time'][1] eq '25' ">selected="selected" </if> >25分</option>
+	<option value="30" <if condition="$data['end_time'][1] eq '30' ">selected="selected" </if> >30分</option>
+	<option value="35" <if condition="$data['end_time'][1] eq '35' ">selected="selected" </if> >35分</option>
+	<option value="40" <if condition="$data['end_time'][1] eq '40' ">selected="selected" </if> >40分</option>
+	<option value="45" <if condition="$data['end_time'][1] eq '45' ">selected="selected" </if> >45分</option>
+	<option value="50" <if condition="$data['end_time'][1] eq '50' ">selected="selected" </if> >50分</option>
+	<option value="55" <if condition="$data['end_time'][1] eq '55' ">selected="selected" </if> >55分</option>
+</select>
+
+<br>
+
+	<input type="submit" value='提交' class="btn btn-primary">
+</form>
+
+
+</body>
+<script>
+    $(function(){
+        //教师名字的值
+        $("#tch_id").delegate("option", "click", function(e){
+            var sub_v = $(this).attr('name-value');
+            $('#tch_name').val(sub_v);
+
+        });
+
+        //教室的值
+        $("#room_id").delegate("option", "click", function(e){
+            var sub_v = $(this).attr('name-value');
+            $('#room_name').val(sub_v);
+
+        });
+    });
+</script>
+<script src="__PUBLIC__/js/common.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/datePicker/datePicker.js?v="></script>
+</html>

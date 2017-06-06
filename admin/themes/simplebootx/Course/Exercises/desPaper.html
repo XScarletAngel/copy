@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+
+<!--[if IE 8]>
+<html lang="en" class="ie8 no-js"> <![endif]-->
+
+<!--[if IE 9]>
+<html lang="en" class="ie9 no-js"> <![endif]-->
+
+<!--[if !IE]><!-->
+<html lang="en" class="no-js"> <!--<![endif]-->
+
+<!-- BEGIN HEAD -->
+
+<head>
+
+    <meta charset="utf-8"/>
+
+    <title>Metronic | Admin Dashboard Template</title>
+
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+
+    <meta content="" name="description"/>
+
+    <meta content="" name="author"/>
+
+    <!-- 引入顶部样式文件 -->
+    <admintpl file="head_css"/>
+    <link rel="stylesheet" href="__PUBLIC__/media/css/despape.css">
+    <link rel="stylesheet" href="__PUBLIC__/media/css/glyphicons.css">
+    <script src="__PUBLIC__/js/jquery.js"></script>
+    <script src="__PUBLIC__/js/wind.js"></script>
+    <!-- <script src="__PUBLIC__/simpleboot/bootstrap/js/bootstrap.min.js"></script> -->
+    <script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+    <script>
+        $(function () {
+            $("[data-toggle='tooltip']").tooltip();
+        });
+    </script>
+</head>
+
+<!-- END HEAD -->
+
+<!-- BEGIN BODY -->
+
+<body class="page-header-fixed">
+
+<!-- 引入顶部开始 -->
+
+<admintpl file="head"/>
+
+<!-- 引入顶部结束 -->
+
+<!-- BEGIN CONTAINER -->
+
+<div class="page-container">
+
+    <!-- 引入左侧边栏开始 -->
+
+    <admintpl file="lefter"/>
+
+    <!-- 引入左侧边栏结束 -->
+
+    <!-- BEGIN PAGE -->
+
+    <div class="page-content">
+        <!-- BEGIN PAGE CONTAINER-->
+        <!-- 设计试卷右侧悬浮按钮组 -->
+        <ul class="fixed_nav">
+          <li data='true' data-name="danxmain" data-title="danxtitle" data-info="danxinfo" data-list-id="danxlistId[]" data-list-diff="danxlistDiff[]" data-list-score="danxlistScore[]"><i class="icon-ok"></i>单选题</li>
+          <li data='false' data-name="duoxmain" data-title="duoxtitle" data-info="duoxinfo" data-list-id="duoxlistId[]" data-list-diff="duoxlistDiff[]" data-list-score="duoxlistScore[]"><i class="icon-plus"></i>多选题</li>
+          <li data='false' data-name="budxmain" data-title="budxtitle" data-info="budxinfo" data-list-id="budxlistId[]" data-list-diff="budxlistDiff[]" data-list-score="budxlistScore[]"><i class="icon-plus"></i>不定项选择题</li>
+          <li data='false' data-name="pandmain" data-title="pandtitle" data-info="pandinfo" data-list-id="pandlistId[]" data-list-diff="pandlistDiff[]" data-list-score="pandlistScore[]"><i class="icon-plus"></i>判断题</li>
+        </ul>
+        <!-- 设计试卷右侧悬浮按钮组结束 -->
+        <div class="container-fluid">
+            <admintpl file="style_bn"/>
+            <!-- END PAGE HEADER-->
+            <!-- 设计试卷部分开始 -->
+          <form class="well form-search" method="post" action="{:U('Exercises/paperStore')}">
+            <input type="hidden"value="{$_GET['id']}" name="course_id">
+            <div class="design_pape">
+              <div class="design_header">
+                <input type="text" placeholder="试卷名称（必填）" name="paper_title" id="paper_title" required/>
+                <input class="student_test" type="text" placeholder="考试说明（选填）"id="exam_info" name="exam_info"/>
+              </div>
+              <div class="design_content">
+                <input class="newInput" name="danxmain" type="hidden" value="1">
+                <h5>单选题</h5>
+                <div class="btnmenu glyphicons-demo">
+                  <span class="upBtn glyphicons up_arrow"><i></i></span>
+                  <span class="downBtn glyphicons down_arrow"><i></i></span>
+                  <span class="deleteBtn glyphicons bin"><i></i></span>
+                </div>
+                <div class="titletext">
+                  <input class="title_mode" type="text" name="danxtitle" placeholder="标题（必填）" required/>
+                  <input class="info_mode" type="text" name="danxinfo" placeholder="考试说明（选填）"/>
+                </div>
+                <ul class="clearfix">
+                  <li>
+                    <p>难:0</p>
+                    <p>中:0</p>
+                    <p>易:0</p>
+                  </li>
+                  <li class="li_last">
+                    <span>总题数:0</span>
+                    <span>总分值:0</span>
+                    <a data-list-score="danxlistScore[]" data-list-diff="danxlistDiff[]" data-list-id="danxlistId[]" class="add_test" href="javascript:;">添加习题</a>
+                  </li>
+                </ul>
+                <table class="table table-hover table-bordered table-list">
+                  <tr>
+                    <th width="5%">题号</th>
+                    <th width="">分值</th>
+                    <th width="">操作</th>
+                  </tr>
+                  <!-- <tr>
+                    <input type="hidden" value="" data="">
+                    <td class="test_number">1</td>
+                    <td><input type="text"></td>
+                    <td>
+                      <a class="text_prev" href="javascript:;">上移</a>
+                      <a class="text_next" href="javascript:;">下移</a>
+                      <a class="test_delect" href="javascript:;">删除</a>
+                    </td>
+                  </tr> -->
+                </table>
+              </div>
+              <!-- 底部试卷信息设置 -->
+              <div class="fixed_footer ">
+                <ul class="clearfix">
+                  <li class="fixed_first">
+                    题量：<input type="text" name="total_exercise" id="total_exercise" required >
+                    （难： <input type="text" name="diff_num" id="diff_num" required>
+                    中：<input type="text" name="middle_num" id="middle_num" required>
+                    易：<input type="text" name="easy_num" id="easy_num" required > ）
+                  </li>
+                  <li>总分值：<input type="text" name="total_score" id="total_score" required></li>
+                  <li>
+                    <!--<input type="checkbox">-->
+                    <font>限制时长</font>
+                    <input type="text" name="total_time" id="total_time" required>
+                    <font>分钟</font>
+                  </li>
+                  <li>
+                    <font>试题</font>
+                    <select class="small m-wrap" tabindex="1" name="paper_type" required>
+                      <option value="">--请选择--</option>
+                      <option value="1">模拟题</option>
+                      <option value="2">课后习题</option>
+                  </select>
+                  </li>
+                  <li><input value="保存" type="submit" class="btn btn-primary"/></li>
+                </ul>
+              </div>
+              <!-- 底部试卷信息设置结束 -->
+            </div>
+          </form>
+            <!-- 设计试卷部分结束 -->
+            <!-- 右边主页面结束 -->
+          <script src="__PUBLIC__/js/common.js"></script>
+          <script src="__PUBLIC__/js/despape.js"></script>
+          <script src="__PUBLIC__/js/layer/layer.js"></script>
+          <script>
+              $(document).ready(function(){
+
+              });
+
+              //保存试卷基本信息
+            function saveData() {
+                var paper_title     = $("#paper_title").val();    //试卷标题
+                var exam_info       = $("#exam_info").val();      //试卷说明
+                var total_exercise  = $("#total_exercise").val(); //题量
+                var total_score     = $("#total_score").val();    //总分数
+                var paper_id        = $("#paper_id").val();       //试卷id
+                var paper_type      = $("#paper_type").val();     //试卷类型
+                var diff_num        = $("#diff_num").val();       //level为难的题量
+                var middle_num      = $("#middle_num").val();     //level为中的题量
+                var easy_num        = $("#easy_num").val();       //level为易的题量
+                var url = "/index.php?g=Course&m=Exercises&a=paperAjaxSave";
+                $.ajax({
+                    url:url,
+                    type:'POST',
+                    dataType:'json',
+                    data:{
+                        paper_title:paper_title,
+                        exam_info:exam_info,
+                        total_exercise:total_exercise,
+                        total_score:total_score,
+                        paper_id:paper_id,
+                        paper_type:paper_type,
+                        diff_num:diff_num,
+                        middle_num:middle_num,
+                        easy_num:easy_num
+                    },
+                    success:function(msg){
+                        if(msg.code == 200){
+                            $("#user_info").text(msg.msg);
+                            $("#user_id").val(msg.user_id);
+                            $("#user_name").val(msg.user_name);
+                        }else{
+                            $("#user_info").text(msg.msg);
+                            $("#user_id").val('');
+                            $("#user_name").val('');
+                        }
+
+                    }
+                });
+            }
+          </script>
+        </div>
+    </div>
+</div>
+<admintpl file="footer"/>
+<!-- 引入底部结束 -->
+<admintpl file="footer_js"/>
+</body>
+<!-- END BODY -->
+<input id="addtest" type="hidden" value="{:U('Course/Exercises/showExer')}">
+<div class="disbox" style="display:none">
+  <div class="design_content">
+    <input class="newInput" name="" type="hidden" value="">
+    <h5>单选题</h5>
+    <div class="btnmenu glyphicons-demo">
+      <span class="upBtn glyphicons up_arrow"><i></i></span>
+      <span class="downBtn glyphicons down_arrow"><i></i></span>
+      <span class="deleteBtn glyphicons bin"><i></i></span>
+    </div>
+    <div class="titletext">
+      <input class="title_mode" type="text" name="danxtitle" placeholder="标题（必填）" required/>
+      <input class="info_mode" type="text" name="danxinfo" placeholder="考试说明（选填）"/>
+    </div>
+    <ul class="clearfix">
+      <li>
+        <p>难:0</p>
+        <p>中:0</p>
+        <p>易:0</p>
+      </li>
+      <li class="li_last">
+        <span>总题数:0</span>
+        <span>总分值:0</span>
+        <a class="add_test" href="javascript:;">添加习题</a>
+      </li>
+    </ul>
+    <table class="table table-hover table-bordered table-list">
+      <tr>
+        <th width="5%">题号</th>
+        <th width="">分值</th>
+        <th width="">操作</th>
+      </tr>
+    </table>
+  </div>
+</div>
+</html>

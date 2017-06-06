@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+
+<!--[if !IE]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+
+<!-- BEGIN HEAD -->
+
+<head>
+
+	<meta charset="utf-8" />
+
+	<title>星空海天教育</title>
+
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+	<meta content="" name="description" />
+
+	<meta content="" name="author" />
+
+	<!-- 引入顶部样式文件 -->
+
+	<admintpl file="head_css" />
+	<script src="__PUBLIC__/js/jquery.js"></script>
+    <script src="__PUBLIC__/js/wind.js"></script>
+    <!-- <script src="__PUBLIC__/simpleboot/bootstrap/js/bootstrap.min.js"></script> -->
+    <script>
+    	$(function(){
+    		$("[data-toggle='tooltip']").tooltip();
+    	});
+    </script>
+	<style>
+	.expander{margin-left: -20px;}
+	.controls input[type="radio"] {margin-left:0px;}
+	</style>
+
+</head>
+
+<!-- END HEAD -->
+
+<!-- BEGIN BODY -->
+
+<body class="page-header-fixed">
+
+	<!-- 引入顶部开始 -->
+
+	<admintpl file="head" />
+
+	<!-- 引入顶部结束 -->
+
+	<!-- BEGIN CONTAINER -->
+
+	<div class="page-container">
+
+		<!-- 引入左侧边栏开始 -->
+
+		<admintpl file="lefter" />
+
+		<!-- 引入左侧边栏结束 -->
+
+		<!-- BEGIN PAGE -->
+
+		<div class="page-content">
+
+			<!-- BEGIN PAGE CONTAINER-->
+
+			<div class="container-fluid">
+
+				<admintpl file="style_bn" />
+
+				<!-- END PAGE HEADER-->
+
+				<!-- 右边主页面开始 -->
+				<div class="wrap">
+					<ul class="nav nav-tabs">
+						<li><a href="{:U('Major/index')}">学科门类菜单</a></li>
+						<li class="active"><a href="{:U('Major/add')}">{:L('ADMIN_MENU_ADD')}</a></li>
+					</ul>
+					<form method="post" class="form-horizontal js-ajax-forms" action="{:U('Major/add_post')}">
+						<fieldset>
+							<div class="control-group">
+								<label class="control-label">上级:</label>
+								<div class="controls">
+									<select name="parentid">
+										<option value="{$parentid}">{$major_name}</option>
+									</select>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">名称:</label>
+								<div class="controls">
+									<input type="text" name="major_name">
+									<span class="form-required">*</span>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">类别:</label>
+								<div class="controls mt8">
+									<input type="radio" name="level" value="1" checked><em>门类</em>
+									<input type="radio" name="level" value="2"><em>学科</em>
+									<input type="radio" name="level" value="3"><em>专业</em>
+									<span class="form-required">*</span>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">硕士类型:</label>
+								<div class="controls mt8">
+									<input type="radio" name="major_type" value="1" checked><em>学术型硕士</em>
+									<input type="radio" name="major_type" value="2"><em>专业型硕士</em>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">教育部编码:</label>
+								<div class="controls">
+									<input type="text" name="major_code">
+									<span class="form-required">*</span>
+								</div>
+							</div>
+						</fieldset>
+						<div class="form-actions">
+							<button type="submit" class="btn btn-primary js-ajax-submit">{:L('ADD')}</button>
+							<a class="btn" href="javascript:history.back(-1);">{:L('BACK')}</a>
+						</div>
+					</form>
+				</div>
+				<script src="__PUBLIC__/js/common.js"></script>
+				<!-- 右边主页面结束 -->
+				<script type="text/javascript">
+                    $(function() {
+                        /////---------------------
+                        Wind.use('validate', 'ajaxForm', 'artDialog', function() {
+
+                            var form = $('form.js-ajax-forms');
+                            //ie处理placeholder提交问题
+                            if ($.browser && $.browser.msie) {
+                                form.find('[placeholder]').each(function() {
+                                    var input = $(this);
+                                    if (input.val() == input.attr('placeholder')) {
+                                        input.val('');
+                                    }
+                                });
+                            }
+
+                            var formloading = false;
+                            //表单验证开始
+                            form.validate({
+                                //是否在获取焦点时验证
+                                onfocusout : false,
+                                //是否在敲击键盘时验证
+                                onkeyup : false,
+                                //当鼠标掉级时验证
+                                onclick : false,
+                                //验证错误
+                                showErrors : function(errorMap, errorArr) {
+                                    //errorMap {'name':'错误信息'}
+                                    //errorArr [{'message':'错误信息',element:({})}]
+                                    try {
+                                        $(errorArr[0].element).focus();
+                                        art.dialog({
+                                            id : 'error',
+                                            icon : 'error',
+                                            lock : true,
+                                            fixed : true,
+                                            background : "#CCCCCC",
+                                            opacity : 0,
+                                            content : errorArr[0].message,
+                                            cancelVal : '确定',
+                                            cancel : function() {
+                                                $(errorArr[0].element).focus();
+                                            }
+                                        });
+                                    } catch (err) {
+                                    }
+                                },
+                                //验证规则
+                                rules : {
+                                    'major_name' : {
+                                        required : 1
+                                    },
+                                    'major_code' : {
+                                        required : 1
+                                    }
+                                },
+                                //验证未通过提示消息
+                                messages : {
+                                    'major_name' : {
+                                        required : '请输入名称'
+                                    },
+                                    'major_code' : {
+                                        required : '教育部编码不能为空'
+                                    }
+                                },
+                                //给未通过验证的元素加效果,闪烁等
+                                highlight : false,
+                                //是否在获取焦点时验证
+                                onfocusout : false,
+                                //验证通过，提交表单
+                                submitHandler : function(forms) {
+                                    if (formloading)
+                                        return;
+                                    $(forms).ajaxSubmit({
+                                        url : form.attr('action'), //按钮上是否自定义提交地址(多按钮情况)
+                                        dataType : 'json',
+                                        beforeSubmit : function(arr, $form, options) {
+                                            formloading = true;
+                                        },
+                                        success : function(data, statusText, xhr, $form) {
+                                            formloading = false;
+                                            if (data.status) {
+                                                setCookie("refersh_time", 1);
+                                                //添加成功
+                                                Wind.use("artDialog", function() {
+                                                    art.dialog({
+                                                        id : "succeed",
+                                                        icon : "succeed",
+                                                        fixed : true,
+                                                        lock : true,
+                                                        background : "#CCCCCC",
+                                                        opacity : 0,
+                                                        content : data.info,
+                                                        button : [ {
+                                                            name : '继续添加？',
+                                                            callback : function() {
+                                                                reloadPage(window);
+                                                                return true;
+                                                            },
+                                                            focus : true
+                                                        }, {
+                                                            name : '返回列表页',
+                                                            callback : function() {
+                                                                location = "{:U('Major/index')}";
+                                                                return true;
+                                                            }
+                                                        } ]
+                                                    });
+                                                });
+                                            } else {
+                                                artdialog_alert(data.info);
+                                            }
+                                        }
+                                    });
+                                }
+                            });
+                        });
+                        ////-------------------------
+                    });
+				</script>
+			</div>
+			<!-- END PAGE CONTAINER-->
+
+		</div>
+
+		<!-- END PAGE -->
+
+	</div>
+<!-- 加载的右边框架 -->
+
+
+	<!-- END CONTAINER -->
+
+	<!-- 引入底部开始 -->
+
+	<admintpl file="footer" />
+
+	<!-- 引入底部结束 -->
+
+	<admintpl file="footer_js" />
+
+</body>
+
+<!-- END BODY -->
+
+</html>

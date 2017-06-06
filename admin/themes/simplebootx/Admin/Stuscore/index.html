@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+
+<!--[if !IE]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+
+<!-- BEGIN HEAD -->
+
+<head>
+
+	<meta charset="utf-8" />
+
+	<title>星空海天教育</title>
+
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+	<meta content="" name="description" />
+
+	<meta content="" name="author" />
+
+	<!-- 引入顶部样式文件 -->
+
+	<admintpl file="head_css" />
+	<script src="__PUBLIC__/js/jquery.js"></script>
+    <script src="__PUBLIC__/js/wind.js"></script>
+    <!-- <script src="__PUBLIC__/simpleboot/bootstrap/js/bootstrap.min.js"></script> -->
+    <script>
+    	$(function(){
+    		$("[data-toggle='tooltip']").tooltip();
+    	});
+    </script>
+	<style>.expander{margin-left: -20px;}</style>
+
+</head>
+
+<!-- END HEAD -->
+
+<!-- BEGIN BODY -->
+
+<body class="page-header-fixed">
+
+	<!-- 引入顶部开始 -->
+
+	<admintpl file="head" />
+
+	<!-- 引入顶部结束 -->
+
+	<!-- BEGIN CONTAINER -->
+
+	<div class="page-container">
+
+		<!-- 引入左侧边栏开始 -->
+
+		<admintpl file="lefter" />
+
+		<!-- 引入左侧边栏结束 -->
+
+		<!-- BEGIN PAGE -->
+
+		<div class="page-content">
+
+			<!-- BEGIN PAGE CONTAINER-->
+
+			<div class="container-fluid">
+
+				<admintpl file="style_bn" />
+
+				<!-- END PAGE HEADER-->
+
+				<!-- 右边主页面开始 -->
+				<div class="wrap js-check-wrap">
+					<form class="well form-search" method="post" action="{:U('Stuscore/index')}">
+						<ul class="fromUl clearfix">
+							<li>
+								分校：
+								<select name="zone_id" id="zone_id" style="width: 120px;">
+									<option value=''>全部</option>
+									<foreach name="school" item="vo">
+									<option value='{$vo.id}' name-value="{$vo.sz_name}">{$vo.sz_name}</option>
+									</foreach>
+								</select> &nbsp;&nbsp;
+							</li>
+							<li>
+								<!-- <input type="hidden" id="zone_name"/> -->
+								分区：
+								<select name="sub_zone_id" id="zone_sub_id" style="width: 120px;">
+									<option value=''>全部</option>
+								</select> &nbsp;&nbsp;
+							</li>
+							<li>
+								<!-- <input type="hidden" id="zone_sub_name"/> -->
+								<select name="class_type" style="width: 120px;">
+									<option value=''>--全部--</option>
+									<option value='class_no' <if condition="$Think.request.class_type eq 'class_no'">selected</if>>班级编号</option>
+									<option value='class_name' <if condition="$Think.request.class_type eq 'class_name'">selected</if>>班级名称</option>
+								</select> &nbsp;&nbsp;
+							</li>
+							<li>
+								<input type="text" name="class_con" style="width: 200px;" value="{$Think.request.class_con}" placeholder="请输入查询内容...">
+							</li>
+							<li>
+								<select name="user_type" style="width: 120px;">
+									<option value=''>--全部--</option>
+									<option value='user_account' <if condition="$Think.request.user_type eq 'user_account'">selected</if>>学员账号</option>
+									<option value='user_no' <if condition="$Think.request.user_type eq 'user_no'">selected</if>>学员编号</option>
+									<option value='user_name' <if condition="$Think.request.user_type eq 'user_name'">selected</if>>学员姓名</option>
+								</select> &nbsp;&nbsp;
+							</li>
+							<li>
+								<input type="text" name="user_con" style="width: 200px;" value="{$Think.request.user_con}" placeholder="请输入查询内容...">
+							</li>
+							<li>
+								科目：<input type="text" name="subject_name" style="width: 200px;" value="{$Think.request.subject_name}" placeholder="请输入科目名称...">
+							</li>
+							<li>
+								<select name="course_type" style="width: 120px;">
+									<option value=''>--全部--</option>
+									<option value='course_no' <if condition="$Think.request.course_type eq 'course_no'">selected</if>>课程编号</option>
+									<option value='course_name' <if condition="$Think.request.course_type eq 'course_name'">selected</if>>课程名称</option>
+								</select> &nbsp;&nbsp;
+							</li>
+							<li>
+								<input type="text" name="course_con" style="width: 200px;" value="{$Think.request.course_con}" placeholder="请输入查询内容...">
+							</li>
+							<li>
+								<select name="paper" style="width: 120px;">
+									<option value=''>--全部--</option>
+									<option value='paper_no' <if condition="$Think.request.paper eq 'paper_no'">selected</if>>试卷编号</option>
+									<option value='paper_name' <if condition="$Think.request.paper eq 'paper_name'">selected</if>>试卷名称</option>
+								</select> &nbsp;&nbsp;
+							</li>
+							<li>
+								<input type="text" name="paper_con" style="width: 200px;" value="{$Think.request.paper_con}" placeholder="请输入查询内容...">
+							</li>
+							<li>
+								试卷类型：
+								<select name="paper_type" style="width: 120px;">
+									<option value=''>--全部--</option>
+									<option value='1' <if condition="$Think.request.paper_type eq 1">selected</if>>课后习题</option>
+									<option value='2' <if condition="$Think.request.paper_type eq 2">selected</if>>普通试题</option>
+								</select> &nbsp;&nbsp;
+							</li>
+							<li>
+								判断方式：
+								<select name="paper_way" style="width: 120px;">
+									<option value=''>--全部--</option>
+									<option value='1' <if condition="$Think.request.paper_way eq 1">selected</if>>人工判卷</option>
+									<option value='2' <if condition="$Think.request.paper_way eq 2">selected</if>>系统判卷</option>
+								</select> &nbsp;&nbsp;
+							</li>
+							<li>
+								答题时间：
+								<input type="text" name="start_time" class="js-datetime" value="{$Think.request.start_time}" style="width: 120px;" autocomplete="off">-
+								<input autocomplete="off" type="text" class="js-datetime" name="end_time" value="{$Think.request.end_time}" style="width: 120px;">
+							</li>
+						</ul>
+						<div class="frombtn">
+							<input type="submit" class="btn btn-primary" value="搜索" />
+							<input type="reset" class="btn btn-primary" value="清空" />
+						</div>
+					</form>
+						<a href="{:U('Stuscore/add')}" target="__black"><input type="button" class="btn btn-primary" id="shield" value="单个录入成绩" /></a>
+						<a href="{:U('Stuscore/batchadd')}" target="__black"><input type="button" class="btn btn-primary" id="recovery" value="批量录入成绩" /><br/></a>
+						<table class="table table-striped table-hover">
+							<thead>
+								<tr>
+									<th width="50">分校</th>
+									<th width="50">校区</th>
+									<th width="50">班级</th>
+									<th width="40">学员姓名</th>
+									<th width="80">试卷名称</th>
+									<th width="80">考试时间</th>
+									<th width="40">考试时长</th>
+									<th width="40">判卷方式</th>
+									<th width="40">成绩的分</th>
+									<th width="30">操作</th>
+								</tr>
+							</thead>
+							<tbody>
+								<foreach name="data" item="vo">
+								<tr>
+									<th>{$vo.zone_name}</td>
+									<th>{$vo.sub_zone_name}</td>
+									<th>{$vo.class_name}</td>
+									<th>{$vo.user_name}</td>
+									<th>{$vo.paper_name}</td>
+									<th>{$vo.answer_time}</td>
+									<th>{$vo.exam_last}</td>
+									<th><if condition="$vo.paper_way eq 1">人工判卷<elseif condition="$vo.paper_way eq 2"/>系统判卷</if></td>
+									<th>{$vo.score}</td>
+									<th><a href="javascript:void(0);" id-value="{$vo.id}" class="remark" value="修改">修改</a></td>
+								</tr>
+								</foreach>
+							</tbody>
+						</table>
+						<div class="page clearfix">{$page}</div>
+				</div>
+				<!-- 右边主页面结束 -->
+				<script src="__PUBLIC__/js/common.js"></script>
+				<script type="text/javascript" src="__PUBLIC__/js/datePicker/datePicker.js?v="></script>
+				<script src="__PUBLIC__/js/layer/layer.js"></script>
+				<script>
+					// 修改分数
+					 $(function(){
+						$('th').on('click', 'a', function(){
+							var id     = $(this).attr('id-value');
+							var url    = "index.php?g=Admin&m=Stuscore&a=score";
+							var index = layer.prompt({
+								title:'请输入您要修改的分数'
+							},function(value, index, elem){
+								if (value){
+										$.ajax({
+											type:'POST',
+											url:url,
+											data:{id:id, value:value},
+											success:function(msg){
+												if(msg.code == '1'){
+													layer.msg(msg.msg);
+													location.reload();
+												}else{
+													layer.msg(msg.msg);
+												}
+											},
+											error:function(){
+												layer.msg('请求失败');
+											}
+										});
+										layer.close(index);
+								}
+							});
+						})
+					})
+					// 获取分校
+					$("#zone_id").delegate("option", "click", function(e){  // 点击校区
+						var zone_id = $(this).attr('value'); // 获取校区的id值
+						var zone_name = $(this).attr('name-value'); // 获取校区的name值
+						// $('#zone_name').val(zone_name);
+						$("#zone_sub_id").find("option").remove();
+
+						var url = '/index.php?g=Admin&m=Classnotice&a=getZone&zone_id='+zone_id;
+						$.ajax({
+					        url:url,
+					        type:'GET',
+					        dataType:'json',
+					        data:{},
+					        success:function(msg){
+					          var str = "<option value=''>--全部--</option>";
+					          $(msg).each(function(i){
+					          	var item = msg[i];
+					          	str += '<option value="'+item['id']+'" name-value="'+item['sz_name']+'">'+item['sz_name']+'</option>';
+					          });
+					          $("#zone_sub_id").html(str);
+	                        }
+	                    });
+					})
+				</script>
+			</div>
+			<!-- END PAGE CONTAINER-->
+
+		</div>
+
+		<!-- END PAGE -->
+
+	</div>
+<!-- 加载的右边框架 -->
+
+
+	<!-- END CONTAINER -->
+
+	<!-- 引入底部开始 -->
+
+	<admintpl file="footer" />
+
+	<!-- 引入底部结束 -->
+
+	<admintpl file="footer_js" />
+
+</body>
+
+<!-- END BODY -->
+
+</html>

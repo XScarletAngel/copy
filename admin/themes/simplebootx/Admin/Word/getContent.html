@@ -1,0 +1,171 @@
+<html>
+<head>
+    <title>word生成题库</title>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+
+    <style type="text/css">
+        body,table{
+            font-size:16px;
+            color: #666666;
+        }
+        table{
+            table-layout:fixed;
+            empty-cells:show;
+            border-collapse: collapse;
+            margin:0 auto;
+        }
+        td{
+            height:30px;
+
+        }
+        h1,h2,h3{
+            font-size:16px;
+            margin:0;
+            padding:0;
+        }
+        .table{
+            border:0;
+
+        }
+        .table th {
+            background-repeat:repeat-x;
+            height:45px;
+            color: #00a0e9;
+            border:0;
+        }
+        .table td,.table th{
+            border:0;
+            padding:0 1em 0;
+
+        }
+        .table tr.alter{
+            /*background-color:#f5fafe;*/
+        }
+        input{
+            height:27px;
+            line-height: 27px;
+            font-size:18px;
+            min-width:100px;
+            width: 70%;
+            background-color: inherit;
+        }
+        .col3{
+            height:50px;
+            color:#0c6251;
+        }
+        .num{
+            color:#efb99e;
+        }
+        .sub-btn{
+            margin: 0 auto;
+            color: #00a0e9;
+            background-color: #FFFFFF;
+            border: 1px solid #FFFFFF;
+            width:100px;
+        }
+    </style>
+
+</head>
+<body>
+<h2>文档解析完成，请判断正误（可适当修改），点击确认按钮提交！</h2>
+<form action="/index.php?g=Admin&m=Word&a=save" method="post">
+    <input type="hidden" name="course_id" value="{$course_id}">
+<table width="90%" class="table">
+    <tr>
+        <th colspan="3">&nbsp;</th>
+    </tr>
+    <tr>
+        <th colspan="3">
+            试卷标题：<input type="text" class="" name="<?php echo 'result[title]'; ?>" value="<?php echo $result['title']; ?>"/>
+        </th>
+    </tr>
+    <tr>
+        <th colspan="3"style="text-align: center">
+            限时时长：<input style="width: 100px" type="text" class="" name="<?php echo 'result[time]'; ?>" value="<?php echo $result['time']; ?>"/>分钟&nbsp;
+            试卷类型：<select name="result[type]">
+                        <option value="" >请选择</option>
+                        <option value="1" <if condition="$result['type'] eq 1">selected = 'selected'</if> >模拟试卷</option>
+                        <option value="2" <if condition="$result['type'] eq 2">selected = 'selected'</if> >课后习题</option>
+                    </select>
+        </th>
+    </tr>
+    <tr>
+        <th colspan="3">&nbsp;</th>
+    </tr>
+    <?php for($i=0;$i<count($result[problems]);$i++){  ?>
+    <tr>
+        <td colspan="3" class="col3">
+            大题题干：<input type="text" class="" name="<?php echo 'result[problems]['.$i.'][title]'; ?>" value="<?php echo $result['problems'][$i]['title']; ?>"/>
+        </td>
+    </tr>
+    <tr>
+        <td>类型：    <input type="text" class="" name="<?php echo 'result[problems]['.$i.'][type]'; ?>"   value="<?php echo $result['problems'][$i]['type']; ?>"/> </td>
+        <td>每题分值： <input type="text" class="" name="<?php echo 'result[problems]['.$i.'][score]'; ?>"  value="<?php echo $result['problems'][$i]['score']; ?>"/></td>
+        <td>题量：    <input type="text" class="" name="<?php echo 'result[problems]['.$i.'][amount]'; ?>" value="<?php echo $result['problems'][$i]['amount']; ?>"/></td>
+    </tr>
+    <tr>
+        <td colspan="3">&nbsp;</td>
+    </tr>
+    <tr>
+        <?php for($j=0;$j<count($result['problems'][$i]['case']);$j++){  ?>
+
+    <tr>
+        <td colspan="3" class="num">
+            序号：
+            <input type="text" class="" name="<?php echo 'result[problems]['.$i.'][case]['.$j.'][sort]'; ?>"   value="<?php echo $result[problems][$i]['case'][$j]['sort']; ?>" style="width:10px"/>
+            小题题干：
+            <input type="text" class="" name="<?php echo 'result[problems]['.$i.'][case]['.$j.'][question]'; ?>"   value="<?php echo $result[problems][$i]['case'][$j]['question']; ?>"/>
+
+        </td>
+    </tr>
+    <tr>
+        <td rowspan="<?php echo count($result[problems][$i]['case'][$j]['option'])+1; ?>">
+
+            技能标签：<input type="text"  class="" name="<?php echo 'result[problems]['.$i.'][case]['.$j.'][skill]'; ?>"   value="<?php echo $result[problems][$i]['case'][$j]['skill']; ?>"/>
+            |选项：
+        </td>
+    </tr>
+    <?php for($z=0;$z<count($result[problems][$i]['case'][$j]['option']);$z++){ ?>
+    <tr>
+        <td colspan="2">
+
+            <input type="text" class="" name="<?php echo 'result[problems]['.$i.'][case]['.$j.'][option]['.$z.']'; ?>"   value="<?php echo $result[problems][$i]['case'][$j]['option'][$z]; ?>"/>
+        </td>
+    </tr>
+    <?php } ?>
+    <tr>
+        <td>
+            答案：
+            <input type="text" class="" name="<?php echo 'result[problems]['.$i.'][case]['.$j.'][answer]'; ?>"   value="<?php echo $result[problems][$i]['case'][$j]['answer']; ?>"/>
+        </td>
+        <td>
+            难易程度：
+            <input type="text" class="" name="<?php echo 'result[problems]['.$i.'][case]['.$j.'][level]'; ?>"   value="<?php echo $result[problems][$i]['case'][$j]['level']; ?>"/>
+        </td>
+        <td>
+            解析：
+            <input type="text" class="" name="<?php echo 'result[problems]['.$i.'][case]['.$j.'][exp]'; ?>"   value="<?php echo $result[problems][$i]['case'][$j]['exp']; ?>"/>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3">&nbsp;</td>
+    </tr>
+    <tr>
+        <td colspan="3">&nbsp;</td>
+    </tr>
+
+    <?php }
+
+            }  ?>
+
+</table>
+   <div style="text-align: center;"><input type="submit" class="sub-btn" value="确认"></div>
+</form>
+</body>
+<script>
+//    Window.onload=function() {
+
+//    }
+</script>
+</html>
+

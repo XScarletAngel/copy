@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+
+<!--[if !IE]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+
+<!-- BEGIN HEAD -->
+
+<head>
+
+	<meta charset="utf-8" />
+
+	<title>Metronic | Admin Dashboard Template</title>
+
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+	<meta content="" name="description" />
+
+	<meta content="" name="author" />
+
+	<!-- 引入顶部样式文件 -->
+	<link href="__PUBLIC__/media/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+
+	<link href="__PUBLIC__/media/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css"/>
+	<style>
+		.expander{margin-left: -20px;}
+		.controls input[type="radio"] {margin-left:0px;}
+	</style>
+
+</head>
+
+<!-- END HEAD -->
+
+<!-- BEGIN BODY -->
+
+<body class="page-header-fixed">
+
+	<!-- 引入顶部开始 -->
+
+
+	<!-- 引入顶部结束 -->
+
+	<!-- BEGIN CONTAINER -->
+
+	<div class="page-container">
+
+		<!-- 引入左侧边栏开始 -->
+
+
+		<!-- 引入左侧边栏结束 -->
+
+		<!-- BEGIN PAGE -->
+
+		<div class="page-content">
+
+			<!-- BEGIN PAGE CONTAINER-->
+
+			<div class="container-fluid">
+
+				<!-- END PAGE HEADER-->
+
+				<!-- 右边主页面开始 -->
+				<div class="wrap js-check-wrap">
+					<form method="post" class="form-horizontal js-ajax-forms" action="{:U('Topic/shield_layer_post')}">
+						<table>
+							<tr>
+								<td width="500" height="40">
+									<div class="control-group">
+										<div class="controls">
+										<input type="hidden" name="id" value="{$id}">
+										<input type="radio" name="is_ban" value="1" checked>删除该条内容<br/>
+										<input type="radio" name="is_ban" value="2">删除该条内容并禁言<br/>
+										<input type="radio" name="is_ban" value="3">删除该条内容并封禁账号<br/>
+										</div>
+									</div>
+								</td>
+								<td width="500" height="40">
+								</td>
+							</tr>
+						</table>
+						<div class="form-actions">
+							<button type="submit" class="btn btn-primary js-ajax-submit">提交</button>
+							<a class="btn" href="javascript:history.back(-1);">{:L('BACK')}</a>
+						</div>
+					</form>
+				</div>
+				<!-- 右边主页面结束 -->
+			</div>
+			<!-- END PAGE CONTAINER-->    
+			
+		</div>
+
+		<!-- END PAGE -->
+
+	</div>
+<!-- 加载的右边框架 -->
+
+
+	<!-- END CONTAINER -->
+			
+	<!-- 引入底部开始 -->
+
+
+	<!-- 引入底部结束 -->
+
+
+</body>
+
+<!-- END BODY -->
+
+</html>

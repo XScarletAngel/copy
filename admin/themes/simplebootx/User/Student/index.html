@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+
+<!--[if !IE]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+
+<!-- BEGIN HEAD -->
+
+<head>
+
+	<meta charset="utf-8" />
+
+	<title>Metronic | Admin Dashboard Template</title>
+
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+	<meta content="" name="description" />
+
+	<meta content="" name="author" />
+
+	<!-- 引入顶部样式文件 -->
+
+	<admintpl file="head_css" />
+	<script src="__PUBLIC__/js/jquery.js"></script>
+    <script src="__PUBLIC__/js/wind.js"></script>
+    <!-- <script src="__PUBLIC__/simpleboot/bootstrap/js/bootstrap.min.js"></script> -->
+    <script>
+    	$(function(){
+    		$("[data-toggle='tooltip']").tooltip();
+    	});
+    </script>
+	<style>
+		.expander{margin-left: -20px;}
+		.controls input[type="radio"] {margin-left:0px;}
+	</style>
+
+</head>
+
+<!-- END HEAD -->
+
+<!-- BEGIN BODY -->
+
+<body class="page-header-fixed">
+
+	<!-- 引入顶部开始 -->
+
+	<admintpl file="head" />
+
+	<!-- 引入顶部结束 -->
+
+	<!-- BEGIN CONTAINER -->
+
+	<div class="page-container">
+
+		<!-- 引入左侧边栏开始 -->
+
+		<admintpl file="lefter" />
+
+		<!-- 引入左侧边栏结束 -->
+
+		<!-- BEGIN PAGE -->
+
+		<div class="page-content">
+
+			<!-- BEGIN PAGE CONTAINER-->
+
+			<div class="container-fluid">
+
+				<admintpl file="style_bn" />
+
+				<!-- END PAGE HEADER-->
+
+				<!-- 右边主页面开始 -->
+				<div class="wrap js-check-wrap">
+					<form class="well form-search" method="post" action="{:U('student/index')}">
+						<ul class="fromUl clearfix">
+							<li>
+								<select name="usertype" style="width: 120px;">
+									<option value='user_login' <if condition="$Think.request.usertype eq 'user_login'">selected</if>>学员账号</option>
+									<option value='user_no' <if condition="$Think.request.usertype eq 'user_no'">selected</if>>学员编号</option>
+									<option value='user_name' <if condition="$Think.request.usertype eq 'user_name'">selected</if>>学员姓名</option>
+								</select> &nbsp;&nbsp;
+							</li>
+							<li>
+								<input type="text" name="user_con" value="{$Think.request.user_con}"/>
+							</li>
+							<li>
+								分校：
+								<select name="zone_id" id="zone_id" style="width: 120px;">
+									<option value=''>--全部--</option>
+									<foreach name="school" item="vo">
+									<option value='{$vo.id}' name-value="{$vo.sz_name}">{$vo.sz_name}</option>
+									</foreach>
+								</select> &nbsp;&nbsp;
+							</li>
+							<li>
+								<!-- <input type="hidden" id="zone_name"/> -->
+								分区：
+								<select name="sub_zone_id" id="zone_sub_id" style="width: 120px;">
+									<option value=''>--全部--</option>
+								</select> &nbsp;&nbsp;&nbsp;&nbsp;
+							</li>
+							<li>
+								<!-- <input type="hidden" id="zone_sub_name"/> -->
+								专属服务老师：
+								<input type="text" name="teacher" value="{$Think.request.teacher}"/>&nbsp;&nbsp;
+							</li>
+							<li>
+								入学日期：
+								<input type="text" name="start_time" class="js-datetime" value="{$Think.request.start_time}" style="width: 120px;" autocomplete="off">-
+								<input autocomplete="off" type="text" class="js-datetime" name="end_time" value="{$Think.request.end_time}" style="width: 120px;">
+							</li>
+						</ul>
+						<div class="frombtn">
+							<input type="submit" class="btn btn-primary" value="搜索" />
+							<input type="reset" class="btn btn-primary" value="清空" />
+						</div>
+					</form>
+					<a href="{:U('Student/add')}"><input type="button" class="btn btn-primary" value="新增学员" /></a>
+					<input type="button" class="btn btn-primary" value="学员配班" id="distribution"/>
+					<input type="button" class="btn btn-primary" value="添加回访记录" id="visit" />
+					<input type="button" class="btn btn-primary" value="添加结业信息" id="graduation"/><br/><br/>
+						<table class="table table-hover table-bordered table-list">
+							<thead>
+								<tr>
+									<th width="20"></th>
+									<th width="50">用户账号</th>
+									<th width="50">学员编号</th>
+									<th width="50">学员姓名</th>
+									<th width="90">所属分校</th>
+									<th width="90">所属分区</th>
+									<th width="90">专属服务老师</th>
+									<th width="50">昵称</th>
+									<th width="50">入学日期</th>
+									<th width="50">目标院校</th>
+									<th width="50">目标专业</th>
+									<th width="70">操作</th>
+								</tr>
+							</thead>
+							<foreach name="data" item="vo">
+							<tr>
+								<th><input type="radio" name="id_value" value="{$vo.id}" style="margin-left: 0px;"/></th>
+			                    <td>{$vo.user_login}</td>
+								<td>{$vo.user_no}</td>
+								<td>{$vo.user_name}</td>
+								<td>{$vo.zone_name}</td>
+								<td>{$vo.sub_zone_name}</td>
+							    <td>{$vo.tch_name}</td>
+								<td>{$vo.user_nicename}</td>
+								<td>{$vo.enter_time}</td>
+								<td>{$vo.dst_school}</td>
+								<td>{$vo.dst_major}</td>
+								<td id="status">
+									<a href="{:U('Student/edit?id='.$vo['id'])}">编辑</a>
+									<a href="{:U('Student/info?id='.$vo['id'])}">详情</a>
+								</td>
+							</tr>
+							</foreach>
+						</table>
+						<div class="page clearfix">{$page}</div>
+				</div>
+				<!-- 右边主页面结束 -->
+				<script>
+				// 获取分校
+					$("#zone_id").delegate("option", "click", function(e){  // 点击校区
+						var zone_id = $(this).attr('value'); // 获取校区的id值
+						$("#zone_sub_id").find("option").remove();
+
+						var url = '/index.php?g=Admin&m=Classnotice&a=getZone&zone_id='+zone_id;
+						$.ajax({
+					        url:url,
+					        type:'GET',
+					        dataType:'json',
+					        data:{},
+					        success:function(msg){
+					          var str = "<option value=''>--全部--</option>";
+					          $(msg).each(function(i){
+					          	var item = msg[i];
+					          	str += '<option value="'+item['id']+'" name-value="'+item['sz_name']+'">'+item['sz_name']+'</option>';
+					          });
+					          $("#zone_sub_id").html(str);
+	                        }
+	                    });
+					})
+
+					// 学员配班
+					$("#distribution").click(function(e){  // 点击添加结业信息
+						id = $("input[type='radio']:checked").val();
+						if(id == null){
+							layer.msg("请先选择学员");
+						} else {
+							window.location.href="/index.php?g=User&m=Student&a=distribution&id="+id;
+						}
+					})
+
+					// 回访记录
+					$("#visit").click(function(e){  // 点击添加回访记录
+						id = $("input[type='radio']:checked").val();
+						if(id == null){
+							layer.msg("请先选择学员");
+						} else {
+							window.location.href="/index.php?g=User&m=Student&a=visit&id="+id;
+						}
+					})
+
+					// 结业信息
+					$("#graduation").click(function(e){  // 点击添加结业信息
+						id = $("input[type='radio']:checked").val();
+						if(id == null){
+							layer.msg("请先选择学员");
+						} else {
+							window.location.href="/index.php?g=User&m=Student&a=graduation&id="+id;
+						}
+					})
+				</script>
+			</div>
+			<!-- END PAGE CONTAINER-->
+
+		</div>
+
+		<!-- END PAGE -->
+
+	</div>
+<!-- 加载的右边框架 -->
+
+
+	<!-- END CONTAINER -->
+
+	<!-- 引入底部开始 -->
+
+	<admintpl file="footer" />
+
+	<!-- 引入底部结束 -->
+
+	<admintpl file="footer_js" />
+
+</body>
+
+<!-- END BODY -->
+
+</html>

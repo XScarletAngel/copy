@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+
+<!--[if !IE]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+
+<!-- BEGIN HEAD -->
+
+<head>
+
+	<meta charset="utf-8" />
+
+	<title>Metronic | Admin Dashboard Template</title>
+
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+	<meta content="" name="description" />
+
+	<meta content="" name="author" />
+
+	<!-- 引入顶部样式文件 -->
+
+	<admintpl file="head_css" />
+	<style>
+		.expander{margin-left: -20px;}
+		.controls input[type="radio"] {margin-left:0px;}
+
+		.dropdown2 {display:inline-block;width:220px;height:20px;
+			position:relative;margin-left:20px;}
+		.dropdown2 .editor {display:block;border:0;padding:0;width:100%;box-shadow: inset 1px 2px 3px #ddd;height:inherit;}
+		.dropdown2 .trigger {position:absolute;top:0;right:0;padding:3px;}
+		.dropdown2 ul {display:none;width:98%;height:140px;padding:2px;position:absolute;top:100%;background-color:#FFF;border:1px solid #DDD;border-radius: 0 0 5px 5px;overflow-y:auto;overflow-x:hidden;margin:0px;z-index: 10;margin-top:8px;}
+		.dropdown2 ul li {height:20px;display:block;font-size:12px;overflow:hidden;cursor:pointer;}
+		.dropdown2 ul li .hot {color: red;}
+		.dropdown2 ul li:hover {background-color: #EEE;}
+		.dropdown2 ul .search {display:block;backgound: url(imgs/search.gif) no-repeat scroll center right;border-bottom: 1px solid #808080;}
+		.dropdown2 ul .search:hover{background-color:#FFF;}
+		.dropdown2 ul .search input {padding:2px;width:100%;border:0;font-size:14px;background:none;}
+
+
+		.dropdown3 {display:inline-block;width:220px;height:20px;
+			position:relative;margin-left:20px;}
+		.dropdown3 .editor {display:block;border:0;padding:0;width:100%;box-shadow: inset 1px 2px 3px #ddd;height:inherit;}
+		.dropdown3 .trigger {position:absolute;top:0;right:0;padding:3px;}
+		.dropdown3 ul {display:none;width:98%;height:140px;padding:2px;position:absolute;top:100%;background-color:#FFF;border:1px solid #DDD;border-radius: 0 0 5px 5px;overflow-y:auto;overflow-x:hidden;margin:0px;z-index: 10;margin-top:8px;}
+		.dropdown3 ul li {height:20px;display:block;font-size:12px;overflow:hidden;cursor:pointer;}
+		.dropdown3 ul li .hot {color: red;}
+		.dropdown3 ul li:hover {background-color: #EEE;}
+		.dropdown3 ul .search {display:block;backgound: url(imgs/search.gif) no-repeat scroll center right;border-bottom: 1px solid #808080;}
+		.dropdown3 ul .search:hover{background-color:#FFF;}
+		.dropdown3 ul .search input {padding:2px;width:100%;border:0;font-size:14px;background:none;}
+	</style>
+
+</head>
+
+<!-- END HEAD -->
+
+<!-- BEGIN BODY -->
+
+<body class="page-header-fixed">
+
+	<!-- 引入顶部开始 -->
+
+	<admintpl file="head" />
+
+	<!-- 引入顶部结束 -->
+
+	<!-- BEGIN CONTAINER -->
+
+	<div class="page-container">
+
+		<!-- 引入左侧边栏开始 -->
+
+		<admintpl file="lefter" />
+
+		<!-- 引入左侧边栏结束 -->
+
+		<!-- BEGIN PAGE -->
+
+		<div class="page-content">
+
+			<!-- BEGIN PAGE CONTAINER-->
+
+			<div class="container-fluid">
+
+				<admintpl file="style_bn" />
+
+				<!-- END PAGE HEADER-->
+
+				<!-- 右边主页面开始 -->
+				<div class="wrap js-check-wrap">
+					<form method="post" class="form-horizontal js-ajax-form" action="{:U('User/edit_post')}">
+						<table>
+							<tr>
+							<input type="hidden" name="id" value="{$id}">
+								<td width="500" height="40">
+									<div class="control-group">
+										<label class="control-label">*分校:</label>
+										<div class="controls">
+											<select name="zone_id" id="zone_id" style="width: 120px;" required>
+												<foreach name="school" item="vo">
+													<option value='{$vo.id}' name-value="{$vo.sz_name}" serial-val="{$vo.serial}" <if condition="$res[zone_id] eq $vo.id">selected</if>>{$vo.sz_name}</option>
+												</foreach>
+											</select> &nbsp;&nbsp;
+											<input type="hidden" name="zone_name" id="zone_name" value="{$res.zone_name}"/>
+											<span class="form-required">*</span>
+										</div>
+									</div>
+								</td>
+								<td width="500" height="40">
+									<div class="control-group">
+										<label class="control-label">*校区:</label>
+										<div class="controls">
+											<select name="sub_zone_id" id="sub_zone_id" style="width: 120px;" required>
+												<option value='{$res.sub_zone_id}'>{$res.sub_zone_name}</option>
+											</select> &nbsp;&nbsp;&nbsp;&nbsp;
+											<input type="hidden" name="sub_zone_name" id="sub_zone_name" value="{$res.sub_zone_name}"/>
+											<span class="form-required">*</span>
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td width="500" height="40">
+									<div class="control-group">
+										<label class="control-label">*手机号（账号）:</label>
+										<div class="controls">
+											<input type="text" name="user_phone" id="user_login" required value="{$res.user_phone}"/>
+											<span class="form-required">*</span>
+										</div>
+									</div>
+								</td>
+								<td width="500" height="40">
+									<div class="control-group">
+										<label class="control-label">*姓名:</label>
+										<div class="controls">
+											<input type="text" name="user_name" id="user_name" required value="{$res.user_name}">
+											<span class="form-required">*</span>
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td width="500" height="40">
+									<div class="control-group">
+										<label class="control-label">客户来源:</label>
+										<div class="controls">
+											<select name="channel" id="stu_source" style="width: 150px;">
+												<option value='1' <if condition="$res[channel] eq 1">selected</if>>线上提交表单咨询</option>
+												<option value='2' <if condition="$res[channel] eq 2">selected</if>>线上及时通讯咨询</option>
+												<option value='3' <if condition="$res[channel] eq 3">selected</if>>电话咨询</option>
+												<option value='4' <if condition="$res[channel] eq 4">selected</if>>宣讲会咨询</option>
+												<option value='5' <if condition="$res[channel] eq 5">selected</if>>店面咨询</option>
+												<option value='6' <if condition="$res[channel] eq 6">selected</if>>其它</option>
+											</select>
+										</div>
+									</div>
+								</td>
+								<td width="500" height="40">
+									<div class="control-group">
+										<label class="control-label">来源学校:</label>
+										<div class="controls">
+											<input type="text" name="from" value="{$res.from}">
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td width="500" height="40">
+									<div class="control-group">
+										<label class="control-label">所学专业:</label>
+										<div class="controls">
+											<input type="text" name="study_major" value="{$res.study_major}">
+										</div>
+									</div>
+								</td>
+								<td width="500" height="40">
+									<div class="control-group">
+										<label class="control-label">宿舍号:</label>
+										<div class="controls">
+											<input type="text" name="dorm" value="{$res.dorm}">
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<label class="control-label">目标院校:</label>
+									<div class="dropdown2" id="dropdown_sel">  <!-- 模拟 select 的标记， -->
+										<input class="editor2" type="text" name="school_name" disabled="disabled" value="{$res.dst_school}"/> <!-- 显示当前值的输入框 -->
+										<input class="school_id" type="hidden" name="dst_school_id" id="school_id" value="{$res.dst_school_id}"/><!-- 学校id -->
+										<input class="school_name" type="hidden" name="dst_school" id="school_name" value="{$res.dst_school}"/><!-- 学校name -->
+										<input class="trigger"  type="button" value="↓" /> <!-- 用于显示下拉列表的按钮 -->
+										<ul>   <!-- 列表菜单 -->
+											<li class="search"><input type="text"/></li>   <!-- 过滤输入的列表， -->
+											<!-- 添加数据的时候，都添加在这个地方 -->
+											<foreach name="sch" item="vo">
+												<li data-value="{$vo.school_name}" id-value="{$vo.id}" code-value="{$vo.code}" area-value="{$vo.area_id}">{$vo.school_name}</li>
+											</foreach>
+										</ul>
+									</div>
+								</td>
+								<td>
+									<label class="control-label">目标院系:</label>
+									<div class="controls">
+										<select name="dst_dept_id" id="dept_id">
+											<option value="{$res.dst_dept_id}">{$res.dst_dept}</option>
+										</select>
+										<input type="hidden" name="dst_dept" id="dept_name" value="{$res.dst_dept}"><!-- 院系名称 -->
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<label class="control-label">目标专业:</label>
+									<div class="controls">
+										<select name="dst_major_id" id="major_id">
+											<option value="{$res.dst_major_id}">{$res.dst_major}</option>
+										</select>
+										<input type="hidden" name="dst_major" id="major_name" value="{$res.dst_major}"><!-- 专业名称 -->
+										<span class="form-required">*</span>
+									</div>
+								</td>
+								<td>
+									<label class="control-label">目标方向:</label>
+									<div class="dropdown3" id="dropdown_sel">  <!-- 模拟 select 的标记， -->
+										<input class="editor3" type="text" name="research_name" disabled="disabled" value="{$res.dst_rch}"/> <!-- 显示当前值的输入框 -->
+										<input class="research_id" type="hidden" name="dst_rch_id" id="research_id" value="{$res.dst_rch_id}"/><!-- 学校id -->
+										<input class="research_name" type="hidden" name="dst_rch" id="research_name" value="{$res.dst_rch}"/><!-- 学校name -->
+										<input class="trigger"  type="button" value="↓" /> <!-- 用于显示下拉列表的按钮 -->
+										<ul id="research">   <!-- 列表菜单 -->
+
+											   <!-- 过滤输入的列表， -->
+											<!-- 添加数据的时候，都添加在这个地方 -->
+											
+										</ul>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td width="500" height="40">
+									<div class="control-group">
+										<label class="control-label">飞跃意向:</label>
+										<div class="controls">
+											<input type="text" name="purpose" value="{$res.purpose}">
+										</div>
+									</div>
+								</td>
+								<td width="500" height="40">
+									<div class="control-group">
+										<label class="control-label">薄弱学科:</label>
+										<div class="controls">
+											<input type="text" name="weak_subject" value="{$res.weak_subject}">
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td width="500" height="40">
+									<div class="control-group">
+										<label class="control-label">参与活动:</label>
+										<div class="controls" id="hd_com">
+											<foreach name="data" item="vo">
+												<input type="checkbox" name="cat[]" value="{$vo.id}" <if condition="$vo.check eq 1">checked</if>>{$vo.act_name}
+											</foreach>
+										</div>
+										<!-- <div class="controls">
+											<a href="javascript:void(0)" onclick="imports()">添加活动</a>
+										</div> -->
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td width="500" height="40">
+									<div class="control-group">
+										<label class="control-label">最终流向:</label>
+										<div class="controls">
+											<select name="final_flow">
+												<option value="1" <if condition="$res[final_flow] eq 1">selected</if>>已转为学员</option>
+												<option value="2" <if condition="$res[final_flow] eq 2">selected</if>>流向其他培训机构</option>
+												<option value="0" <if condition="$res[final_flow] eq 0">selected</if>>其他</option>
+											</select>
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td width="500" height="40">
+									<div class="control-group">
+										<label class="control-label">备注:</label>
+										<div class="controls">
+											<textarea name="remark">{$res.remark}</textarea>
+										</div>
+									</div>
+								</td>
+								<td width="500" height="40"></td>
+							</tr>
+						</table>
+						<div class="form-actions">
+							<button type="submit" class="btn btn-primary js-ajax-submit">保存</button>
+							<a class="btn" href="javascript:history.back(-1);">{:L('BACK')}</a>
+						</div>
+					</form>
+				</div>
+				<!-- 右边主页面结束 -->
+				<script src="__PUBLIC__/js/common.js"></script>
+				<script type="text/javascript" src="__PUBLIC__/js/datePicker/datePicker.js?v="></script>
+				<script src="__PUBLIC__/js/jquery.validate.min.js"></script>
+				<script src="__PUBLIC__/js/datePicker/datePicker.js"></script>
+				<script src="__PUBLIC__/js/region.js"></script>
+				<script src="__PUBLIC__/js/layer/layer.js"></script>
+				<script type="text/javascript">
+				// 选择活动弹窗
+				// function imports() {
+				//     var html = "/index.php?g=Market&m=User&a=add_layer";
+
+			 //        layer.open({
+			 //            type: 2,
+			 //            title: '添加活动页面',
+			 //            skin: 'layui-layer-rim', //加上边框
+			 //            area: ['70%', '70%'], //宽高
+			 //            content: html
+			 //        });
+			 //    }
+				
+				// 获取分校
+				$("#zone_id").delegate("option", "click", function(e){  // 点击校区
+					var zone_id = $(this).attr('value'); // 获取校区的id值
+					var name    = $(this).attr('name-value'); // 获取校区的id值
+					var serial  = $(this).attr('serial-val'); // 获取校区的序号
+
+					$("#zone_name").attr("value",name);
+					$("#serial").attr("value",serial);
+					$("#zone_sub_id").find("option").remove();
+
+					var url = '/index.php?g=Admin&m=Classnotice&a=getZone&zone_id='+zone_id;
+					$.ajax({
+				        url:url,
+				        type:'GET',
+				        dataType:'json',
+				        data:{},
+				        success:function(msg){
+				          var str = "<option value=''>--全部--</option>";
+				          $(msg).each(function(i){
+				          	var item = msg[i];
+				          	str += '<option value="'+item['id']+'" name-value="'+item['sz_name']+'" serial-val="'+item['serial']+'">'+item['sz_name']+'</option>';
+				          });
+				          $("#sub_zone_id").html(str);
+                        }
+                    });
+				})
+
+				// 获取分校
+				$("#sub_zone_id").delegate("option", "click", function(e){  // 点击分校
+					var sub_name = $(this).attr('name-value'); // 获取校区的名称
+					var serial = $(this).attr('serial-val'); // 获取校区的名称
+					$("#sub_zone_name").attr("value",sub_name);
+					$("#sub_serial").attr("value",serial);
+				})
+
+
+
+
+				$(function(){
+						//当列表项被点击时，把列表项的值放在输入框里面，
+						$(".dropdown2").delegate("li", "click", function(e){
+							var v  = $(this).attr("data-value"),
+								drop = $(this).closest(".dropdown2");
+							var id = $(this).attr('id-value');
+							var name = $(this).attr('data-value');
+
+							$('#school_id').val(id);
+							$('#school_name').val(name);
+
+							drop.attr("data-value", v);
+							drop.find(".editor2").val(v);
+							$(this).parent().hide();
+							e.stopPropagation();
+							$("#dept_id").find("option").remove();
+
+							var url = '/index.php?g=Admin&m=Research&a=getdept&school_id='+id;
+							$.ajax({
+						        url:url,
+						        type:'GET',
+						        dataType:'json',
+						        data:{},
+						        success:function(msg){
+						          var str = "<option value=''>--请选择--</option>";
+						          $(msg).each(function(i){
+						          	var item = msg[i];
+						          	str += '<option value="'+item['id']+'" code-value="'+item['dept_code']+'" name-value="'+item['dept_name']+'">'+item['dept_name']+'</option>';
+						          });
+						          $("#dept_id").html(str);
+		                        }
+		                     });
+     
+						}).delegate(".trigger", "click", function(e){    //当下拉按钮被点击时，显示数据列表
+							$(this).closest(".dropdown2").find("ul").show();
+							e.stopPropagation();  //阻止冒泡，因为冒泡到 document 的时候，会隐藏列表
+						}).delegate(".search input", "click", function(e){
+							e.stopPropagation(); 
+						}).delegate(".search input", "keyup", function(e){    //当检测到列表中的输入框的时候，启动过滤，不满足的项隐藏
+							var v = $.trim(this.value), list = $(this).closest("ul").children("li");
+							if(v == "") {    //特殊情况，过滤输入框中没有值的时候迭代所有的列表项并显示它们
+								list.each(function(){
+									if(this.className.indexOf("search") != -1) {return;}//不考虑过滤输入框所在的列表项
+									$(this).text(this.innerText || this.textContent).show();
+								});
+							} else {
+								list.each(function(){   //迭代列表，
+									if(this.className.indexOf("search") != -1) {return;}  //不考虑过滤输入框所在的列表项
+									var lv = $(this).text();   //列表的文本
+									if(lv.indexOf(v) === -1) {   //不匹配过滤文本，就隐藏
+										$(this).hide();
+									} else {                 //匹配，把匹配的文本替换会含有标记的文本（红色）
+										$(this).html(lv.replace(v, '<span class="hot">'+v+'</span>')).show();
+									}
+								});
+							}
+							
+						});
+						
+						$(this).click(function(){   //当数据列表在显示时，如果点击了页面其它区域，则隐藏列表
+							$(".dropdown ul:visible").hide();   
+						});
+						$("#dept_id").delegate("option", "click", function(e){  // 点击所属院系
+							var dept_id = $(this).attr('value'); // 获取院系的id值
+							var dept_name = $(this).attr('name-value'); // 获取院系的name值
+							$('#dept_name').val(dept_name);
+							$("#major_id").find("option").remove();
+
+							var url = '/index.php?g=Admin&m=Research&a=getmajor&dept_id='+dept_id;
+							$.ajax({
+						        url:url,
+						        type:'GET',
+						        dataType:'json',
+						        data:{},
+						        success:function(msg){
+						          var str = "<option value=''>--请选择--</option>";
+						          $(msg).each(function(i){
+						          	var item = msg[i];
+						          	str += '<option value="'+item['major_id']+'" code-value="'+item['major_code']+'" name-value="'+item['major_name']+'">'+item['major_name']+'</option>';
+						          });
+						          $("#major_id").html(str);
+		                        }
+		                     });
+						})
+
+						$("#major_id").delegate("option", "click", function(e){  // 点击所属专业
+							var major_id = $(this).attr('value'); // 获取院系的id值
+							var major_name = $(this).attr('name-value'); // 获取院系的name值
+							$('#major_name').val(major_name);
+							$("#research_id").find("option").remove();
+
+							var url = '/index.php?g=Admin&m=Research&a=getresearch&major_id='+major_id;
+							$.ajax({
+						        url:url,
+						        type:'GET',
+						        dataType:'json',
+						        data:{},
+						        success:function(msg){
+						          var str = '<li class="search"><input type="text"/></li>';
+						          $(msg).each(function(i){
+						          	var item = msg[i];
+						          	str += '<li data-value="'+item['rch_name']+'" id-value="'+item['id']+'">'+item['rch_name']+'</li>';
+						          });
+						          $("#research").html(str);
+		                        }
+		                     });
+						})
+					});
+
+					$(function(){
+						//当列表项被点击时，把列表项的值放在输入框里面，
+						$(".dropdown3").delegate("li", "click", function(e){
+							var v  = $(this).attr("data-value"),
+								drop = $(this).closest(".dropdown3");
+							var id = $(this).attr('id-value');
+							var name = $(this).attr('data-value');
+
+							$('#research_id').val(id);
+							$('#research_name').val(name);
+
+							drop.attr("data-value", v);
+							drop.find(".editor3").val(v);
+							$(this).parent().hide();
+							e.stopPropagation();
+     
+						}).delegate(".trigger", "click", function(e){    //当下拉按钮被点击时，显示数据列表
+							$(this).closest(".dropdown3").find("ul").show();
+							e.stopPropagation();  //阻止冒泡，因为冒泡到 document 的时候，会隐藏列表
+						}).delegate(".search input", "click", function(e){
+							e.stopPropagation(); 
+						}).delegate(".search input", "keyup", function(e){    //当检测到列表中的输入框的时候，启动过滤，不满足的项隐藏
+							var v = $.trim(this.value), list = $(this).closest("ul").children("li");
+							if(v == "") {    //特殊情况，过滤输入框中没有值的时候迭代所有的列表项并显示它们
+								list.each(function(){
+									if(this.className.indexOf("search") != -1) {return;}//不考虑过滤输入框所在的列表项
+									$(this).text(this.innerText || this.textContent).show();
+								});
+							} else {
+								list.each(function(){   //迭代列表，
+									if(this.className.indexOf("search") != -1) {return;}  //不考虑过滤输入框所在的列表项
+									var lv = $(this).text();   //列表的文本
+									if(lv.indexOf(v) === -1) {   //不匹配过滤文本，就隐藏
+										$(this).hide();
+									} else {                 //匹配，把匹配的文本替换会含有标记的文本（红色）
+										$(this).html(lv.replace(v, '<span class="hot">'+v+'</span>')).show();
+									}
+								});
+							}
+							
+						});
+					});
+				</script>
+			</div>
+			<!-- END PAGE CONTAINER-->    
+			
+		</div>
+
+		<!-- END PAGE -->
+
+	</div>
+<!-- 加载的右边框架 -->
+
+
+	<!-- END CONTAINER -->
+			
+	<!-- 引入底部开始 -->
+
+	<admintpl file="footer" />
+
+	<!-- 引入底部结束 -->
+
+	<admintpl file="footer_js" />
+
+</body>
+
+<!-- END BODY -->
+
+</html>

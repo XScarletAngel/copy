@@ -1,0 +1,7 @@
+{
+    "require": {
+        "qiniu/php-sdk": "^7.1",
+        "phpseclib/phpseclib": "^2.0",
+        "php-curl-class/php-curl-class": "^7.1"
+    }
+}

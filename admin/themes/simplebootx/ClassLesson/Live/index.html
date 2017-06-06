@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+
+<!--[if !IE]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+
+<!-- BEGIN HEAD -->
+
+<head>
+
+	<meta charset="utf-8" />
+
+	<title>星空海天教育</title>
+
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+	<meta content="" name="description" />
+
+	<meta content="" name="author" />
+
+	<!-- 引入顶部样式文件 -->
+	<admintpl file="head_css" />
+	<script src="__PUBLIC__/js/jquery.js"></script>
+    <script src="__PUBLIC__/js/wind.js"></script>
+    <!-- <script src="__PUBLIC__/simpleboot/bootstrap/js/bootstrap.min.js"></script> -->
+    <script>
+    	$(function(){
+    		$("[data-toggle='tooltip']").tooltip();
+    	});
+    </script>
+	<style>
+		.expander{margin-left: -20px;}
+		.head-open{
+			display: inline-block;
+			width:25%;
+			height:50px;
+			line-height: 50px;
+			border: 1px solid green;
+			text-align: center;
+			border-radius: 5px;
+		}
+
+		.controls input[type="radio"] {margin-left:0px;}
+		* {margin:0;padding:0;}
+
+		.dropdown2 {display:inline-block;width:220px;height:20px;
+			position:relative;margin-left:20px;}
+		.dropdown2 .editor {display:block;border:0;padding:0;width:100%;box-shadow: inset 1px 2px 3px #ddd;height:inherit;}
+		.dropdown2 .trigger {position:absolute;top:0;right:0;padding:3px;}
+		.dropdown2 ul {display:none;width:98%;height:140px;padding:2px;position:absolute;top:100%;background-color:#FFF;border:1px solid #DDD;border-radius: 0 0 5px 5px;overflow-y:auto;overflow-x:hidden;margin:0px;z-index: 10;margin-top:8px;}
+		.dropdown2 ul li {height:20px;display:block;font-size:12px;overflow:hidden;cursor:pointer;}
+		.dropdown2 ul li .hot {color: red;}
+		.dropdown2 ul li:hover {background-color: #EEE;}
+		.dropdown2 ul .search {display:block;backgound: url(imgs/search.gif) no-repeat scroll center right;border-bottom: 1px solid #808080;}
+		.dropdown2 ul .search:hover{background-color:#FFF;}
+		.dropdown2 ul .search input {padding:2px;width:100%;border:0;font-size:14px;background:none;}
+
+		input{
+			width:200px;
+		}
+		.control-group{
+			display: inline-block;
+		}
+		.editLive .viewLive{cursor: pointer;}
+	</style>
+
+</head>
+
+<!-- END HEAD -->
+
+<!-- BEGIN BODY -->
+
+<body class="page-header-fixed">
+
+	<!-- 引入顶部开始 -->
+
+	<admintpl file="head" />
+
+	<!-- 引入顶部结束 -->
+
+	<!-- BEGIN CONTAINER -->
+
+	<div class="page-container">
+
+		<!-- 引入左侧边栏开始 -->
+
+		<admintpl file="lefter" />
+
+		<!-- 引入左侧边栏结束 -->
+
+		<!-- BEGIN PAGE -->
+
+		<div class="page-content">
+
+			<!-- BEGIN PAGE CONTAINER-->
+
+			<div class="container-fluid">
+
+				<admintpl file="style_bn" />
+
+				<!-- END PAGE HEADER-->
+				<!-- 右边主页面开始 -->
+				<div class="wrap js-check-wrap">
+					<form class="well form-search"   action="{:U('Live/index')}"  method="post">
+						<ul class="fromUl clearfix">
+							<li>
+								<div class="control-group"  style="margin-bottom:0px;">
+									<span >所属分校:</span>
+									<!--<div class="dropdown2" id="dropdown_sel">  &lt;!&ndash; 模拟 select 的标记， &ndash;&gt;-->
+										<!--<input class="editor2" type="text" name="zone_id" disabled="disabled"value="{$param.zone_name}"/> &lt;!&ndash; 显示当前值的输入框 &ndash;&gt;-->
+										<!--<input class="zone_id" type="hidden" name="zone_id" id="zone_id"value="{$param.zone_id}"/>&lt;!&ndash; 学校id &ndash;&gt;-->
+										<!--<input class="trigger"  type="button" value="↓" /> &lt;!&ndash; 用于显示下拉列表的按钮 &ndash;&gt;-->
+										<!--<ul>   &lt;!&ndash; 列表菜单 &ndash;&gt;-->
+											<!--<li class="search"><input type="text"/></li>   &lt;!&ndash; 过滤输入的列表， &ndash;&gt;-->
+											<!--&lt;!&ndash; 添加数据的时候，都添加在这个地方 &ndash;&gt;-->
+											<!--<foreach name="zones" item="vo">-->
+												<!--<li data-value="{$vo.sz_name}" id-value="{$vo.id}" code-value="{$vo.id}">{$vo.sz_name}</li>-->
+											<!--</foreach>-->
+										<!--</ul>-->
+									<!--</div>-->
+									<select name="zone_id" id="zone_id" style="width: 120px;" required >
+										<option value=''>全部</option>
+										<foreach name="school" item="vo">
+											<option value='{$vo.id}' name-value="{$vo.sz_name}"
+											<?php if($vo['id'] == $param['zone_id']){ ?> selected="selected"<?php } ?>
+											>{$vo.sz_name}</option>
+										</foreach>
+									</select> &nbsp;
+								</div>
+							</li>
+							<li>
+								<div class="control-group" style="margin-bottom:0px;">
+									<div class="controls">
+										所属校区：
+										<select name="sub_zone_id" id="sub_zone_id" style="width:100px;">
+											<option value="{$param.sub_zone_id}" selected="">{$param.sub_zone_name}</option>
+										</select>
+									</div>
+								</div>
+
+								<input  name="zone_name"     type="hidden" id="zone_name" value="{$param[zone_name]}">
+								<input  name="sub_zone_name" type="hidden" id="sub_zone_name" value="{$param[sub_zone_name]}">
+								<input  name="class_name" 	 type="hidden" id="class_name" value="{$param[class_name]}">
+							</li>
+							<li>
+								<span>班级：</span>
+								<select name="class_id" id="class_id">
+									<option value="">--请选择--</option>
+									<option value="{$param.class_id}" selected="selected">{$param.class_name}</option>
+								</select>
+							</li>
+							<li style="height:30px;">
+								<span>直播名称：</span><input type="text" name="channel_title" id="channel_title"  value="{$param[channel_title]}" style="width:100px;">
+								<br/><br/>
+							</li>
+							<li>
+								<span>计划时间：</span>
+								<input type="text" name="begin_time" class="js-datetime" value="{$param[begin_time]}" style="width:150px;">-
+								<input type="text" name="end_time"   class="js-datetime" value="{$param[end_time]}" style="width:150px;">
+							</li>
+							<li>
+								<span >频道状态：</span>
+								<select name="channel_status" id="class_status" style="width:100px;">
+									<option value="">全部</option>
+									<option value="1" <if condition="$param[channel_status] eq 1 "> selected="selected" </if>  >空闲</option>
+									<option value="2" <if condition="$param[channel_status] eq 2 "> selected="selected" </if>  >直播</option>
+									<option value="3" <if condition="$param[channel_status] eq 3 "> selected="selected" </if>  >禁用</option>
+									<option value="4" <if condition="$param[channel_status] eq 4 "> selected="selected" </if>  >直播录制</option>
+								</select>
+							</li>
+							<li>
+								<span >发布状态：</span>
+								<select name="live_status" style="width:100px;">
+									<option value="">全部</option>
+									<option value="0" <if condition="$param[live_status] eq 0 "> selected="selected" </if>  >未发布</option>
+									<option value="1" <if condition="$param[live_status] eq 1 "> selected="selected" </if>  >预告中</option>
+									<option value="2" <if condition="$param[live_status] eq 2 "> selected="selected" </if>  >直播中</option>
+									<option value="3" <if condition="$param[live_status] eq 3 "> selected="selected" </if>  >直播结束</option>
+								</select>
+							</li>
+					</ul>
+					<div class="frombtn">
+						<input type="submit" class="btn btn-primary" value="搜索" />
+						<input type="button" class="btn btn-primary" value="新建直播" id="createLive"/>
+					</div>
+					</form>
+				</div>
+
+				<table class="table table-hover table-bordered table-list">
+					<tr>
+						<td>ID</td>
+						<td>直播名称</td>
+						<td>直播分校</td>
+						<td>直播校区</td>
+						<td>直播班级</td>
+						<td>计划时间</td>
+						<td>直播人</td>
+						<td>频道状态</td>
+						<td>发布状态</td>
+						<td>操作</td>
+					</tr>
+					<foreach name="data" item="vo">
+						<tr>
+							<td>{$vo.id}</td>
+							<td>{$vo.channel_title}</td>
+							<td>{$vo.zone_name}</td>
+							<td>{$vo.sub_zone_name}</td>
+							<td>{$vo.class_name}</td>
+							<td>{$vo.begin_time}<br/>{$vo.end_time}</td>
+							<td>{$vo.live_teacher}</td>
+							<td>
+								<if condition="$vo[channel_status] eq 1 ">空闲</if>
+								<if condition="$vo[channel_status] eq 2 ">直播</if>
+								<if condition="$vo[channel_status] eq 3 ">禁用</if>
+								<if condition="$vo[channel_status] eq 4 ">直播录制</if>
+							</td>
+
+							<td>
+								<if condition="$vo[live_status] eq 0 ">
+									未发布
+								<elseif condition="$vo[live_status] eq 1 "/>
+									<if condition="time() lt strtotime($vo[begin_time])">预告中</if>
+								<elseif condition="$vo[live_status] eq 2 "/>
+									直播中
+								<elseif condition="($vo[live_status] eq 3) || (time() gt strtotime($vo[end_time]))"/>直播结束
+								</if>
+							</td>
+							<td>
+								<a url="{:U('Live/edit',array('id'=>$vo['id']))}" onclick="javascript:void(0);" class="editLive">{:L('EDIT')}</a>
+								<a href='javascript:void(0);'  class="viewAddress" item_id="{$vo.id}" item_name="{$vo.channel_title}">地址</a>
+								<a href='javascript:void(0);'  class="record" cid="{$vo.cid}" need_record="{$vo.need_record}">
+									<if condition="$vo[need_record] eq 1"><span style="color: red;">关闭录制</span><else/><span style="color: blue;">开启录制</span></if>
+								</a>
+								<a href='javascript:void(0);' >禁用</a>
+								<a href='javascript:void(0);' data-key="is_del" data-value="1" data-id="{$vo.id}" class="changeSt" data-tip-msg="直播删除后将无法恢复，确定要删除吗？">删除</a>
+								<a href='javascript:void(0);' data-id="{$vo.id}" class="release" data-status="{$vo.live_status}">发布</a>
+								<a href='javascript:void(0);' url="{:U('Live/preview',array('id'=>$vo['id']))}" class="viewLive">查看</a>
+							</td>
+						</tr>
+					</foreach>
+				</table>
+
+				<div class="page clearfix">{$page}</div>
+
+				<!-- 右边主页面结束 -->
+						<!---begin-->
+						<script src="__PUBLIC__/js/layer/layer.js"></script>
+						<script>
+							//创建直播
+							$("#createLive").on('click',function () {
+								var html = "{:U('ClassLesson/Live/add')}";
+								layer.open({
+									type: 2,
+									title: '新建直播',
+									skin: 'layui-layer-rim', //加上边框
+									area: ['60%', '70%'], //宽高
+									content: html
+								});
+							});
+
+							//编辑直播
+							$(".editLive").on('click',function () {
+								var html = $(this).attr('url');
+								layer.open({
+									type: 2,
+									title: '编辑直播',
+									skin: 'layui-layer-rim', //加上边框
+									area: ['60%', '70%'], //宽高
+									content: html
+								});
+							});
+
+							//浏览
+							$(".viewLive").on('click',function () {
+								var html = $(this).attr('url');
+								layer.open({
+									type: 2,
+									title: '查看直播',
+									skin: 'layui-layer-rim', //加上边框
+									area: ['60%', '70%'], //宽高
+									content: html
+								});
+							});
+
+							//查看地址
+							$(".viewAddress").on('click',function () {
+								var id = $(this).attr('item_id');
+								var item_name = $(this).attr('item_name');
+								var html = "/index.php?g=ClassLesson&m=Live&a=address&id="+id;
+								layer.open({
+									type: 2,
+									title: '查看地址-'+item_name,
+									skin: 'layui-layer-rim', //加上边框
+									area: ['60%', '80%'], //宽高
+									content: html
+								});
+							});
+						</script>
+
+						<script>
+							$(function(){
+								//改变数据状态
+
+								//录制
+								$(".record").on('click',function () {
+									var cid = $(this).attr('cid');
+									var url = "{:U('Classlesson/Live/changeRecord')}";
+									var tip_msg = $(this).attr('need_record') == 0 ? '是否要开启录制' : '是否要关闭录制';
+									if ($(this).attr('need_record') == 0) {
+										var need_record = 1;
+									}
+									if ($(this).attr('need_record') == 1) {
+										var need_record = 0;
+									}
+									layer.confirm(tip_msg,function(){
+										$.ajax({
+											type:'POST',
+											url:url,
+											data:{cid:cid,need_record:need_record},
+											success:function(msg){
+												console.log(msg);
+												if(msg.code == '1'){
+													layer.msg(msg.msg);
+													location.reload();
+												}else{
+													layer.msg(msg.msg);
+												}
+											},
+											error:function(){
+												layer.msg('请求失败');
+											}
+										});
+									});
+								});
+
+								$(".changeSt").click(function(){
+										var tip_msg = $(this).data('tip-msg');
+										// if (tip_msg) {
+										// 	if (!window.confirm(tip_msg)) {
+										// 		return false;
+										// 	}
+										// }
+										var id = $(this).data('id');
+										var key = $(this).data('key');
+										var value = $(this).data('value');
+										var url = "{:U('Classlesson/Live/changeStatus')}";
+										layer.confirm(tip_msg,function(){
+											$.ajax({
+												type:'POST',
+												url:url,
+												data:{id:id,key:key,value:value,table:'live_channels'},
+												success:function(msg){
+													if(msg.code == '1'){
+														layer.msg("操作成功");
+														location.reload();
+													}else{
+														layer.msg("操作失败");
+													}
+												},
+												error:function(){
+													layer.msg('请求失败');
+												}
+											});
+										});
+
+								});
+
+								//改变数据状态
+								$(".release").click(function(){
+									var id = $(this).data('id');
+									var live_status = $(this).data('status');
+									if (live_status != 0) {
+										//非代发布状态不让点击
+										//return false;
+									}
+									var url = "{:U('Classlesson/Live/release')}";
+									$.ajax({
+										type:'POST',
+										url:url,
+										data:{id:id},
+										success:function(msg){
+											if(msg.code == '1'){
+												layer.msg(msg.msg);
+												location.reload();
+											}else{
+												layer.msg(msg.msg);
+											}
+										},
+										error:function(){
+											layer.msg('请求失败');
+										}
+									});
+								});
+
+							});
+						</script>
+						<!---end-->
+				<script>
+                    function chargeStatus(id,class_status) {
+                        var url = "/index.php?g=ClassLesson&m=Open&a=chargeStatus&id="+id+"&class_status="+class_status;
+                        $.ajax({
+                            url:url,
+                            type:'GET',
+                            dataType:'json',
+                            data:{},
+                            success:function(msg){
+                                location.href = location.href;
+                            }
+                        });
+                    }
+
+					$(function(){
+
+//                        //当列表项被点击时，把列表项的值放在输入框里面，
+//                        $(".dropdown2").delegate("li", "click", function(e){
+//                            var v  = $(this).attr("data-value"),
+//                                drop = $(this).closest(".dropdown2");
+//                            var id = $(this).attr('id-value');
+//                            $('#zone_name').val(v);
+//                            $('#zone_id').val(id);
+//
+//                            drop.attr("data-value", v);
+//                            drop.find(".editor2").val(v);
+//                            $(this).parent().hide();
+//                            e.stopPropagation();
+//                            $("#sub_zone_id").find("option").remove();
+//
+//                            var url = '/index.php?g=ClassLesson&m=Open&a=getSubZone&zone_id='+id;
+//                            $.ajax({
+//                                url:url,
+//                                type:'GET',
+//                                dataType:'json',
+//                                data:{},
+//                                success:function(msg){
+//                                    var str = "<option value=''>--请选择--</option>";
+//                                    $(msg).each(function(i){
+//                                        var item = msg[i];
+//                                        str += '<option value="'+item['id']+'"  name-value="'+item['sz_name']+'">'+item['sz_name']+'</option>';
+//                                    });
+//                                    $("#sub_zone_id").html(str);
+//                                }
+//                            });
+//
+//                        }).delegate(".trigger", "click", function(e){    //当下拉按钮被点击时，显示数据列表
+//                            $(this).closest(".dropdown2").find("ul").show();
+//                            e.stopPropagation();  //阻止冒泡，因为冒泡到 document 的时候，会隐藏列表
+//                        }).delegate(".search input", "click", function(e){
+//                            e.stopPropagation();
+//                        }).delegate(".search input", "keyup", function(e){    //当检测到列表中的输入框的时候，启动过滤，不满足的项隐藏
+//                            var v = $.trim(this.value), list = $(this).closest("ul").children("li");
+//                            if(v == "") {    //特殊情况，过滤输入框中没有值的时候迭代所有的列表项并显示它们
+//                                list.each(function(){
+//                                    if(this.className.indexOf("search") != -1) {return;}//不考虑过滤输入框所在的列表项
+//                                    $(this).text(this.innerText || this.textContent).show();
+//                                });
+//                            } else {
+//                                list.each(function(){   //迭代列表，
+//                                    if(this.className.indexOf("search") != -1) {return;}  //不考虑过滤输入框所在的列表项
+//                                    var lv = $(this).text();   //列表的文本
+//                                    if(lv.indexOf(v) === -1) {   //不匹配过滤文本，就隐藏
+//                                        $(this).hide();
+//                                    } else {                 //匹配，把匹配的文本替换会含有标记的文本（红色）
+//                                        $(this).html(lv.replace(v, '<span class="hot">'+v+'</span>')).show();
+//                                    }
+//                                });
+//                            }
+//
+//                        });
+                        $("#zone_id").delegate("option", "click", function(e){  // 点击校区
+                            var zone_id = $(this).attr('value'); // 获取校区的id值
+                            var zone_name = $(this).attr('name-value'); // 获取校区的name值
+                            $('#zone_name').val(zone_name);
+                            $("#sub_zone_id").find("option").remove();
+
+                            var url = '/index.php?g=Admin&m=Classnotice&a=getZone&zone_id='+zone_id;
+                            $.ajax({
+                                url:url,
+                                type:'GET',
+                                dataType:'json',
+                                data:{},
+                                success:function(msg){
+                                    var str = "<option value=''>--全部--</option>";
+                                    $(msg).each(function(i){
+                                        var item = msg[i];
+                                        str += '<option value="'+item['id']+'" name-value="'+item['sz_name']+'">'+item['sz_name']+'</option>';
+                                    });
+                                    $("#sub_zone_id").html(str).val('');
+                                    $('#sub_zone_name').val('');
+                                }
+                            });
+                        });
+
+
+						/*------------------------------------------*/
+
+                        $(this).click(function(){   //当数据列表在显示时，如果点击了页面其它区域，则隐藏列表
+                            $(".dropdown2 ul:visible").hide();
+                        });
+
+						//校区点击触发
+                        $("#sub_zone_id").delegate("option", "click", function(e){
+							var sub_v = $(this).attr('name-value');
+							$('#sub_zone_name').val(sub_v);
+
+							var sub_zone_id = $(this).val();
+							if(!sub_zone_id) {
+								var str = "<option value=''>--请选择--</option>";
+								$("#class_id").html('').html(str);
+								return false;
+							}
+							var url = '/index.php?g=admin&m=ajax&a=ajaxGetClass&class_type=2&sub_zone_id='+sub_zone_id;
+							$.ajax({
+								url:url,
+								type:'GET',
+								dataType:'json',
+								data:{},
+								success:function(msg){
+									var str = "<option value=''>--请选择--</option>";
+									if (msg.code == 1) {
+										$(msg.data).each(function(i){
+											var item = msg.data[i];
+											str += '<option value="'+item['id']+'"  name-value="'+item['class_name']+'">'+item['class_name']+'</option>';
+										});
+									}
+									$("#class_id").html(str);
+								}
+							});
+
+                        });
+
+						//班级点击触发
+						$("#class_id").delegate("option", "click", function (e) {
+							$("#class_name").val($(this).attr('name-value'));
+						});
+					});
+				</script>
+			</div>
+			<!-- END PAGE CONTAINER-->
+
+		</div>
+
+		<!-- END PAGE -->
+
+		</div>
+	</div>
+<!-- 加载的右边框架 -->
+
+
+	<!-- END CONTAINER -->
+
+	<!-- 引入底部开始 -->
+
+	<admintpl file="footer" />
+
+	<!-- 引入底部结束 -->
+
+	<admintpl file="footer_js" />
+
+</body>
+
+<!-- END BODY -->
+
+</html>

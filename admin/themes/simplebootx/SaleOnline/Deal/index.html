@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+
+<!--[if IE 8]>
+<html lang="en" class="ie8 no-js"> <![endif]-->
+
+<!--[if IE 9]>
+<html lang="en" class="ie9 no-js"> <![endif]-->
+
+<!--[if !IE]><!-->
+<html lang="en" class="no-js"> <!--<![endif]-->
+
+<!-- BEGIN HEAD -->
+
+<head>
+
+    <meta charset="utf-8"/>
+
+    <title>Metronic | Admin Dashboard Template</title>
+
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+
+    <meta content="" name="description"/>
+
+    <meta content="" name="author"/>
+
+    <!-- 引入顶部样式文件 -->
+    <admintpl file="head_css"/>
+    <script src="__PUBLIC__/js/jquery.js"></script>
+    <script src="__PUBLIC__/js/wind.js"></script>
+    <!-- <script src="__PUBLIC__/simpleboot/bootstrap/js/bootstrap.min.js"></script> -->
+    <script>
+        $(function () {
+            $("[data-toggle='tooltip']").tooltip();
+        });
+    </script>
+    <style>
+        .expander {
+            margin-left: -20px;
+        }
+
+        .head-open {
+            display: inline-block;
+            width: 25%;
+            height: 50px;
+            line-height: 50px;
+            border: 1px solid green;
+            text-align: center;
+            border-radius: 5px;
+        }
+
+        .h-div {
+            text-align: center;
+        }
+
+        #se-head {
+            background-color: greenyellow;
+            color: inherit;
+        }
+
+        .se-head {
+            background-color: darkseagreen;
+            font-style: inherit;
+        }
+
+        .controls input[type="radio"] {
+            margin-left: 0px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .dropdown2 {
+            display: inline-block;
+            width: 220px;
+            height: 20px;
+            position: relative;
+            margin-left: 20px;
+        }
+
+        .dropdown2 .editor {
+            display: block;
+            border: 0;
+            padding: 0;
+            width: 100%;
+            box-shadow: inset 1px 2px 3px #ddd;
+            height: inherit;
+        }
+
+        .dropdown2 .trigger {
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding: 3px;
+        }
+
+        .dropdown2 ul {
+            display: none;
+            width: 98%;
+            height: 140px;
+            padding: 2px;
+            position: absolute;
+            top: 100%;
+            background-color: #FFF;
+            border: 1px solid #DDD;
+            border-radius: 0 0 5px 5px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            margin: 0px;
+            z-index: 10;
+            margin-top: 8px;
+        }
+
+        .dropdown2 ul li {
+            height: 20px;
+            display: block;
+            font-size: 12px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .dropdown2 ul li .hot {
+            color: red;
+        }
+
+        .dropdown2 ul li:hover {
+            background-color: #EEE;
+        }
+
+        .dropdown2 ul .search {
+            display: block;
+            backgound: url(imgs/search.gif) no-repeat scroll center right;
+            border-bottom: 1px solid #808080;
+        }
+
+        .dropdown2 ul .search:hover {
+            background-color: #FFF;
+        }
+
+        .dropdown2 ul .search input {
+            padding: 2px;
+            width: 100%;
+            border: 0;
+            font-size: 14px;
+            background: none;
+        }
+
+    </style>
+</head>
+
+<!-- END HEAD -->
+
+<!-- BEGIN BODY -->
+
+<body class="page-header-fixed">
+
+<!-- 引入顶部开始 -->
+
+<admintpl file="head"/>
+
+<!-- 引入顶部结束 -->
+
+<!-- BEGIN CONTAINER -->
+
+<div class="page-container">
+
+    <!-- 引入左侧边栏开始 -->
+
+    <admintpl file="lefter"/>
+
+    <!-- 引入左侧边栏结束 -->
+
+    <!-- BEGIN PAGE -->
+
+    <div class="page-content">
+
+        <!-- BEGIN PAGE CONTAINER-->
+
+        <div class="container-fluid">
+
+            <admintpl file="style_bn"/>
+
+            <!-- END PAGE HEADER-->
+
+            <!-- 右边主页面开始 -->
+
+            <div class="wrap js-check-wrap">
+                <form class="well form-search" action="{:U('Deal/index')}" method="post">
+                    订单号：<input type="text" name="order_no" value="{$param.order_no}">
+
+                    分校：
+                    <!--<div class="dropdown2" id="dropdown_sel">  &lt;!&ndash; 模拟 select 的标记， &ndash;&gt;-->
+                        <!--<input class="editor2" type="text" name="zone_id" disabled="disabled"-->
+                               <!--value="{$param['zone_name']}"/> &lt;!&ndash; 显示当前值的输入框 &ndash;&gt;-->
+                        <!--<input class="zone_id" type="hidden" name="zone_id" id="zone_id" value="{$param['zone_id']}"/>-->
+                        <!--&lt;!&ndash; 学校id &ndash;&gt;-->
+                        <!--<input class="trigger" type="button" value="↓"/> &lt;!&ndash; 用于显示下拉列表的按钮 &ndash;&gt;-->
+                        <!--<ul>   &lt;!&ndash; 列表菜单 &ndash;&gt;-->
+                            <!--<li class="search"><input type="text"/></li>   &lt;!&ndash; 过滤输入的列表， &ndash;&gt;-->
+                            <!--&lt;!&ndash; 添加数据的时候，都添加在这个地方 &ndash;&gt;-->
+                            <!--<foreach name="zones" item="vo">-->
+                                <!--<li data-value="{$vo.sz_name}" id-value="{$vo.id}" code-value="{$vo.id}">{$vo.sz_name}-->
+                                <!--</li>-->
+                            <!--</foreach>-->
+                        <!--</ul>-->
+                    <!--</div>-->
+                    <select name="zone_id" id="zone_id" style="width: 120px;">
+                        <option value=''>全部</option>
+                        <foreach name="school" item="vo">
+                            <option value='{$vo.id}' name-value="{$vo.sz_name}"
+                            <?php if($vo['id'] == $param['zone_id']){ ?> selected="selected"<?php } ?>
+                            >{$vo.sz_name}</option>
+                        </foreach>
+                    </select>
+
+
+                    <input name="zone_name" type="hidden" id="zone_name" value="{$param['zone_name']}"/>
+                    <input name="sub_zone_name" type="hidden" id="sub_zone_name" value="{$param['sub_zone_name']}"/>
+
+                    校区：<select name="sub_zone_id" id="sub_zone_id">
+                    <option value="{$param['sub_zone_id']}">{$param['sub_zone_name']}</option>
+                </select>
+                    <br><br>
+                    状态：
+                    <select name="pay_status_type">
+                        <option value="">全部</option>
+                        <option value="1"
+                        <if condition="$param.pay_status_type eq '1'">selected="selected"</if>
+                        >待支付</option>
+                        <option value="2"
+                        <if condition="$param.pay_status_type eq '2'">selected="selected"</if>
+                        >已支付</option>
+                        <option value="3"
+                        <if condition="$param.pay_status_type eq '3'">selected="selected"</if>
+                        >交易关闭</option>
+                        <option value="4"
+                        <if condition="$param.pay_status_type eq '4'">selected="selected"</if>
+                        >未退款</option>
+                        <option value="5"
+                        <if condition="$param.pay_status_type eq '5'">selected="selected"</if>
+                        >已退款</option>
+                    </select>
+                    创建方式：
+                    <select name="order_type">
+                        <option value="">全部</option>
+                        <option value="1"
+                        <if condition="$param.order_type eq '1'">selected="selected"</if>
+                        >系统创建</option>
+                        <option value="2,3"
+                        <if condition="$param.order_type eq '2,3'">selected="selected"</if>
+                        >人工创建</option>
+                    </select>
+                    交易类型：
+                    <select name="pay_status">
+                        <option value="">全部</option>
+                        <option value="1,2,3"
+                        <if condition="$param.pay_status eq '1,2,3'">selected="selected"</if>
+                        >支付交易</option>
+                        <option value="4,5"
+                        <if condition="$param.pay_status eq '4,5'">selected="selected"</if>
+                        >退款交易</option>
+                    </select>
+                    <br><br>
+                    支付方式：
+                    <select name="pay_way">
+                        <option value="">全部</option>
+                        <option value="1"
+                        <if condition="$param.pay_way eq '1'">selected="selected"</if>
+                        >支付宝</option>
+                        <option value="2"
+                        <if condition="$param.pay_way eq '2'">selected="selected"</if>
+                        >微信</option>
+                        <option value="3"
+                        <if condition="$param.pay_way eq '3'">selected="selected"</if>
+                        >现金</option>
+                    </select>
+                    查询条件：
+                    <select name="s1">
+                        <option value="user_login"
+                        <if condition="$param.s1 eq 'user_login'">selected="selected"</if>
+                        >学员帐号</option>
+                        <option value="user_no"
+                        <if condition="$param.s1 eq 'user_no'">selected="selected"</if>
+                        >学员编号</option>
+                        <option value="user_name"
+                        <if condition="$param.s1 eq 'user_name'">selected="selected"</if>
+                        >学员姓名</option>
+                    </select>
+
+                    <input type="text" name="sc1" class="s1" value="{$param.sc1}" placeholder="请输入筛选内容...">
+                    <br><br>
+                    下单时间：
+                    <input type="text" name="start_time" class="js-date" value="{$param.start_time}"> -
+                    <input type="text" name="end_time" class="js-date" value="{$param.end_time}">
+                    <br><br>
+                    <div class="frombtn">
+                        <input type="submit" class="btn btn-primary" value="搜索"/>
+                    </div>
+                </form>
+            </div>
+
+            <table class="table table-hover table-bordered table-list">
+                <tr>
+                    <td>订单号</td>
+                    <td>用户账号</td>
+                    <td>分校</td>
+                    <td>校区</td>
+                    <td>创建方式</td>
+
+                    <td>交易类型</td>
+                    <td>交易名称</td>
+                    <td>商品</td>
+                    <td>备注</td>
+                    <td>关联交易编号（退款交易填）</td>
+
+                    <td>收据编号</td>
+                    <td>成交金额</td>
+                    <td>支付方式</td>
+                    <td>下单时间</td>
+                    <td>成交时间</td>
+
+                    <td>状态</td>
+                    <td>创建人</td>
+                </tr>
+                <foreach name="datas" item="data">
+                    <tr>
+                        <td>{$data.order_no}</td>
+                        <td>{$data.user_login}</td>
+                        <td>{$data.zone_name}</td>
+                        <td>{$data.sub_zone_name}</td>
+                        <td>
+                            <if condition=" empty($data.goods_id)">人工创建</if>
+                            <if condition="!empty($data.goods_id)">系统创建</if>
+                        </td>
+
+                        <td>
+                            <if condition="$data.order_type eq 1 ">线上支付</if>
+                            <if condition="$data.order_type eq 2 ">已收款账单</if>
+                            <if condition="$data.order_type eq 3 ">已退款账单</if>
+                        </td>
+                        <td>{$data.trans_title}</td>
+                        <td>{$data.goods_name}</td>
+                        <td>{$data.remark}</td>
+                        <td></td>
+
+                        <td>{$data.receipt_no}</td>
+                        <td>{$data.pay_price}</td>
+                        <td>
+                            <if condition="$data.pay_way eq 1 ">支付宝</if>
+                            <if condition="$data.pay_way eq 2 ">微信</if>
+                            <if condition="$data.pay_way eq 3 ">现金</if>
+                        </td>
+                        <td>{$data.add_time}</td>
+                        <td>{$data.pay_time}</td>
+
+                        <td>
+                            <if condition="$data.pay_status eq 1 ">待支付</if>
+                            <if condition="$data.pay_status eq 2 ">已支付</if>
+                            <if condition="$data.pay_status eq 3 ">已关闭</if>
+                            <if condition="$data.pay_status eq 4 ">已退款</if>
+                        </td>
+                        <td>{$data.create_username}</td>
+                    </tr>
+                </foreach>
+            </table>
+
+            <div class="page clearfix">{$page}</div>
+
+            <!-- 右边主页面结束 -->
+            <script src="__PUBLIC__/js/common.js"></script>
+            <script type="text/javascript" src="__PUBLIC__/js/datePicker/datePicker.js?v="></script>
+            <script>
+                $(function () {
+                    $("#zone_id").delegate("option", "click", function(e){  // 点击校区
+                        var zone_id = $(this).attr('value'); // 获取校区的id值
+                        var zone_name = $(this).attr('name-value'); // 获取校区的name值
+                        $('#zone_name').val(zone_name);
+                        $("#sub_zone_id").find("option").remove();
+
+                        var url = '/index.php?g=Admin&m=Classnotice&a=getZone&zone_id='+zone_id;
+                        $.ajax({
+                            url:url,
+                            type:'GET',
+                            dataType:'json',
+                            data:{},
+                            success:function(msg){
+                                var str = "<option value=''>--全部--</option>";
+                                $(msg).each(function(i){
+                                    var item = msg[i];
+                                    str += '<option value="'+item['id']+'" name-value="'+item['sz_name']+'">'+item['sz_name']+'</option>';
+                                });
+                                $("#sub_zone_id").html(str).val('');
+                                $('#sub_zone_name').val('');
+                            }
+                        });
+                    });
+
+                    $(this).click(function () {   //当数据列表在显示时，如果点击了页面其它区域，则隐藏列表
+                        $(".dropdown2 ul:visible").hide();
+                    });
+
+
+                    $("#sub_zone_id").delegate("option", "click", function () {
+                        var v = $(this).attr("name-value");
+                        $('#sub_zone_name').val(v);
+                    });
+
+                });
+            </script>
+        </div>
+        <!-- END PAGE CONTAINER-->
+
+    </div>
+
+    <!-- END PAGE -->
+
+</div>
+<!-- 加载的右边框架 -->
+
+
+<admintpl file="footer"/>
+
+<!-- 引入底部结束 -->
+
+<admintpl file="footer_js"/>
+
+</body>
+
+<!-- END BODY -->
+
+</html>

@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+
+<!--[if !IE]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+
+<!-- BEGIN HEAD -->
+
+<head>
+
+	<meta charset="utf-8" />
+
+	<title>Metronic | Admin Dashboard Template</title>
+
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+	<meta content="" name="description" />
+
+	<meta content="" name="author" />
+
+	<!-- 引入顶部样式文件 -->
+
+	<admintpl file="head_css" />
+	<script src="__PUBLIC__/js/jquery.js"></script>
+    <script src="__PUBLIC__/js/wind.js"></script>
+    <!-- <script src="__PUBLIC__/simpleboot/bootstrap/js/bootstrap.min.js"></script> -->
+    <script>
+    	$(function(){
+    		$("[data-toggle='tooltip']").tooltip();
+    	});
+    </script>
+	<style>
+		.expander{margin-left: -20px;}
+		.controls input[type="radio"] {margin-left:0px;}
+	</style>
+
+</head>
+
+<!-- END HEAD -->
+
+<!-- BEGIN BODY -->
+
+<body class="page-header-fixed">
+
+	<!-- 引入顶部开始 -->
+
+	<admintpl file="head" />
+
+	<!-- 引入顶部结束 -->
+
+	<!-- BEGIN CONTAINER -->
+
+	<div class="page-container">
+
+		<!-- 引入左侧边栏开始 -->
+
+		<admintpl file="lefter" />
+
+		<!-- 引入左侧边栏结束 -->
+
+		<!-- BEGIN PAGE -->
+
+		<div class="page-content">
+
+			<!-- BEGIN PAGE CONTAINER-->
+
+			<div class="container-fluid">
+
+				<admintpl file="style_bn" />
+
+				<!-- END PAGE HEADER-->
+
+				<!-- 右边主页面开始 -->
+					<div class="tabbable tabbable-custom tabbable-full-width">
+						<ul class="nav nav-tabs">
+							<li class="active"><a href="#tab_1_1" data-toggle="tab">基本信息</a></li>
+							<li><a href="#tab_1_2" data-toggle="tab">班级与服务</a></li>
+							<li><a href="#tab_1_3" data-toggle="tab">回访记录</a></li>
+							<li><a href="#tab_1_4" data-toggle="tab">结业信息</a></li>
+						</ul>
+						<div class="tab-content">
+							<div class="tab-pane row-fluid active" id="tab_1_1">
+
+								<table>
+									<tr>
+										<td width="500" height="40">
+											<div class="control-group">
+												<label class="control-label">学员编号:{$user.user_no}</label>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td width="500" height="40">
+											<div class="control-group">
+												<label class="control-label">手机号（账号）:{$user.user_login}</label>
+											</div>
+										</td>
+										<td width="500" height="40">
+											<div class="control-group">
+												<label class="control-label">姓名:{$user.user_name}</label>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td width="500" height="40">
+											<div class="control-group">
+												<label class="control-label">分校:{$user.zone_name}</label>
+											</div>
+										</td>
+										<td width="500" height="40">
+											<div class="control-group">
+												<label class="control-label">校区:{$user.sub_zone_name}</label>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td width="500" height="40">
+											<div class="control-group">
+												<label class="control-label">专属服务老师:{$user.tch_name}</label>
+											</div>
+										</td>
+										<td width="500" height="40">
+											<div class="control-group">
+												<label class="control-label">入学日期:{$user.enter_time}</label>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td width="500" height="40">
+											<div class="control-group">
+												<label class="control-label">客户来源:<if condition="$user.stu_source eq 1">线上提交表单咨询<elseif condition="$user.stu_source eq 2"/>线上即时通讯资询<elseif condition="$user.stu_source eq 3"/>电话咨询<elseif condition="$user.stu_source eq 4"/>宣讲会咨询<elseif condition="$user.stu_source eq 5"/>店面咨询
+												<elseif condition="$user.stu_source eq 6"/>其他</if></label>
+											</div>
+										</td>
+										<td width="500" height="40">
+											<div class="control-group">
+												<label class="control-label">类型:<if condition="$user.stu_type eq 1">应届生<elseif condition="$user.stu_type eq 2"/>非应届生</if></label>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td width="500" height="40">
+											<div class="control-group">
+												<label class="control-label">性别:<if condition="$user.sex eq 1">男<elseif condition="$user.sex eq 2"/>女</if></label>
+											</div>
+										</td>
+										<td width="500" height="40">
+											<div class="control-group">
+												<label class="control-label">所在城市:{$user.city}</label>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td width="500" height="40">
+											<div class="control-group">
+												<label class="control-label">出生年月:{$user.birthday}</label>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td width="500" height="40">
+											<div class="control-group">
+												<label class="control-label">本科学校:{$user.college}</label>
+											</div>
+										</td>
+										<td width="500" height="40">
+											<div class="control-group">
+												<label class="control-label">本科院系:{$user.college_dept}</label>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td width="500" height="40">
+											<div class="control-group">
+												<label class="control-label">本科专业:{$user.college_major}</label>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td width="500" height="40">
+											<div class="control-group">
+												<label class="control-label">目标院校:{$user.dst_school}</label>
+											</div>
+										</td>
+										<td width="500" height="40">
+											<div class="control-group">
+												<label class="control-label">目标院系:{$user.dst_dept}</label>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td width="500" height="40">
+											<div class="control-group">
+												<label class="control-label">目标专业:{$user.dst_major}</label>
+											</div>
+										</td>
+										<td width="500" height="40">
+											<div class="control-group">
+												<label class="control-label">目标方向:{$user.dst_research}</label>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td width="500" height="40">
+											<div class="control-group">
+												<label class="control-label">政治目标成绩:{$user.politics_score}</label>
+											</div>
+										</td>
+										<td width="500" height="40">
+											<div class="control-group">
+												<label class="control-label">外语目标成绩:{$user.lang_score}</label>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td width="500" height="40">
+											<div class="control-group">
+												<label class="control-label">业务课一目标成绩:{$user.bus_one_score}</label>
+											</div>
+										</td>
+										<td width="500" height="40">
+											<div class="control-group">
+												<label class="control-label">业务课二目标成绩:{$user.bus_two_score}</label>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td width="500" height="40">
+											<div class="control-group">
+												<label class="control-label">政治目标排名:{$user.politics_rank}</label>
+											</div>
+										</td>
+										<td width="500" height="40">
+											<div class="control-group">
+												<label class="control-label">外语目标排名:{$user.lang_rank}</label>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td width="500" height="40">
+											<div class="control-group">
+												<label class="control-label">业务课一目标排名（数学必填）:{$user.bus_one_rank}</label>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td width="500" height="40">
+											<div class="control-group">
+												<label class="control-label">飞跃意向:{$user.leap_intention}</label>
+											</div>
+										</td>
+										<td width="500" height="40">
+											<div class="control-group">
+												<label class="control-label">薄弱学科:{$user.weak_subject}</label>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td width="500" height="40">
+											<div class="control-group">
+												<label class="control-label">家长电话:{$user.parent_phone}</label>
+											</div>
+										</td>
+										<td width="500" height="40">
+											<div class="control-group">
+												<label class="control-label">微信号:{$user.stu_wechat}</label>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td width="500" height="40">
+											<div class="control-group">
+												<label class="control-label">QQ号:{$user.stu_qq}</label>
+											</div>
+										</td>
+										<td width="500" height="40">
+											<div class="control-group">
+												<label class="control-label">邮箱:{$user.stu_email}</label>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td width="500" height="40">
+											<div class="control-group">
+												<label class="control-label">备注:{$user.remark}</label>
+											</div>
+										</td>
+									</tr>
+								</table>
+
+								<!--end span9-->
+
+							</div>
+
+							<!--end tab-pane-->
+
+							<div class="tab-pane profile-classic row-fluid" id="tab_1_2">
+
+								<table class="table table-hover table-bordered table-list">
+									<thead>
+										<tr>
+											<th width="40">班级编号</th>
+											<th width="50">班级名称</th>
+											<th width="40">所属课程</th>
+											<th width="50">班主任</th>
+											<th width="50">上课老师</th>
+										</tr>
+									</thead>
+									<foreach name="class" item="vo">
+									<tr>
+					                    <td>{$vo.class_no}</td>
+										<td>{$vo.class_name}</td>
+										<td>{$vo.course_name}</td>
+										<td>{$vo.class_master}</td>
+										<td>{$vo.tch_name}</td>
+									</tr>
+									</foreach>
+								</table>
+								<br/>
+								服务：
+								<foreach name="service" item="vo">
+								{$vo.srv_name}&nbsp;&nbsp;&nbsp;&nbsp;
+								</foreach>
+
+							</div>
+
+							<!--tab_1_2-->
+
+							<div class="tab-pane row-fluid profile-account" id="tab_1_3">
+
+								回访列表:
+								<table class="table table-hover table-bordered table-list">
+									<thead>
+										<tr>
+											<th width="50">回访日期</th>
+											<th width="30">回访对象</th>
+											<th width="30">回访形式</th>
+											<th width="50">回访主题</th>
+											<th width="90">回访内容</th>
+											<th width="90">回访对象反馈</th>
+											<th width="30">回访人</th>
+										</tr>
+									</thead>
+									<foreach name="visit" item="vo">
+									<tr>
+					                    <td>{$vo.visit_date}</td>
+										<td>{$vo.objcet}</td>
+										<td>{$vo.visit_type}</td>
+										<td>{$vo.subject}</td>
+										<td>{$vo.content}</td>
+									    <td>{$vo.object_feedback}</td>
+										<td>{$vo.user_name}</td>
+									</tr>
+									</foreach>
+								</table>
+
+							</div>
+
+							<!--end tab-pane-->
+
+							<div class="tab-pane" id="tab_1_4">
+
+								<table>
+									<tr>
+										<td width="500" height="40">
+											<div class="control-group">
+												<label class="control-label">政治初试成绩:{$graduation.politics_score}</label>
+											</div>
+										</td>
+										<td width="500" height="40">
+											<div class="control-group">
+												<label class="control-label">外语初试成绩:{$graduation.lang_score}</label>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td width="500" height="40">
+											<div class="control-group">
+												<label class="control-label">业务课一初试成绩:{$graduation.bus_one_score}</label>
+											</div>
+										</td>
+										<td width="500" height="40">
+											<div class="control-group">
+												<label class="control-label">业务课二初试成绩:{$graduation.bus_two_score}</label>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td width="500" height="40">
+											<div class="control-group">
+												<label class="control-label">初试成绩:<if condition="$graduation.first_try eq 0">未参加考试<elseif condition="$graduation.first_try eq 1"/>通过<elseif condition="$graduation.first_try eq 2"/>未通过</if></label>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td width="500" height="40">
+											<div class="control-group">
+												<label class="control-label">复试成绩:<if condition="$graduation.second_try eq 0">未参加考试<elseif condition="$graduation.second_try eq 1"/>通过<elseif condition="$graduation.second_try eq 2"/>未通过</if></label>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td width="500" height="40">
+											<div class="control-group">
+												<label class="control-label">学员去向:<if condition="$graduation.stu_gone eq 0">其他<elseif condition="$graduation.stu_gone eq 1"/>读研<elseif condition="$graduation.stu_gone eq 2"/>转为二战<elseif condition="$graduation.stu_gone eq 3"/>出国<elseif condition="$graduation.stu_gone eq 4"/>工作</if></label>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td width="500" height="40">
+											<div class="control-group">
+												<label class="control-label">备注:{$graduation.remark}</label>
+											</div>
+										</td>
+									</tr>
+								</table>
+
+								<!--end row-fluid-->
+
+							</div>
+
+							<!--end tab-pane-->
+
+						</div>
+
+					</div>
+				<!-- 右边主页面结束 -->
+				<script src="__PUBLIC__/js/common.js"></script>
+				<script type="text/javascript" src="__PUBLIC__/js/datePicker/datePicker.js?v="></script>
+			</div>
+			<!-- END PAGE CONTAINER-->    
+			
+		</div>
+
+		<!-- END PAGE -->
+
+	</div>
+<!-- 加载的右边框架 -->
+
+
+	<!-- END CONTAINER -->
+			
+	<!-- 引入底部开始 -->
+
+	<admintpl file="footer" />
+
+	<!-- 引入底部结束 -->
+
+	<admintpl file="footer_js" />
+
+</body>
+
+<!-- END BODY -->
+
+</html>

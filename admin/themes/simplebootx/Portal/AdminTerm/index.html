@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+
+<!--[if !IE]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+
+<!-- BEGIN HEAD -->
+
+<head>
+
+	<meta charset="utf-8" />
+
+	<title>星空海天教育</title>
+
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+	<meta content="" name="description" />
+
+	<meta content="" name="author" />
+
+	<!-- 引入顶部样式文件 -->
+
+	<admintpl file="head_css" />
+	<script src="__PUBLIC__/js/jquery.js"></script>
+    <script src="__PUBLIC__/js/wind.js"></script>
+    <!-- <script src="__PUBLIC__/simpleboot/bootstrap/js/bootstrap.min.js"></script> -->
+    <script>
+    	$(function(){
+    		$("[data-toggle='tooltip']").tooltip();
+    	});
+    </script>
+	<style>.expander{margin-left: -20px;}</style>
+
+</head>
+
+<!-- END HEAD -->
+
+<!-- BEGIN BODY -->
+
+<body class="page-header-fixed">
+
+	<!-- 引入顶部开始 -->
+
+	<admintpl file="head" />
+
+	<!-- 引入顶部结束 -->
+
+	<!-- BEGIN CONTAINER -->
+
+	<div class="page-container">
+
+		<!-- 引入左侧边栏开始 -->
+
+		<admintpl file="lefter" />
+
+		<!-- 引入左侧边栏结束 -->
+
+		<!-- BEGIN PAGE -->
+
+		<div class="page-content">
+
+			<!-- BEGIN PAGE CONTAINER-->
+
+			<div class="container-fluid">
+
+				<admintpl file="style_bn" />
+
+				<!-- END PAGE HEADER-->
+
+				<!-- 右边主页面开始 -->
+				<div class="wrap">
+					<ul class="nav nav-tabs">
+						<li class="active"><a href="{:U('AdminTerm/index')}">{:L('PORTAL_ADMINTERM_INDEX')}</a></li>
+						<li><a href="{:U('AdminTerm/add')}">{:L('PORTAL_ADMINTERM_ADD')}</a></li>
+					</ul>
+					<form method="post" class="js-ajax-form" action="{:U('AdminTerm/listorders')}">
+						<div class="table-actions">
+							<button type="submit" class="btn btn-primary btn-small js-ajax-submit">{:L('SORT')}</button>
+						</div>
+						<table class="table table-hover table-bordered table-list">
+							<thead>
+								<tr>
+									<th width="50">{:L('SORT')}</th>
+									<th width="50">ID</th>
+									<th>{:L('NAME')}</th>
+									<th>{:L('CATEGORY_TYPE')}</th>
+									<th>{:L('ACTIONS')}</th>
+								</tr>
+							</thead>
+							<tbody>
+								{$taxonomys}
+							</tbody>
+						</table>
+					</form>
+				</div>
+				<!-- 右边主页面结束 -->
+				<script src="__PUBLIC__/js/common.js"></script>
+			</div>
+			<!-- END PAGE CONTAINER-->    
+			
+		</div>
+
+		<!-- END PAGE -->
+
+	</div>
+<!-- 加载的右边框架 -->
+
+
+	<!-- END CONTAINER -->
+			
+	<!-- 引入底部开始 -->
+
+	<admintpl file="footer" />
+
+	<!-- 引入底部结束 -->
+
+	<admintpl file="footer_js" />
+
+</body>
+
+<!-- END BODY -->
+
+</html>

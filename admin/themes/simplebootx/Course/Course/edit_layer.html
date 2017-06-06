@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+
+<!--[if !IE]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+
+<!-- BEGIN HEAD -->
+
+<head>
+
+	<meta charset="utf-8" />
+
+	<title>Metronic | Admin Dashboard Template</title>
+
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+	<meta content="" name="description" />
+
+	<meta content="" name="author" />
+
+	<!-- 引入顶部样式文件 -->
+	<link href="__PUBLIC__/media/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+
+	<link href="__PUBLIC__/media/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css"/>
+	<style>
+		.expander{margin-left: -20px;}
+		.controls input[type="radio"] {margin-left:0px;}
+	</style>
+
+</head>
+
+<!-- END HEAD -->
+
+<!-- BEGIN BODY -->
+
+<body class="page-header-fixed">
+
+	<!-- 引入顶部开始 -->
+
+
+	<!-- 引入顶部结束 -->
+
+	<!-- BEGIN CONTAINER -->
+
+	<div class="page-container">
+
+		<!-- 引入左侧边栏开始 -->
+
+
+		<!-- 引入左侧边栏结束 -->
+
+		<!-- BEGIN PAGE -->
+
+		<div class="page-content">
+
+			<!-- BEGIN PAGE CONTAINER-->
+
+			<div class="container-fluid">
+
+				<!-- END PAGE HEADER-->
+
+				<!-- 右边主页面开始 -->
+				<div class="wrap js-check-wrap">
+					<form method="post" class="form-horizontal js-ajax-form" action="{:U('Course/edit_layer_post')}" enctype="multipart/form-data">
+						<input type="hidden" name="id" value="{$data.id}">
+						<div class="control-group">
+							<label class="control-label">节点名称:</label>
+							<div class="controls">
+								<input type="text" name="catalog_name" value="{$data.catalog_name}" required>
+								<span class="form-required">*</span>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">是否是考点:</label>
+							<div class="controls">
+								<input type="radio" name="is_exam_point" value="1" <if condition="$data.is_exam_point eq 1">checked</if>>是
+								<input type="radio" name="is_exam_point" value="0" <if condition="$data.is_exam_point eq 0">checked</if>>否
+							</div>
+						</div>
+						<input type="hidden" id="tagname" value="{$data.tag}">
+						<div class="control-group">
+							<label class="control-label">大纲标签:</label>
+							<div class="controls">
+								<input type="checkbox" name="tag[]" value="熟悉">熟悉
+								<input type="checkbox" name="tag[]" value="了解">了解
+								<input type="checkbox" name="tag[]" value="掌握">掌握
+							</div>
+						</div>
+						<div class="form-actions">
+							<button type="submit" class="btn btn-primary js-ajax-submit">{:L('EDIT')}</button>
+							<a class="btn" href="javascript:history.back(-1);">{:L('BACK')}</a>
+						</div>
+					</form>
+				</div>
+				<!-- 右边主页面结束 -->
+				<script src="__PUBLIC__/js/jquery.js"></script>
+				<script type="text/javascript">
+				$(function(){
+					var s   = $('input[name="tag"]');
+					var str = $("#tagname");
+					for( var i = 0; i < s.length; i++ )
+					{
+						strArray=str.split("|");
+						for(var j = 0; j < strArray.length; j++ ){
+							if(s[i].value==strArray[j]){
+								s[i].checked=true;
+							}
+						}
+					}
+				})
+				</script>
+			</div>
+			<!-- END PAGE CONTAINER-->    
+			
+		</div>
+
+		<!-- END PAGE -->
+
+	</div>
+<!-- 加载的右边框架 -->
+
+
+	<!-- END CONTAINER -->
+			
+	<!-- 引入底部开始 -->
+
+
+	<!-- 引入底部结束 -->
+
+
+</body>
+
+<!-- END BODY -->
+
+</html>

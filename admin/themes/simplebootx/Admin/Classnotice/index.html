@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+
+<!--[if !IE]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+
+<!-- BEGIN HEAD -->
+
+<head>
+
+	<meta charset="utf-8" />
+
+	<title>星空海天教育</title>
+
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+	<meta content="" name="description" />
+
+	<meta content="" name="author" />
+
+	<!-- 引入顶部样式文件 -->
+
+	<admintpl file="head_css" />
+	<script src="__PUBLIC__/js/jquery.js"></script>
+    <script src="__PUBLIC__/js/wind.js"></script>
+    <!-- <script src="__PUBLIC__/simpleboot/bootstrap/js/bootstrap.min.js"></script> -->
+    <script>
+    	$(function(){
+    		$("[data-toggle='tooltip']").tooltip();
+    	});
+    </script>
+	<style>.expander{margin-left: -20px;}</style>
+
+</head>
+
+<!-- END HEAD -->
+
+<!-- BEGIN BODY -->
+
+<body class="page-header-fixed">
+
+	<!-- 引入顶部开始 -->
+
+	<admintpl file="head" />
+
+	<!-- 引入顶部结束 -->
+
+	<!-- BEGIN CONTAINER -->
+
+	<div class="page-container">
+
+		<!-- 引入左侧边栏开始 -->
+
+		<admintpl file="lefter" />
+
+		<!-- 引入左侧边栏结束 -->
+
+		<!-- BEGIN PAGE -->
+
+		<div class="page-content">
+
+			<!-- BEGIN PAGE CONTAINER-->
+
+			<div class="container-fluid">
+
+				<admintpl file="style_bn" />
+
+				<!-- END PAGE HEADER-->
+
+				<!-- 右边主页面开始 -->
+				<div class="wrap js-check-wrap">
+					<form class="well form-search" method="post" action="{:U('Classnotice/index')}">
+						<ul class="fromUl clearfix">
+							<li>分校：
+								<select name="zone_id" id="zone_id" style="width: 120px;">
+									<option value=''>全部</option>
+									<foreach name="school" item="vo">
+									<option value='{$vo.id}' name-value="{$vo.sz_name}">{$vo.sz_name}</option>
+									</foreach>
+								</select> &nbsp;&nbsp;
+							</li>
+								<!-- <input type="hidden" id="zone_name"/> -->
+							<li>
+								分区：
+								<select name="zone_sub_id" id="zone_sub_id" style="width: 120px;">
+									<option value=''>全部</option>
+								</select> &nbsp;&nbsp;
+								<!-- <input type="hidden" id="zone_sub_name"/> -->
+							</li>
+							<li>
+								班级：
+								<select name="class_id" id="class_id" style="width: 120px;">
+									<option value=''>全部</option>
+								</select> &nbsp;&nbsp;
+							</li>
+							<li>
+								公告对象：
+								<select name="notice_type" style="width: 120px;">
+									<option value=''>全部</option>
+									<option value='1' <if condition="$Think.request.notice_type eq 1">selected</if>>学员</option>
+									<option value='2' <if condition="$Think.request.notice_type eq 2">selected</if>>老师</option>
+									<option value='3' <if condition="$Think.request.notice_type eq 3">selected</if>>学员和老师</option>
+								</select> &nbsp;&nbsp;
+							</li>
+							<li>
+								公告内容：
+								<input type="text" name="notice" style="width: 200px;" value="{$Think.request.notice}" placeholder="请输入公告内容...">
+							</li>
+							<li>
+								发布时间：
+								<input type="text" name="start_time" class="js-datetime" value="{$Think.request.start_time}" style="width: 120px;" autocomplete="off">-
+								<input autocomplete="off" type="text" class="js-datetime" name="end_time" value="{$Think.request.end_time}" style="width: 120px;">
+								<!-- <input type="text" name="start_time" style="width: 200px;" value="" placeholder="请输入起始时间...">
+								<input type="text" name="end_time" style="width: 200px;" value="" placeholder="请输入终止时间..."> -->
+							</li>
+							<li>
+								状态：
+								<select name="status" style="width: 120px;">
+									<option value=''>全部</option>
+									<option value='1' <if condition="$Think.request.status eq 1">selected</if>>启用</option>
+									<option value='2' <if condition="$Think.request.status eq 2">selected</if>>停用</option>
+								</select> &nbsp;&nbsp;
+							</li>
+						</ul>
+						<div class="frombtn">
+							<input type="submit" class="btn btn-primary" value="搜索" />
+							<input type="reset" class="btn btn-primary" value="清空" />
+						</div>
+
+					</form>
+						<a href="{:U('Classnotice/add')}"><input type="button" class="btn btn-primary" value="发布公告" /></a>
+						<table class="table table-hover table-bordered table-list">
+							<thead>
+								<tr>
+									<th width="50">分校</th>
+									<th width="50">校区</th>
+									<th width="50">班级</th>
+									<th width="140">公告内容</th>
+									<th width="90">公告对象</th>
+									<th width="50">发布人</th>
+									<th width="50">发布时间</th>
+									<th width="50">状态</th>
+									<th width="70">{:L('ACTIONS')}</th>
+								</tr>
+							</thead>
+							<foreach name="notice" item="vo">
+							<tr>
+			                    <td>{$vo.zone_name}</td>
+								<td>{$vo.zone_sub_name}</td>
+								<td>{$vo.class_name}</td>
+								<td>{$vo.notice}</td>
+								<td>
+									<if condition="$vo.notice_type eq 1 ">学员
+							        	<elseif condition="$vo.notice_type eq 2 "/>老师
+							        	<elseif condition="$vo.notice_type eq 3 " />学员和老师
+							    	</if>
+							    </td>
+							    <td>{$vo.user_nicename}</td>
+								<td>{$vo.add_time}</td>
+								<td>
+									<if condition="$vo.status eq 1 ">启用
+							        	<else /> 停用
+							    	</if>
+								</td>
+								<td id="status">
+									<if condition="$vo.status eq 1 "><a href="javascript:void(0);" id-value="{$vo.id}" status="2" class="status" value="停用">停用</a>
+							        	<else /> <a href="javascript:void(0);" id-value="{$vo.id}" status="1" class="status" value="启用">启用</a>
+							    	</if>
+								</td>
+							</tr>
+							</foreach>
+						</table>
+						<div class="page clearfix">{$page}</div>
+				</div>
+				<!-- 右边主页面结束 -->
+				<script>
+					$(function(){
+						$('td').on('click', 'a', function(){
+							var value  = $(this).attr('value');
+							var _self  = $(this);
+							var index = layer.confirm("确认要"+value+"吗?",function(){
+								var id     = _self.attr('id-value');
+								var status = _self.attr('status');
+								var url    = "index.php?g=Admin&m=Classnotice&a=status";
+								$.ajax({
+								    type:'POST',
+								    url:url,
+								    data:{id:id, status:status},
+								    success:function(msg){
+								       	if(msg.code == '1'){
+								       		alert(msg.msg);
+                                            location.reload();
+								        }else{
+								       		layer.msg(msg.msg)
+								        }
+								    },
+								    error:function(){
+								    	layer.msg('请求失败')
+								    }
+								});
+								layer.close(index);
+							})
+						});
+
+					});
+
+					$("#zone_id").delegate("option", "click", function(e){  // 点击校区
+						var zone_id = $(this).attr('value'); // 获取校区的id值
+						var zone_name = $(this).attr('name-value'); // 获取校区的name值
+						// $('#zone_name').val(zone_name);
+						$("#zone_sub_id").find("option").remove();
+
+						var url = '/index.php?g=Admin&m=Classnotice&a=getZone&zone_id='+zone_id;
+						$.ajax({
+					        url:url,
+					        type:'GET',
+					        dataType:'json',
+					        data:{},
+					        success:function(msg){
+					          var str = "<option value=''>--全部--</option>";
+					          $(msg).each(function(i){
+					          	var item = msg[i];
+					          	str += '<option value="'+item['id']+'" name-value="'+item['sz_name']+'">'+item['sz_name']+'</option>';
+					          });
+					          $("#zone_sub_id").html(str);
+	                        }
+	                    });
+					})
+
+					$("#zone_sub_id").delegate("option", "click", function(e){  // 点击校区
+						var fzone_id = $(this).attr('value'); // 获取校区的id值
+						var fzone_name = $(this).attr('name-value'); // 获取校区的name值
+						// $('#zone_sub_name').val(fzone_name);
+						$("#class_id").find("option").remove();
+
+						var url = '/index.php?g=Admin&m=Classnotice&a=getClass&fzone_id='+fzone_id;
+						$.ajax({
+					        url:url,
+					        type:'GET',
+					        dataType:'json',
+					        data:{},
+					        success:function(msg){
+					          var str = "<option value=''>--全部--</option>";
+					          $(msg).each(function(i){
+					          	var item = msg[i];
+					          	str += '<option value="'+item['id']+'" name-value="'+item['class_name']+'">'+item['class_name']+'</option>';
+					          });
+					          $("#class_id").html(str);
+	                        }
+	                    });
+					})
+				</script>
+			</div>
+			<!-- END PAGE CONTAINER-->
+
+		</div>
+
+		<!-- END PAGE -->
+
+	</div>
+<!-- 加载的右边框架 -->
+
+
+	<!-- END CONTAINER -->
+
+	<!-- 引入底部开始 -->
+
+	<admintpl file="footer" />
+
+	<!-- 引入底部结束 -->
+
+	<admintpl file="footer_js" />
+
+</body>
+
+<!-- END BODY -->
+
+</html>

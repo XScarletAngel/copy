@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+
+<!--[if !IE]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+
+<!-- BEGIN HEAD -->
+
+<head>
+
+	<meta charset="utf-8" />
+
+	<title>星空海天教育</title>
+
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+	<meta content="" name="description" />
+
+	<meta content="" name="author" />
+
+	<!-- 引入顶部样式文件 -->
+
+	<admintpl file="head_css" />
+	<script src="__PUBLIC__/js/jquery.js"></script>
+    <script src="__PUBLIC__/js/wind.js"></script>
+    <!-- <script src="__PUBLIC__/simpleboot/bootstrap/js/bootstrap.min.js"></script> -->
+    <script>
+    	$(function(){
+    		$("[data-toggle='tooltip']").tooltip();
+    	});
+    </script>
+	<style>.expander{margin-left: -20px;}</style>
+
+</head>
+
+<!-- END HEAD -->
+
+<!-- BEGIN BODY -->
+
+<body class="page-header-fixed">
+
+	<!-- 引入顶部开始 -->
+
+	<admintpl file="head" />
+
+	<!-- 引入顶部结束 -->
+
+	<!-- BEGIN CONTAINER -->
+
+	<div class="page-container">
+
+		<!-- 引入左侧边栏开始 -->
+
+		<admintpl file="lefter" />
+
+		<!-- 引入左侧边栏结束 -->
+
+		<!-- BEGIN PAGE -->
+
+		<div class="page-content">
+
+			<!-- BEGIN PAGE CONTAINER-->
+
+			<div class="container-fluid">
+
+				<admintpl file="style_bn" />
+
+				<!-- END PAGE HEADER-->
+
+				<!-- 右边主页面开始 -->
+				<div class="wrap">
+					<ul class="nav nav-tabs">
+						<li class="active"><a>{:L('USER_OAUTHADMIN_INDEX')}</a></li>
+					</ul>
+					<form method="post" class="js-ajax-form">
+						<table class="table table-hover table-bordered">
+							<thead>
+								<tr>
+									<th align="center">ID</th>
+									<th>{:L('USER_FROM')}</th>
+									<th>{:L('USERNAME')}</th>
+									<th>{:L('AVATAR')}</th>
+									<th>{:L('BINGDING_ACCOUNT')}</th>
+									<th>{:L('FIRST_LOGIN_TIME')}</th>
+									<th>{:L('LAST_LOGIN_TIME')}</th>
+									<th>{:L('LAST_LOGIN_IP')}</th>
+									<th>{:L('LOGIN_TIMES')}</th>
+									<th align="center">{:L('ACTIONS')}</th>
+								</tr>
+							</thead>
+							<tbody>
+								<foreach name="lists" item="vo">
+								<tr>
+									<td align="center">{$vo.id}</td>
+									<td>{$vo.from}</td>
+									<td>{$vo.name}</td>
+									<td><img width="25" height="25" src="{$vo.head_img}" /></td>
+									<td>{$vo['uid']|default='无'}</td>
+									<td>{$vo['create_time']}</td>
+									<td>{$vo['last_login_time']}</td>
+									<td>{$vo.last_login_ip}</td>
+									<td>{$vo.login_times}</td>
+									<td align="center">
+										<a href="{:U('oauthadmin/delete',array('id'=>$vo['id']))}" class="js-ajax-delete">{:L('DELETE')}</a>
+									</td>
+								</tr>
+								</foreach>
+							</tbody>
+						</table>
+						<div class="page clearfix">{$page}</div>
+					</form>
+				</div>
+			<!-- 右边主页面结束 -->
+
+			</div>
+			<!-- END PAGE CONTAINER-->
+
+		</div>
+
+		<!-- END PAGE -->
+
+	</div>
+	<!-- 加载的右边框架 -->
+
+	<!-- END CONTAINER -->
+
+	<!-- 引入底部开始 -->
+
+	<admintpl file="footer" />
+
+	<!-- 引入底部结束 -->
+
+	<admintpl file="footer_js" />
+
+</body>
+
+<!-- END BODY -->
+
+</html>

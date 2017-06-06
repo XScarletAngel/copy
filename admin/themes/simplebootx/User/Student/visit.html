@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+
+<!--[if !IE]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+
+<!-- BEGIN HEAD -->
+
+<head>
+
+	<meta charset="utf-8" />
+
+	<title>Metronic | Admin Dashboard Template</title>
+
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+	<meta content="" name="description" />
+
+	<meta content="" name="author" />
+
+	<!-- 引入顶部样式文件 -->
+
+	<admintpl file="head_css" />
+	<style>
+		.expander{margin-left: -20px;}
+		.controls input[type="radio"] {margin-left:0px;}
+	</style>
+
+</head>
+
+<!-- END HEAD -->
+
+<!-- BEGIN BODY -->
+
+<body class="page-header-fixed">
+
+	<!-- 引入顶部开始 -->
+
+	<admintpl file="head" />
+
+	<!-- 引入顶部结束 -->
+
+	<!-- BEGIN CONTAINER -->
+
+	<div class="page-container">
+
+		<!-- 引入左侧边栏开始 -->
+
+		<admintpl file="lefter" />
+
+		<!-- 引入左侧边栏结束 -->
+
+		<!-- BEGIN PAGE -->
+
+		<div class="page-content">
+
+			<!-- BEGIN PAGE CONTAINER-->
+
+			<div class="container-fluid">
+
+				<admintpl file="style_bn" />
+
+				<!-- END PAGE HEADER-->
+
+				<!-- 右边主页面开始 -->
+				<div class="wrap js-check-wrap">
+				用户手机号：{$user.user_login}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;用户姓名：{$user.user_name}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;学员编号：{$user.user_no}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;上课校区：{$user.zone_name}-{$user.sub_zone_name}<br/><br/>
+					<form method="post" class="form-horizontal js-ajax-forms" action="{:U('Student/visit_post')}">
+						<table>
+							<tr>
+								<td width="500" height="40">
+									<div class="control-group">
+										<label class="control-label">*回访日期:</label>
+										<div class="controls">
+											<input type="text" name="visit_date" value="{$time}"/>
+											<input type="hidden" name="user_login" value="{$user.user_login}"/>
+											<input type="hidden" name="user_id" value="{$id}"/>
+										</div>
+									</div>
+								</td>
+								<td width="500" height="40">
+									<div class="control-group">
+										<label class="control-label">*回访形式:</label>
+										<div class="controls">
+											<input type="text" name="visit_type">
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td width="500" height="40">
+									<div class="control-group">
+										<label class="control-label">*回访人:</label>
+										<div class="controls">
+											<input type="text" value="{$admin_ar.user_nicename}">
+											<input type="hidden" name="create_uid" value="{$admin_id}">
+										</div>
+									</div>
+								</td>
+								<td width="500" height="40">
+									<div class="control-group">
+										<label class="control-label">*回访对象:</label>
+										<div class="controls">
+											<input type="text" name="objcet">
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td width="500" height="40">
+									<div class="control-group">
+										<label class="control-label">*回访主题:</label>
+										<div class="controls">
+											<input type="text" name="subject">
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td width="500" height="40">
+									<div class="control-group">
+										<label class="control-label">回访内容:</label>
+										<div class="controls">
+											<textarea name="content"></textarea>
+										</div>
+									</div>
+								</td>
+								<td width="500" height="40">
+									<div class="control-group">
+										<label class="control-label">*回访对象反馈:</label>
+										<div class="controls">
+											<textarea name="object_feedback"></textarea>
+										</div>
+									</div>
+								</td>
+							</tr>
+						</table>
+						<div class="form-actions">
+							<button type="submit" class="btn btn-primary js-ajax-submit">{:L('ADD')}</button>
+							<a class="btn" href="javascript:history.back(-1);">{:L('BACK')}</a>
+						</div>
+					</form>
+					<br/>
+					回访列表:
+					<table class="table table-hover table-bordered table-list">
+						<thead>
+							<tr>
+								<th width="50">回访日期</th>
+								<th width="30">回访对象</th>
+								<th width="30">回访形式</th>
+								<th width="50">回访主题</th>
+								<th width="90">回访内容</th>
+								<th width="90">回访对象反馈</th>
+								<th width="30">回访人</th>
+							</tr>
+						</thead>
+						<foreach name="data" item="vo">
+						<tr>
+		                    <td>{$vo.visit_date}</td>
+							<td>{$vo.objcet}</td>
+							<td>{$vo.visit_type}</td>
+							<td>{$vo.subject}</td>
+							<td>{$vo.content}</td>
+						    <td>{$vo.object_feedback}</td>
+							<td>{$vo.user_nicename}</td>
+						</tr>
+						</foreach>
+					</table>
+					<div class="pagination">{$page}</div>
+				</div>
+				<!-- 右边主页面结束 -->
+				<script src="__PUBLIC__/js/common.js"></script>
+				<script type="text/javascript" src="__PUBLIC__/js/datePicker/datePicker.js?v="></script>
+				<script src="__PUBLIC__/js/jquery.validate.min.js"></script>
+				<script src="__PUBLIC__/js/datePicker/datePicker.js"></script>
+			</div>
+			<!-- END PAGE CONTAINER-->
+			<script type="text/javascript">
+                $(function() {
+                    /////---------------------
+                    Wind.use('validate', 'ajaxForm', 'artDialog', function() {
+
+                        var form = $('form.js-ajax-forms');
+                        //ie处理placeholder提交问题
+                        if ($.browser && $.browser.msie) {
+                            form.find('[placeholder]').each(function() {
+                                var input = $(this);
+                                if (input.val() == input.attr('placeholder')) {
+                                    input.val('');
+                                }
+                            });
+                        }
+
+                        var formloading = false;
+                        //表单验证开始
+                        form.validate({
+                            //是否在获取焦点时验证
+                            onfocusout : false,
+                            //是否在敲击键盘时验证
+                            onkeyup : false,
+                            //当鼠标掉级时验证
+                            onclick : false,
+                            //验证错误
+                            showErrors : function(errorMap, errorArr) {
+                                //errorMap {'name':'错误信息'}
+                                //errorArr [{'message':'错误信息',element:({})}]
+                                try {
+                                    $(errorArr[0].element).focus();
+                                    art.dialog({
+                                        id : 'error',
+                                        icon : 'error',
+                                        lock : true,
+                                        fixed : true,
+                                        background : "#CCCCCC",
+                                        opacity : 0,
+                                        content : errorArr[0].message,
+                                        cancelVal : '确定',
+                                        cancel : function() {
+                                            $(errorArr[0].element).focus();
+                                        }
+                                    });
+                                } catch (err) {
+                                }
+                            },
+                            //验证规则
+                            rules : {
+                                'visit_date' : {
+                                    required : 1
+                                },
+                                'visit_type' : {
+                                    required : 1
+                                },
+                                'objcet' : {
+                                    required : 1
+                                },
+                                'subject' : {
+                                    required : 1
+                                },
+                                'object_feedback' : {
+                                    required : 1
+                                }
+                            },
+                            //验证未通过提示消息
+                            messages : {
+                                'visit_date' : {
+                                    required : '请填写回访日期'
+                                },
+                                'visit_type' : {
+                                    required : '请输入回访形式'
+                                },
+                                'objcet' : {
+                                    required : '请输入回访对象'
+                                },
+                                'subject' : {
+                                    required : '请输入回访主题'
+                                },
+                                'object_feedback' : {
+                                    required : '请填写回访对象反馈'
+                                }
+                            },
+                            //给未通过验证的元素加效果,闪烁等
+                            highlight : false,
+                            //是否在获取焦点时验证
+                            onfocusout : false,
+                            //验证通过，提交表单
+                            submitHandler : function(forms) {
+                                if (formloading)
+                                    return;
+                                $(forms).ajaxSubmit({
+                                    url : form.attr('action'), //按钮上是否自定义提交地址(多按钮情况)
+                                    dataType : 'json',
+                                    beforeSubmit : function(arr, $form, options) {
+                                        formloading = true;
+                                    },
+                                    success : function(data, statusText, xhr, $form) {
+                                        formloading = false;
+                                        if (data.status) {
+                                            setCookie("refersh_time", 1);
+                                            //添加成功
+                                            Wind.use("artDialog", function() {
+                                                art.dialog({
+                                                    id : "succeed",
+                                                    icon : "succeed",
+                                                    fixed : true,
+                                                    lock : true,
+                                                    background : "#CCCCCC",
+                                                    opacity : 0,
+                                                    content : data.info,
+                                                    button : [ {
+                                                        name : '继续添加？',
+                                                        callback : function() {
+                                                            reloadPage(window);
+                                                            return true;
+                                                        },
+                                                        focus : true
+                                                    }, {
+                                                        name : '返回列表页',
+                                                        callback : function() {
+                                                            location = "{:U('Major/index')}";
+                                                            return true;
+                                                        }
+                                                    } ]
+                                                });
+                                            });
+                                        } else {
+                                            artdialog_alert(data.info);
+                                        }
+                                    }
+                                });
+                            }
+                        });
+                    });
+                    ////-------------------------
+                });
+			</script>
+		</div>
+
+		<!-- END PAGE -->
+
+	</div>
+<!-- 加载的右边框架 -->
+
+
+	<!-- END CONTAINER -->
+			
+	<!-- 引入底部开始 -->
+
+	<admintpl file="footer" />
+
+	<!-- 引入底部结束 -->
+
+	<admintpl file="footer_js" />
+
+</body>
+
+<!-- END BODY -->
+
+</html>

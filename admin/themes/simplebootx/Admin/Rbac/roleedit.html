@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+
+<!--[if !IE]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+
+<!-- BEGIN HEAD -->
+
+<head>
+
+	<meta charset="utf-8" />
+
+	<title>星空海天教育</title>
+
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+	<meta content="" name="description" />
+
+	<meta content="" name="author" />
+
+	<!-- 引入顶部样式文件 -->
+
+	<admintpl file="head_css" />
+
+</head>
+
+<!-- END HEAD -->
+
+<!-- BEGIN BODY -->
+
+<body class="page-header-fixed">
+
+	<!-- 引入顶部开始 -->
+
+	<admintpl file="head" />
+
+	<!-- 引入顶部结束 -->
+
+	<!-- BEGIN CONTAINER -->
+
+	<div class="page-container">
+
+		<!-- 引入左侧边栏开始 -->
+
+		<admintpl file="lefter" />
+
+		<!-- 引入左侧边栏结束 -->
+
+		<!-- BEGIN PAGE -->
+
+		<div class="page-content">
+
+			<!-- BEGIN PAGE CONTAINER-->
+
+			<div class="container-fluid">
+
+				<admintpl file="style_bn" />
+
+				<!-- END PAGE HEADER-->
+
+				<!-- 右边主页面开始 -->
+				<div class="wrap js-check-wrap">
+					<ul class="nav nav-tabs">
+						<li><a href="{:U('rbac/index')}">{:L('ADMIN_RBAC_INDEX')}</a></li>
+						<li><a href="{:U('rbac/roleadd')}">{:L('ADMIN_RBAC_ROLEADD')}</a></li>
+						<li class="active"><a>编辑角色</a></li>
+					</ul>
+					<form class="form-horizontal" action="{:U('Rbac/roleedit_post')}" method="post">
+						<fieldset>
+							<div class="control-group">
+								<label class="control-label">{:L('ROLE_NAME')}</label>
+								<div class="controls">
+									<input type="text" name="name" value="{$data.name}">
+									<span class="help-inline">*</span>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">{:L('ROLE_DESCRIPTION')}</label>
+								<div class="controls">
+									<textarea name="remark" rows="2" cols="20" style="height: 100px; width: 500px;">{$data.remark}</textarea>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">{:L('STATUS')}</label>
+								<div class="controls">
+									<php>$active_true_checked=($data['status']==1)?"checked":"";</php>
+									<label class="radio inline" for="active_true">
+										<input type="radio" name="status" value="1" {$active_true_checked} id="active_true"/>{:L('ENABLED')}
+									</label>
+									<php>$active_false_checked=($data['status']==0)?"checked":"";</php>
+									<label class="radio inline" for="active_false">
+										<input type="radio" name="status" value="0" id="active_false"{$active_false_checked}>{:L('DISABLED')}
+									</label>
+								</div>
+							</div>
+							<div class="control-group">
+								<div class="controls">
+									<input type="hidden" name="id" value="{$data.id}"/>
+									<button type="submit" class="btn blue">{:L('SAVE')}</button>
+									<a class="btn" href="javascript:history.back(-1);">{:L('BACK')}</a>
+								</div>
+							</div>
+						</fieldset>
+					</form>
+				</div>
+				<!-- 右边主页面结束 -->
+			
+			</div>
+			<!-- END PAGE CONTAINER-->    
+			
+		</div>
+
+		<!-- END PAGE -->
+
+	</div>
+<!-- 加载的右边框架 -->
+
+
+	<!-- END CONTAINER -->
+			
+	<!-- 引入底部开始 -->
+
+	<admintpl file="footer" />
+
+	<!-- 引入底部结束 -->
+
+	<admintpl file="footer_js" />
+
+</body>
+
+<!-- END BODY -->
+
+</html>

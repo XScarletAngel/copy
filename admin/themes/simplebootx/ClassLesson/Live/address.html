@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<!--直播地址-->
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+
+<!--[if !IE]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+
+<!-- BEGIN HEAD -->
+
+<head>
+
+	<meta charset="utf-8" />
+
+	<title>直播地址</title>
+
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+	<meta content="" name="description" />
+
+	<meta content="" name="author" />
+</head>
+
+<!-- END HEAD -->
+
+<!-- BEGIN BODY -->
+
+<body style="background-color: #fff">
+
+<!-- 右边主页面开始 -->
+<div class="wrap" style="margin-top:20px;margin-bottom: 20px;">
+	<div><h2>频道名称/{$item.channel_name}</h2></div>
+	<div>
+		<h3>推流地址 *</h3>
+		<p style="background-color: #CCCCCC;padding:10px;">{$item.push_url}</p>
+	</div>
+
+	<div>
+		<h3>拉流地址 (HTTP)</h3>
+		<p style="background-color: #CCCCCC;padding:10px;">{$item.http_pull_url}</p>
+	</div>
+
+	<div>
+		<h3>拉流地址 (HLS)</h3>
+		<p style="background-color: #CCCCCC;padding:10px;">{$item.hls_pull_url}</p>
+	</div>
+
+	<div>
+		<h3>拉流地址 (RTMP) *</h3>
+		<p style="background-color: #CCCCCC;padding:10px;">{$item.rtmp_pull_url}</p>
+	</div>
+
+</div>
+</body>
+
+<!-- END BODY -->
+
+</html>

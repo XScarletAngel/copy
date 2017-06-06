@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<head>
+    <!-- 引入顶部样式文件 -->
+    <admintpl file="head_css"/>
+    <script src="__PUBLIC__/js/jquery.js"></script>
+    <script src="__PUBLIC__/js/wind.js"></script>
+    <!-- <script src="__PUBLIC__/simpleboot/bootstrap/js/bootstrap.min.js"></script> -->
+    <script>
+        $(function () {
+            $("[data-toggle='tooltip']").tooltip();
+        });
+    </script>
+
+    <style>
+        .controls input[type="radio"] {
+            margin-left: 0px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .dropdown2 {
+            display: inline-block;
+            width: 220px;
+            height: 20px;
+            position: relative;
+            margin-left: 0px;
+        }
+
+        .dropdown2 .editor {
+            display: block;
+            border: 0;
+            padding: 0;
+            width: 100%;
+            box-shadow: inset 1px 2px 3px #ddd;
+            height: inherit;
+        }
+
+        .dropdown2 .trigger {
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding: 3px;
+        }
+
+        .dropdown2 ul {
+            display: none;
+            width: 98%;
+            height: 140px;
+            padding: 2px;
+            position: absolute;
+            top: 100%;
+            background-color: #FFF;
+            border: 1px solid #DDD;
+            border-radius: 0 0 5px 5px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            margin: 0px;
+            z-index: 10;
+            margin-top: 8px;
+        }
+
+        .dropdown2 ul li {
+            height: 20px;
+            display: block;
+            font-size: 12px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .dropdown2 ul li .hot {
+            color: red;
+        }
+
+        .dropdown2 ul li:hover {
+            background-color: #EEE;
+        }
+
+        .dropdown2 ul .search {
+            display: block;
+            backgound: url(imgs/search.gif) no-repeat scroll center right;
+            border-bottom: 1px solid #808080;
+        }
+
+        .dropdown2 ul .search:hover {
+            background-color: #FFF;
+        }
+
+        .dropdown2 ul .search input {
+            padding: 2px;
+            width: 100%;
+            border: 0;
+            font-size: 14px;
+            background: none;
+        }
+
+    </style>
+
+</head>
+
+<!-- END HEAD -->
+
+<!-- BEGIN BODY -->
+
+<body>
+
+<!-- 引入顶部开始 -->
+
+<!-- 引入顶部结束 -->
+
+
+<!-- END PAGE HEADER-->
+
+<!-- 右边主页面开始 -->
+
+    <form class="well form-search" action="{:U('Schedule/getExcel')}" method="post">
+
+        <div class="control-group">
+            <span>分校：</span>
+            <div class="dropdown2" id="dropdown_sel">  <!-- 模拟 select 的标记， -->
+                <input class="editor2" type="text" name="zone_id" disabled="disabled"
+                       value="{$param.zone_name}"/> <!-- 显示当前值的输入框 -->
+                <input class="zone_id" type="hidden" name="zone_id" id="zone_id" value="{$param.zone_id}"/>
+                <!-- 学校id -->
+                <input class="trigger" type="button" value="↓"/> <!-- 用于显示下拉列表的按钮 -->
+                <ul>   <!-- 列表菜单 -->
+                    <li class="search"><input type="text"/></li>   <!-- 过滤输入的列表， -->
+                    <!-- 添加数据的时候，都添加在这个地方 -->
+                    <foreach name="zones" item="vo">
+                        <li data-value="{$vo.sz_name}" id-value="{$vo.id}" code-value="{$vo.id}">
+                            {$vo.sz_name}
+                        </li>
+                    </foreach>
+                </ul>
+            </div>
+        </div>
+        <div class="control-group">
+
+            <div class="controls">
+                校区：<select name="sub_zone_id" id="sub_zone_id">
+                <option value="{$param.sub_zone_id}" selected="">{$param.sub_zone_name}</option>
+            </select>
+                <span class="form-required">*</span>
+            </div>
+        </div>
+        <input name="zone_name" type="hidden" id="zone_name" value="{$param.zone_name}">
+        <input name="sub_zone_name" type="hidden" id="sub_zone_name" value="{$param.sub_zone_name}">
+
+        教室：<select name="room_id" style="width: 120px;">
+        <option value="">全部教室</option>
+        <foreach name="allRooms" item="ar">
+            <option value='{$ar.id}'
+            <if condition="param[room_id] eq $ar.id ">selected='selected'</if>
+            >{$ar.room_name}</option>
+        </foreach>
+    </select>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br><br>
+        日期：<input type="text" name="start_time" class="js-date"  style="width: 120px;" autocomplete="off"> -
+        <input autocomplete="off" type="text" class="js-date" name="end_time"  style="width: 120px;">
+
+        <br> <br>
+        <input type="submit" class="btn btn-primary" id="subBtn" value="搜索" style="margin-bottom: 100px"/>
+        <br>
+    </form>
+
+    <!-- 右边主页面结束 -->
+    <script src="__PUBLIC__/js/common.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/datePicker/datePicker.js?v="></script>
+    <script>
+        $(function () {
+            //当列表项被点击时，把列表项的值放在输入框里面，
+            $(".dropdown2").delegate("li", "click", function (e) {
+                var v = $(this).attr("data-value"),
+                    drop = $(this).closest(".dropdown2");
+                var id = $(this).attr('id-value');
+                $('#zone_name').val(v);
+                $('#zone_id').val(id);
+
+                drop.attr("data-value", v);
+                drop.find(".editor2").val(v);
+                $(this).parent().hide();
+                e.stopPropagation();
+                $("#sub_zone_id").find("option").remove();
+
+                var url = '/index.php?g=ClassLesson&m=Open&a=getSubZone&zone_id=' + id;
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    dataType: 'json',
+                    data: {},
+                    success: function (msg) {
+                        var str = "<option value=''>--请选择--</option>";
+                        $(msg).each(function (i) {
+                            var item = msg[i];
+                            str += '<option value="' + item['id'] + '"  name-value="' + item['sz_name'] + '">' + item['sz_name'] + '</option>';
+                        });
+                        $("#sub_zone_id").html(str);
+                    }
+                });
+
+            }).delegate(".trigger", "click", function (e) {    //当下拉按钮被点击时，显示数据列表
+                $(this).closest(".dropdown2").find("ul").show();
+                e.stopPropagation();  //阻止冒泡，因为冒泡到 document 的时候，会隐藏列表
+            }).delegate(".search input", "click", function (e) {
+                e.stopPropagation();
+            }).delegate(".search input", "keyup", function (e) {    //当检测到列表中的输入框的时候，启动过滤，不满足的项隐藏
+                var v = $.trim(this.value), list = $(this).closest("ul").children("li");
+                if (v == "") {    //特殊情况，过滤输入框中没有值的时候迭代所有的列表项并显示它们
+                    list.each(function () {
+                        if (this.className.indexOf("search") != -1) {
+                            return;
+                        }//不考虑过滤输入框所在的列表项
+                        $(this).text(this.innerText || this.textContent).show();
+                    });
+                } else {
+                    list.each(function () {   //迭代列表，
+                        if (this.className.indexOf("search") != -1) {
+                            return;
+                        }  //不考虑过滤输入框所在的列表项
+                        var lv = $(this).text();   //列表的文本
+                        if (lv.indexOf(v) === -1) {   //不匹配过滤文本，就隐藏
+                            $(this).hide();
+                        } else {                 //匹配，把匹配的文本替换会含有标记的文本（红色）
+                            $(this).html(lv.replace(v, '<span class="hot">' + v + '</span>')).show();
+                        }
+                    });
+                }
+
+            });
+
+            $(this).click(function () {   //当数据列表在显示时，如果点击了页面其它区域，则隐藏列表
+                $(".dropdown2 ul:visible").hide();
+            });
+
+
+            $("#sub_zone_id").delegate("option", "click", function (e) {
+                var sub_v = $(this).attr('name-value');
+                $('#sub_zone_name').val(sub_v);
+
+            });
+
+
+        });
+    </script>
+
+<admintpl file="footer_js" />
+
+
+</body>
+
+<!-- END BODY -->
+
+</html>

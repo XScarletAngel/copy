@@ -1,0 +1,128 @@
+[ 2017-06-06T10:53:26+08:00 ] 127.0.0.1 /index.php?g=Dict&m=Srv&a=addPost
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000569s ]
+INFO: Run Behavior\CheckLangBehavior [ RunTime:0.000680s ]
+INFO: Run Common\Behavior\UrldecodeGetBehavior [ RunTime:0.000176s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001922s ]
+INFO: [ admin_begin ] --START--
+INFO: Run Common\Behavior\AdminDefaultLangBehavior [ RunTime:0.000726s ]
+INFO: [ admin_begin ] --END-- [ RunTime:0.000806s ]
+INFO: [ action_begin ] --START--
+SQL: SHOW COLUMNS FROM `xkht_menu` [ RunTime:0.0129s ]
+SQL: SELECT * FROM `xkht_menu` WHERE `app` = 'Dict' AND `model` = 'Srv' AND `action` = 'addPost' LIMIT 1   [ RunTime:0.0084s ]
+SQL: SHOW COLUMNS FROM `xkht_admin_log` [ RunTime:0.0115s ]
+SQL: INSERT INTO `xkht_admin_log` (`admin_id`,`admin_name`,`module_name`,`controller_name`,`action_name`,`object`,`status`,`type`) VALUES ('1','admin','Dict','Srv','addPost','','1','0') [ RunTime:0.0126s ]
+INFO: Run Common\Behavior\AdminLogBehavior [ RunTime:0.183975s ]
+INFO: [ action_begin ] --END-- [ RunTime:0.184057s ]
+SQL: SHOW COLUMNS FROM `xkht_admin_users` [ RunTime:0.0119s ]
+SQL: SELECT * FROM `xkht_admin_users` WHERE `id` = '1' LIMIT 1   [ RunTime:0.0072s ]
+SQL: SHOW COLUMNS FROM `xkht_class_service` [ RunTime:0.0085s ]
+SQL: INSERT INTO `xkht_class_service` (`srv_name`,`srv_info`,`srv_status`) VALUES ('这是服务名称','这是服务说明','1') [ RunTime:0.0150s ]
+
+[ 2017-06-06T10:54:41+08:00 ] 127.0.0.1 /index.php?g=Dict&m=Srv&a=editPost
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000733s ]
+INFO: Run Behavior\CheckLangBehavior [ RunTime:0.000817s ]
+INFO: Run Common\Behavior\UrldecodeGetBehavior [ RunTime:0.000207s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002416s ]
+INFO: [ admin_begin ] --START--
+INFO: Run Common\Behavior\AdminDefaultLangBehavior [ RunTime:0.000703s ]
+INFO: [ admin_begin ] --END-- [ RunTime:0.000774s ]
+INFO: [ action_begin ] --START--
+SQL: SHOW COLUMNS FROM `xkht_menu` [ RunTime:0.0179s ]
+SQL: SELECT * FROM `xkht_menu` WHERE `app` = 'Dict' AND `model` = 'Srv' AND `action` = 'editPost' LIMIT 1   [ RunTime:0.0099s ]
+SQL: SHOW COLUMNS FROM `xkht_admin_log` [ RunTime:0.0346s ]
+SQL: INSERT INTO `xkht_admin_log` (`admin_id`,`admin_name`,`module_name`,`controller_name`,`action_name`,`object`,`status`,`type`) VALUES ('1','admin','Dict','Srv','editPost','','1','0') [ RunTime:0.0366s ]
+INFO: Run Common\Behavior\AdminLogBehavior [ RunTime:0.630896s ]
+INFO: [ action_begin ] --END-- [ RunTime:0.630999s ]
+SQL: SHOW COLUMNS FROM `xkht_admin_users` [ RunTime:0.0521s ]
+SQL: SELECT * FROM `xkht_admin_users` WHERE `id` = '1' LIMIT 1   [ RunTime:0.0179s ]
+SQL: SHOW COLUMNS FROM `xkht_class_service` [ RunTime:0.0309s ]
+SQL: UPDATE `xkht_class_service` SET `srv_name`='这是服务名称',`srv_info`='修改',`srv_status`='1' WHERE `id` = 17 [ RunTime:0.0100s ]
+
+[ 2017-06-06T11:02:17+08:00 ] 127.0.0.1 /index.php?g=Dict&m=Srv&a=addPost
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000926s ]
+INFO: Run Behavior\CheckLangBehavior [ RunTime:0.000764s ]
+INFO: Run Common\Behavior\UrldecodeGetBehavior [ RunTime:0.000195s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002419s ]
+INFO: [ admin_begin ] --START--
+INFO: Run Common\Behavior\AdminDefaultLangBehavior [ RunTime:0.000816s ]
+INFO: [ admin_begin ] --END-- [ RunTime:0.000918s ]
+INFO: [ action_begin ] --START--
+SQL: SHOW COLUMNS FROM `xkht_menu` [ RunTime:0.0127s ]
+SQL: SELECT * FROM `xkht_menu` WHERE `app` = 'Dict' AND `model` = 'Srv' AND `action` = 'addPost' LIMIT 1   [ RunTime:0.0083s ]
+SQL: SHOW COLUMNS FROM `xkht_admin_log` [ RunTime:0.0134s ]
+SQL: INSERT INTO `xkht_admin_log` (`admin_id`,`admin_name`,`module_name`,`controller_name`,`action_name`,`object`,`status`,`type`) VALUES ('1','admin','Dict','Srv','addPost','','1','0') [ RunTime:0.0224s ]
+INFO: Run Common\Behavior\AdminLogBehavior [ RunTime:0.156412s ]
+INFO: [ action_begin ] --END-- [ RunTime:0.156510s ]
+SQL: SHOW COLUMNS FROM `xkht_admin_users` [ RunTime:0.0268s ]
+SQL: SELECT * FROM `xkht_admin_users` WHERE `id` = '1' LIMIT 1   [ RunTime:0.0082s ]
+SQL: SHOW COLUMNS FROM `xkht_class_service` [ RunTime:0.0114s ]
+SQL: INSERT INTO `xkht_class_service` (`srv_name`,`srv_info`,`srv_status`) VALUES ('名称','说明','1') [ RunTime:0.0091s ]
+
+[ 2017-06-06T11:03:07+08:00 ] 127.0.0.1 /index.php?g=Dict&m=Srv&a=editPost
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000593s ]
+INFO: Run Behavior\CheckLangBehavior [ RunTime:0.000692s ]
+INFO: Run Common\Behavior\UrldecodeGetBehavior [ RunTime:0.000184s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001981s ]
+INFO: [ admin_begin ] --START--
+INFO: Run Common\Behavior\AdminDefaultLangBehavior [ RunTime:0.000682s ]
+INFO: [ admin_begin ] --END-- [ RunTime:0.000763s ]
+INFO: [ action_begin ] --START--
+SQL: SHOW COLUMNS FROM `xkht_menu` [ RunTime:0.0151s ]
+SQL: SELECT * FROM `xkht_menu` WHERE `app` = 'Dict' AND `model` = 'Srv' AND `action` = 'editPost' LIMIT 1   [ RunTime:0.0065s ]
+SQL: SHOW COLUMNS FROM `xkht_admin_log` [ RunTime:0.0101s ]
+SQL: INSERT INTO `xkht_admin_log` (`admin_id`,`admin_name`,`module_name`,`controller_name`,`action_name`,`object`,`status`,`type`) VALUES ('1','admin','Dict','Srv','editPost','','1','0') [ RunTime:0.0275s ]
+INFO: Run Common\Behavior\AdminLogBehavior [ RunTime:0.154221s ]
+INFO: [ action_begin ] --END-- [ RunTime:0.154305s ]
+SQL: SHOW COLUMNS FROM `xkht_admin_users` [ RunTime:0.0194s ]
+SQL: SELECT * FROM `xkht_admin_users` WHERE `id` = '1' LIMIT 1   [ RunTime:0.0112s ]
+SQL: SHOW COLUMNS FROM `xkht_class_service` [ RunTime:0.0106s ]
+SQL: UPDATE `xkht_class_service` SET `srv_name`='名称',`srv_info`='修改说明',`srv_status`='1' WHERE `id` = 18 [ RunTime:0.0237s ]
+
+[ 2017-06-06T11:03:12+08:00 ] 127.0.0.1 /index.php?g=Dict&m=Srv&a=changeStatus
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000625s ]
+INFO: Run Behavior\CheckLangBehavior [ RunTime:0.000678s ]
+INFO: Run Common\Behavior\UrldecodeGetBehavior [ RunTime:0.000162s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001973s ]
+INFO: [ admin_begin ] --START--
+INFO: Run Common\Behavior\AdminDefaultLangBehavior [ RunTime:0.000675s ]
+INFO: [ admin_begin ] --END-- [ RunTime:0.000745s ]
+INFO: [ action_begin ] --START--
+SQL: SHOW COLUMNS FROM `xkht_menu` [ RunTime:0.0112s ]
+SQL: SELECT * FROM `xkht_menu` WHERE `app` = 'Dict' AND `model` = 'Srv' AND `action` = 'changeStatus' LIMIT 1   [ RunTime:0.0228s ]
+SQL: SHOW COLUMNS FROM `xkht_admin_log` [ RunTime:0.0282s ]
+SQL: INSERT INTO `xkht_admin_log` (`admin_id`,`admin_name`,`module_name`,`controller_name`,`action_name`,`object`,`status`,`type`) VALUES ('1','admin','Dict','Srv','changeStatus','','1','0') [ RunTime:0.0274s ]
+INFO: Run Common\Behavior\AdminLogBehavior [ RunTime:0.224154s ]
+INFO: [ action_begin ] --END-- [ RunTime:0.224247s ]
+SQL: SHOW COLUMNS FROM `xkht_admin_users` [ RunTime:0.0196s ]
+SQL: SELECT * FROM `xkht_admin_users` WHERE `id` = '1' LIMIT 1   [ RunTime:0.0260s ]
+SQL: SHOW COLUMNS FROM `xkht_class_service` [ RunTime:0.0180s ]
+SQL: UPDATE `xkht_class_service` SET `srv_status`='2' WHERE `id` = 18 [ RunTime:0.0257s ]
+NOTIC: [8] Undefined index: url /Applications/MAMP/htdocs/xingkonght/application/Common/Controller/AppframeController.class.php 第 22 行.
+
+[ 2017-06-06T11:03:15+08:00 ] 127.0.0.1 /index.php?g=Dict&m=Srv&a=changeStatus
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000684s ]
+INFO: Run Behavior\CheckLangBehavior [ RunTime:0.000677s ]
+INFO: Run Common\Behavior\UrldecodeGetBehavior [ RunTime:0.000256s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002089s ]
+INFO: [ admin_begin ] --START--
+INFO: Run Common\Behavior\AdminDefaultLangBehavior [ RunTime:0.000662s ]
+INFO: [ admin_begin ] --END-- [ RunTime:0.000728s ]
+INFO: [ action_begin ] --START--
+SQL: SHOW COLUMNS FROM `xkht_menu` [ RunTime:0.0236s ]
+SQL: SELECT * FROM `xkht_menu` WHERE `app` = 'Dict' AND `model` = 'Srv' AND `action` = 'changeStatus' LIMIT 1   [ RunTime:0.0191s ]
+SQL: SHOW COLUMNS FROM `xkht_admin_log` [ RunTime:0.0109s ]
+SQL: INSERT INTO `xkht_admin_log` (`admin_id`,`admin_name`,`module_name`,`controller_name`,`action_name`,`object`,`status`,`type`) VALUES ('1','admin','Dict','Srv','changeStatus','','1','0') [ RunTime:0.0242s ]
+INFO: Run Common\Behavior\AdminLogBehavior [ RunTime:0.188579s ]
+INFO: [ action_begin ] --END-- [ RunTime:0.188747s ]
+SQL: SHOW COLUMNS FROM `xkht_admin_users` [ RunTime:0.0097s ]
+SQL: SELECT * FROM `xkht_admin_users` WHERE `id` = '1' LIMIT 1   [ RunTime:0.0121s ]
+SQL: SHOW COLUMNS FROM `xkht_class_service` [ RunTime:0.0181s ]
+SQL: UPDATE `xkht_class_service` SET `srv_status`='1' WHERE `id` = 18 [ RunTime:0.0118s ]
+NOTIC: [8] Undefined index: url /Applications/MAMP/htdocs/xingkonght/application/Common/Controller/AppframeController.class.php 第 22 行.
+

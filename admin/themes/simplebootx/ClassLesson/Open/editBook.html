@@ -1,0 +1,17 @@
+<form action="{:U('Open/editBookPost')}"  method="post">
+	<input name="id" value="{$Bookdata['id']}" type="hidden">
+	名称：<input type="text" name="book_name" value = "{$Bookdata['book_name']}" >
+	<br>
+	状态：<select name="book_status">
+	<if condition="$Bookdata['book_status'] eq 1 ">
+		<option value="1" selected="selected">启用</option>
+		<option value="2">禁用</option>
+	</if>
+	<if condition="$Bookdata['book_status'] eq 2 ">
+		<option value="1">启用</option>
+		<option value="2" selected="selected">禁用</option>
+	</if>
+		</select>
+	<br>
+	<input type="submit" value="确定">
+</form>

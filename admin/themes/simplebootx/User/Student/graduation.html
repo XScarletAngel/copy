@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+
+<!--[if !IE]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+
+<!-- BEGIN HEAD -->
+
+<head>
+
+	<meta charset="utf-8" />
+
+	<title>Metronic | Admin Dashboard Template</title>
+
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+	<meta content="" name="description" />
+
+	<meta content="" name="author" />
+
+	<!-- 引入顶部样式文件 -->
+
+	<admintpl file="head_css" />
+	<script src="__PUBLIC__/js/jquery.js"></script>
+    <script src="__PUBLIC__/js/wind.js"></script>
+    <!-- <script src="__PUBLIC__/simpleboot/bootstrap/js/bootstrap.min.js"></script> -->
+	<style>
+		.expander{margin-left: -20px;}
+		.controls input[type="radio"] {margin-left:0px;}
+		* {margin:0;padding:0;}
+
+		.dropdown2 {display:inline-block;width:220px;height:20px;
+			position:relative;margin-left:20px;}
+		.dropdown2 .editor {display:block;border:0;padding:0;width:100%;box-shadow: inset 1px 2px 3px #ddd;height:inherit;}
+		.dropdown2 .trigger {position:absolute;top:0;right:0;padding:3px;}
+		.dropdown2 ul {display:none;width:98%;height:140px;padding:2px;position:absolute;top:100%;background-color:#FFF;border:1px solid #DDD;border-radius: 0 0 5px 5px;overflow-y:auto;overflow-x:hidden;margin:0px;z-index: 10;margin-top:8px;}
+		.dropdown2 ul li {height:20px;display:block;font-size:12px;overflow:hidden;cursor:pointer;}
+		.dropdown2 ul li .hot {color: red;}
+		.dropdown2 ul li:hover {background-color: #EEE;}
+		.dropdown2 ul .search {display:block;backgound: url(imgs/search.gif) no-repeat scroll center right;border-bottom: 1px solid #808080;}
+		.dropdown2 ul .search:hover{background-color:#FFF;}
+		.dropdown2 ul .search input {padding:2px;width:100%;border:0;font-size:14px;background:none;}
+
+
+		.dropdown3 {display:inline-block;width:220px;height:20px;
+			position:relative;margin-left:20px;}
+		.dropdown3 .editor {display:block;border:0;padding:0;width:100%;box-shadow: inset 1px 2px 3px #ddd;height:inherit;}
+		.dropdown3 .trigger {position:absolute;top:0;right:0;padding:3px;}
+		.dropdown3 ul {display:none;width:98%;height:140px;padding:2px;position:absolute;top:100%;background-color:#FFF;border:1px solid #DDD;border-radius: 0 0 5px 5px;overflow-y:auto;overflow-x:hidden;margin:0px;z-index: 10;margin-top:8px;}
+		.dropdown3 ul li {height:20px;display:block;font-size:12px;overflow:hidden;cursor:pointer;}
+		.dropdown3 ul li .hot {color: red;}
+		.dropdown3 ul li:hover {background-color: #EEE;}
+		.dropdown3 ul .search {display:block;backgound: url(imgs/search.gif) no-repeat scroll center right;border-bottom: 1px solid #808080;}
+		.dropdown3 ul .search:hover{background-color:#FFF;}
+		.dropdown3 ul .search input {padding:2px;width:100%;border:0;font-size:14px;background:none;}
+	</style>
+
+</head>
+
+<!-- END HEAD -->
+
+<!-- BEGIN BODY -->
+
+<body class="page-header-fixed">
+
+	<!-- 引入顶部开始 -->
+
+	<admintpl file="head" />
+
+	<!-- 引入顶部结束 -->
+
+	<!-- BEGIN CONTAINER -->
+
+	<div class="page-container">
+
+		<!-- 引入左侧边栏开始 -->
+
+		<admintpl file="lefter" />
+
+		<!-- 引入左侧边栏结束 -->
+
+		<!-- BEGIN PAGE -->
+
+		<div class="page-content">
+
+			<!-- BEGIN PAGE CONTAINER-->
+
+			<div class="container-fluid">
+
+				<admintpl file="style_bn" />
+
+				<!-- END PAGE HEADER-->
+
+				<!-- 右边主页面开始 -->
+				<div class="wrap js-check-wrap">
+				用户手机号：{$user.user_login}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;用户姓名：{$user.user_name}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;学员编号：{$user.user_no}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;上课校区：{$user.zone_name}-{$user.sub_zone_name}<br/><br/>
+					<form method="post" class="form-horizontal js-ajax-forms" action="{:U('Student/gra_post')}">
+						<table>
+							<tr>
+								<td width="800" height="40">
+									<div class="control-group">
+										<label class="control-label">*政治初试成绩:</label>
+										<div class="controls">
+											<input type="text" name="politics_score" value="{$gra.politics_score}"/>
+											<input type="hidden" name="user_login" value="{$user.user_login}"/>
+											<input type="hidden" name="user_id" value="{$id}"/>
+											<input type="hidden" name="user_name" value="{$user.user_name}"/>
+											<input type="hidden" name="user_no" value="{$user.user_no}"/>
+										</div>
+									</div>
+								</td>
+								<td width="700" height="40">
+									<div class="control-group">
+										<label class="control-label">*外语初试成绩:</label>
+										<div class="controls">
+											<input type="text" name="lang_score" value="{$gra.lang_score}">
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td width="700" height="40">
+									<div class="control-group">
+										<label class="control-label">*业务课一初试成绩:</label>
+										<div class="controls">
+											<input type="text" name="bus_one_score" value="{$gra.bus_one_score}">
+											<input type="hidden" name="create_uid" value="{$admin_id}">
+										</div>
+									</div>
+								</td>
+								<td width="700" height="40">
+									<div class="control-group">
+										<label class="control-label">*业务课二初试成绩:</label>
+										<div class="controls">
+											<input type="text" name="bus_two_score" value="{$gra.bus_two_score}">
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td width="700" height="40">
+									<div class="control-group">
+										<label class="control-label">初试成绩:</label>
+										<div class="controls">
+											<input type="radio" name="first_try" value="1" <if condition="$gra.first_try eq 1">checked</if>>通过
+											<input type="radio" name="first_try" value="2" <if condition="$gra.first_try eq 2">checked</if>>未通过
+											<input type="radio" name="first_try" value="0" <if condition="$gra.first_try eq 0">checked</if>>未参加初试
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td width="700" height="40">
+									<div class="control-group">
+										<label class="control-label">复试成绩 :</label>
+										<div class="controls">
+											<input type="radio" name="second_try" value="1" <if condition="$gra.second_try eq 1">checked</if>>通过
+											<input type="radio" name="second_try" value="2" <if condition="$gra.second_try eq 2">checked</if>>未通过
+											<input type="radio" name="second_try" value="0" <if condition="$gra.second_try eq 0">checked</if>>未参加复试
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td width="700" height="40">
+									<div class="control-group">
+										<label class="control-label">学员去向:</label>
+										<div class="controls">
+										<input type="hidden" id="gone" value="{$gra.stu_gone}">
+											<input type="radio" name="stu_gone" value="1" <if condition="$gra.stu_gone eq 1">checked</if>>读研
+											<input type="radio" name="stu_gone" value="2" <if condition="$gra.stu_gone eq 2">checked</if>>转为二战
+											<input type="radio" name="stu_gone" value="3" <if condition="$gra.stu_gone eq 3">checked</if>>出国
+											<input type="radio" name="stu_gone" value="4" <if condition="$gra.stu_gone eq 4">checked</if>>工作
+											<input type="radio" name="stu_gone" value="0" <if condition="$gra.stu_gone eq 0">checked</if>>其他
+										</div>
+									</div>
+									<div id="styles" style="display:none;">
+										<div class="control-group">
+											<label class="control-label">所属院校:</label>
+											<div class="dropdown2" id="dropdown_sel">  <!-- 模拟 select 的标记， -->
+												<input class="editor2" type="text" name="school_name" disabled="disabled" value="{$gra.school_name}"/> <!-- 显示当前值的输入框 -->
+												<input class="school_id" type="hidden" name="school_id" id="school_id" value="{$gra.school_id}"/><!-- 学校id -->
+												<input class="school_name" type="hidden" name="school_name" id="school_name" value="{$gra.school_name}"/><!-- 学校name -->
+												<input class="trigger"  type="button" value="↓" /> <!-- 用于显示下拉列表的按钮 -->
+												<ul>   <!-- 列表菜单 -->
+													<li class="search"><input type="text"/></li>   <!-- 过滤输入的列表， -->
+													<!-- 添加数据的时候，都添加在这个地方 -->
+													<foreach name="school" item="vo">
+														<li data-value="{$vo.school_name}" id-value="{$vo.id}" code-value="{$vo.code}" area-value="{$vo.area_id}">{$vo.school_name}</li>
+													</foreach>
+												</ul>
+											</div>
+										</div>
+										<div class="control-group">
+											<label class="control-label">所属院系:</label>
+											<div class="controls">
+												<select name="dept_id" id="dept_id">
+													<option value="{$gra.dept_id}">{$gra.dept_name}</option>
+												</select>
+												<input type="hidden" name="dept_name" id="dept_name" value="{$gra.dept_name}"><!-- 院系名称 -->
+												<span class="form-required">*</span>
+											</div>
+										</div>
+										<div class="control-group">
+											<label class="control-label">所属专业:</label>
+											<div class="controls">
+												<select name="major_id" id="major_id">
+													<option value="{$gra.major_id}">{$gra.major_name}</option>
+												</select>
+												<input type="hidden" name="major_name" id="major_name" value="{$gra.major_name}"><!-- 专业名称 -->
+												<span class="form-required">*</span>
+											</div>
+										</div>
+										<div class="control-group">
+											<label class="control-label">所属方向:</label>
+											<div class="dropdown3" id="dropdown_sel">  <!-- 模拟 select 的标记， -->
+												<input class="editor3" type="text" name="research_name" disabled="disabled" value="{$gra.research_name}"/> <!-- 显示当前值的输入框 -->
+												<input class="research_id" type="hidden" name="research_id" id="research_id" value="{$gra.research_id}"/><!-- 学校id -->
+												<input class="research_name" type="hidden" name="research_name" id="research_name" value="{$gra.research_name}"/><!-- 学校name -->
+												<input class="trigger"  type="button" value="↓" /> <!-- 用于显示下拉列表的按钮 -->
+												<ul id="research">   <!-- 列表菜单 -->
+
+													   <!-- 过滤输入的列表， -->
+													<!-- 添加数据的时候，都添加在这个地方 -->
+													
+												</ul>
+											</div>
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td width="700" height="40">
+									<div class="control-group">
+										<label class="control-label">备注:</label>
+										<div class="controls">
+											<textarea name="remark">{$gra.remark}</textarea>
+										</div>
+									</div>
+								</td>
+							</tr>
+						</table>
+						<div class="form-actions">
+							<button type="submit" class="btn btn-primary js-ajax-submit">{:L('ADD')}</button>
+							<a class="btn" href="javascript:history.back(-1);">{:L('BACK')}</a>
+						</div>
+					</form>
+				</div>
+				<!-- 右边主页面结束 -->
+				<script src="__PUBLIC__/js/common.js"></script>
+				<script type="text/javascript" src="__PUBLIC__/js/datePicker/datePicker.js?v="></script>
+				<script src="__PUBLIC__/js/jquery.validate.min.js"></script>
+				<script src="__PUBLIC__/js/datePicker/datePicker.js"></script>
+				<script type="text/javascript">
+			
+					$(function(){
+						//当列表项被点击时，把列表项的值放在输入框里面，
+						$(".dropdown2").delegate("li", "click", function(e){
+							var v  = $(this).attr("data-value"),
+								drop = $(this).closest(".dropdown2");
+							var id = $(this).attr('id-value');
+							var name = $(this).attr('data-value');
+
+							$('#school_id').val(id);
+							$('#school_name').val(name);
+
+							drop.attr("data-value", v);
+							drop.find(".editor2").val(v);
+							$(this).parent().hide();
+							e.stopPropagation();
+							$("#dept_id").find("option").remove();
+
+							var url = '/index.php?g=Admin&m=Research&a=getdept&school_id='+id;
+							$.ajax({
+						        url:url,
+						        type:'GET',
+						        dataType:'json',
+						        data:{},
+						        success:function(msg){
+						          var str = "<option value=''>--请选择--</option>";
+						          $(msg).each(function(i){
+						          	var item = msg[i];
+						          	str += '<option value="'+item['id']+'" code-value="'+item['dept_code']+'" name-value="'+item['dept_name']+'">'+item['dept_name']+'</option>';
+						          });
+						          $("#dept_id").html(str);
+		                        }
+		                     });
+     
+						}).delegate(".trigger", "click", function(e){    //当下拉按钮被点击时，显示数据列表
+							$(this).closest(".dropdown2").find("ul").show();
+							e.stopPropagation();  //阻止冒泡，因为冒泡到 document 的时候，会隐藏列表
+						}).delegate(".search input", "click", function(e){
+							e.stopPropagation(); 
+						}).delegate(".search input", "keyup", function(e){    //当检测到列表中的输入框的时候，启动过滤，不满足的项隐藏
+							var v = $.trim(this.value), list = $(this).closest("ul").children("li");
+							if(v == "") {    //特殊情况，过滤输入框中没有值的时候迭代所有的列表项并显示它们
+								list.each(function(){
+									if(this.className.indexOf("search") != -1) {return;}//不考虑过滤输入框所在的列表项
+									$(this).text(this.innerText || this.textContent).show();
+								});
+							} else {
+								list.each(function(){   //迭代列表，
+									if(this.className.indexOf("search") != -1) {return;}  //不考虑过滤输入框所在的列表项
+									var lv = $(this).text();   //列表的文本
+									if(lv.indexOf(v) === -1) {   //不匹配过滤文本，就隐藏
+										$(this).hide();
+									} else {                 //匹配，把匹配的文本替换会含有标记的文本（红色）
+										$(this).html(lv.replace(v, '<span class="hot">'+v+'</span>')).show();
+									}
+								});
+							}
+							
+						});
+						
+						$(this).click(function(){   //当数据列表在显示时，如果点击了页面其它区域，则隐藏列表
+							$(".dropdown ul:visible").hide();   
+						});
+						$("#dept_id").delegate("option", "click", function(e){  // 点击所属院系
+							var dept_id = $(this).attr('value'); // 获取院系的id值
+							var dept_name = $(this).attr('name-value'); // 获取院系的name值
+							$('#dept_name').val(dept_name);
+							$("#major_id").find("option").remove();
+
+							var url = '/index.php?g=Admin&m=Research&a=getmajor&dept_id='+dept_id;
+							$.ajax({
+						        url:url,
+						        type:'GET',
+						        dataType:'json',
+						        data:{},
+						        success:function(msg){
+						          var str = "<option value=''>--请选择--</option>";
+						          $(msg).each(function(i){
+						          	var item = msg[i];
+						          	str += '<option value="'+item['major_id']+'" code-value="'+item['major_code']+'" name-value="'+item['major_name']+'">'+item['major_name']+'</option>';
+						          });
+						          $("#major_id").html(str);
+		                        }
+		                     });
+						})
+
+						$("#major_id").delegate("option", "click", function(e){  // 点击所属专业
+							var major_id = $(this).attr('value'); // 获取院系的id值
+							var major_name = $(this).attr('name-value'); // 获取院系的name值
+							$('#major_name').val(major_name);
+							$("#research_id").find("option").remove();
+
+							var url = '/index.php?g=Admin&m=Research&a=getresearch&major_id='+major_id;
+							$.ajax({
+						        url:url,
+						        type:'GET',
+						        dataType:'json',
+						        data:{},
+						        success:function(msg){
+						          var str = '<li class="search"><input type="text"/></li>';
+						          $(msg).each(function(i){
+						          	var item = msg[i];
+						          	str += '<li data-value="'+item['rch_name']+'" id-value="'+item['id']+'">'+item['rch_name']+'</li>';
+						          });
+						          $("#research").html(str);
+		                        }
+		                     });
+						})
+					});
+
+					$(function(){
+						//当列表项被点击时，把列表项的值放在输入框里面，
+						$(".dropdown3").delegate("li", "click", function(e){
+							var v  = $(this).attr("data-value"),
+								drop = $(this).closest(".dropdown3");
+							var id = $(this).attr('id-value');
+							var name = $(this).attr('data-value');
+
+							$('#research_id').val(id);
+							$('#research_name').val(name);
+
+							drop.attr("data-value", v);
+							drop.find(".editor3").val(v);
+							$(this).parent().hide();
+							e.stopPropagation();
+     
+						}).delegate(".trigger", "click", function(e){    //当下拉按钮被点击时，显示数据列表
+							$(this).closest(".dropdown3").find("ul").show();
+							e.stopPropagation();  //阻止冒泡，因为冒泡到 document 的时候，会隐藏列表
+						}).delegate(".search input", "click", function(e){
+							e.stopPropagation(); 
+						}).delegate(".search input", "keyup", function(e){    //当检测到列表中的输入框的时候，启动过滤，不满足的项隐藏
+							var v = $.trim(this.value), list = $(this).closest("ul").children("li");
+							if(v == "") {    //特殊情况，过滤输入框中没有值的时候迭代所有的列表项并显示它们
+								list.each(function(){
+									if(this.className.indexOf("search") != -1) {return;}//不考虑过滤输入框所在的列表项
+									$(this).text(this.innerText || this.textContent).show();
+								});
+							} else {
+								list.each(function(){   //迭代列表，
+									if(this.className.indexOf("search") != -1) {return;}  //不考虑过滤输入框所在的列表项
+									var lv = $(this).text();   //列表的文本
+									if(lv.indexOf(v) === -1) {   //不匹配过滤文本，就隐藏
+										$(this).hide();
+									} else {                 //匹配，把匹配的文本替换会含有标记的文本（红色）
+										$(this).html(lv.replace(v, '<span class="hot">'+v+'</span>')).show();
+									}
+								});
+							}
+							
+						});
+					});
+					// 页面加载时给单选框name为stu_gone的绑定单击事件
+					$(document).ready(function() {
+					    $("input[name='stu_gone']").bind("click",function(){
+					        //测试操作代码        
+					        var $selectedvalue = $(this).val();    
+					        if ($selectedvalue == 1) {     
+					            $("#styles").attr("style","display:block;");
+					        } else  {    
+					            $("#styles").attr("style","display:none;");
+					        }   
+					    });
+					});  
+					// 页面加载时判断是否有值
+					$(document).ready(function() {  
+						var val = $('#gone').val();
+						if (val == 1) {     
+				            $("#styles").attr("style","display:block;");
+				        } else  {    
+				            $("#styles").attr("style","display:none;");
+				        }
+				    })  
+				</script>
+			</div>
+			<!-- END PAGE CONTAINER-->
+			<script type="text/javascript">
+                $(function() {
+                    /////---------------------
+                    Wind.use('validate', 'ajaxForm', 'artDialog', function() {
+
+                        var form = $('form.js-ajax-forms');
+                        //ie处理placeholder提交问题
+                        if ($.browser && $.browser.msie) {
+                            form.find('[placeholder]').each(function() {
+                                var input = $(this);
+                                if (input.val() == input.attr('placeholder')) {
+                                    input.val('');
+                                }
+                            });
+                        }
+
+                        var formloading = false;
+                        //表单验证开始
+                        form.validate({
+                            //是否在获取焦点时验证
+                            onfocusout : false,
+                            //是否在敲击键盘时验证
+                            onkeyup : false,
+                            //当鼠标掉级时验证
+                            onclick : false,
+                            //验证错误
+                            showErrors : function(errorMap, errorArr) {
+                                //errorMap {'name':'错误信息'}
+                                //errorArr [{'message':'错误信息',element:({})}]
+                                try {
+                                    $(errorArr[0].element).focus();
+                                    art.dialog({
+                                        id : 'error',
+                                        icon : 'error',
+                                        lock : true,
+                                        fixed : true,
+                                        background : "#CCCCCC",
+                                        opacity : 0,
+                                        content : errorArr[0].message,
+                                        cancelVal : '确定',
+                                        cancel : function() {
+                                            $(errorArr[0].element).focus();
+                                        }
+                                    });
+                                } catch (err) {
+                                }
+                            },
+                            //验证规则
+                            rules : {
+                                'politics_score' : {
+                                    required : 1
+                                },
+                                'lang_score' : {
+                                    required : 1
+                                },
+                                'bus_one_score' : {
+                                    required : 1
+                                },
+                                'bus_two_score' : {
+                                    required : 1
+                                }
+                            },
+                            //验证未通过提示消息
+                            messages : {
+                                'politics_score' : {
+                                    required : '请填写政治初试成绩'
+                                },
+                                'lang_score' : {
+                                    required : '请填写外语初试成绩'
+                                },
+                                'bus_one_score' : {
+                                    required : '请填写业务课一初试成绩'
+                                },
+                                'bus_two_score' : {
+                                    required : '请填写业务课二初试成绩'
+                                }
+                            },
+                            //给未通过验证的元素加效果,闪烁等
+                            highlight : false,
+                            //是否在获取焦点时验证
+                            onfocusout : false,
+                            //验证通过，提交表单
+                            submitHandler : function(forms) {
+                                if (formloading)
+                                    return;
+                                $(forms).ajaxSubmit({
+                                    url : form.attr('action'), //按钮上是否自定义提交地址(多按钮情况)
+                                    dataType : 'json',
+                                    beforeSubmit : function(arr, $form, options) {
+                                        formloading = true;
+                                    },
+                                    success : function(data, statusText, xhr, $form) {
+                                        formloading = false;
+                                        if (data.status) {
+                                            setCookie("refersh_time", 1);
+                                            //添加成功
+                                            Wind.use("artDialog", function() {
+                                                art.dialog({
+                                                    id : "succeed",
+                                                    icon : "succeed",
+                                                    fixed : true,
+                                                    lock : true,
+                                                    background : "#CCCCCC",
+                                                    opacity : 0,
+                                                    content : data.info,
+                                                    button : [ {
+                                                        name : '继续添加？',
+                                                        callback : function() {
+                                                            reloadPage(window);
+                                                            return true;
+                                                        },
+                                                        focus : true
+                                                    }, {
+                                                        name : '返回列表页',
+                                                        callback : function() {
+                                                            location = "{:U('Major/index')}";
+                                                            return true;
+                                                        }
+                                                    } ]
+                                                });
+                                            });
+                                        } else {
+                                            artdialog_alert(data.info);
+                                        }
+                                    }
+                                });
+                            }
+                        });
+                    });
+                    ////-------------------------
+                });
+			</script>
+		</div>
+
+		<!-- END PAGE -->
+
+	</div>
+<!-- 加载的右边框架 -->
+
+
+	<!-- END CONTAINER -->
+			
+	<!-- 引入底部开始 -->
+
+	<admintpl file="footer" />
+
+	<!-- 引入底部结束 -->
+
+	<admintpl file="footer_js" />
+
+</body>
+
+<!-- END BODY -->
+
+</html>

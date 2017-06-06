@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+	<meta charset="utf-8" />
+	<title>星空海天教育</title>
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+	<meta content="" name="description" />
+	<meta content="" name="author" />
+	<!-- 引入顶部样式文件 -->
+	<admintpl file="head_css" />
+	<style>.expander{margin-left: -20px;}</style>
+</head>
+
+<!-- END HEAD -->
+<!-- BEGIN BODY -->
+<body class="page-header-fixed">
+	<!-- 引入顶部开始 -->
+	<admintpl file="head" />
+	<!-- 引入顶部结束 -->
+	<!-- BEGIN CONTAINER -->
+	<div class="page-container">
+		<!-- 引入左侧边栏开始 -->
+		<admintpl file="lefter" />
+		<!-- 引入左侧边栏结束 -->
+		<!-- BEGIN PAGE -->
+		<div class="page-content">
+			<!-- BEGIN PAGE CONTAINER-->
+			<div class="container-fluid">
+				<admintpl file="style_bn" />
+				<!-- END PAGE HEADER-->
+				<!-- 右边主页面开始 -->
+				<div class="wrap js-check-wrap">
+					<form class="well form-search" method="post" action="{:U('User/index')}">
+						<ul class="fromUl clearfix">
+							<li>
+								分校：
+								<select name="zone_id" style="width: 120px;" id="zone">
+									<option value=''>全部</option>
+									<volist name="zone" id="vo">
+										<option value='{$vo.id}'>{$vo.sz_name}</option>
+									</volist>
+								</select> &nbsp;&nbsp;
+							</li>
+							<li>
+								校区：
+								<select name="sub_zone_id" id="sub_zone" style="width: 120px;">
+									<option value=''>全部</option>
+								</select> &nbsp;&nbsp;
+							</li>
+							<li>
+								<select name="user_type" style="width: 100px;">
+									<option value="user_name">客户姓名</option>
+									<option value="user_phone">客户手机号</option>
+								</select>
+							</li>
+							<li>
+								<input type="text" name="user_con" style="width: 140px;" placeholder="请输入">&nbsp;&nbsp;
+							</li>
+						</ul>
+						<div class="frombtn">
+							<input type="submit" class="btn btn-primary" value="搜索" />
+							<input type="reset" class="btn btn-primary" value="清空" />
+						</div>
+					</form>
+						<a href="{:U('User/add')}" >
+							<input type="button" class="btn btn-primary" value="添加客户" /></a><br/><br/>
+						<table class="table table-hover table-bordered table-list">
+							<thead>
+								<tr>
+									<th width="9%">手机号</th>
+									<th width="9%">姓名</th>
+									<th width="9%">来源</th>
+									<th width="9%">分校名称</th>
+									<th width="9%">校区名称</th>
+									<th width="9%">本科学校</th>
+									<th width="9%">本科专业</th>
+									<th width="9%">目标学校</th>
+									<th width="9%">目标专业</th>
+									<th width="9%">薄弱科目</th>
+									<th width="9%">{:L('ACTIONS')}</th>
+								</tr>
+							</thead>
+							<foreach name="data" item="vo">
+							<tr>
+			                    <td>{$vo.user_phone}</td>
+								<td>{$vo.user_name}</td>
+								<td>
+									<if condition="$vo[channel] eq 1 ">线上提交表单咨询客户
+							        	<elseif condition="$vo[channel] eq 2"/>线上即时通讯咨询客户
+							        	<elseif condition="$vo[channel] eq 3"/>电话咨询客户
+							        	<elseif condition="$vo[channel] eq 4"/>宣讲会咨询客户
+							        	<elseif condition="$vo[channel] eq 5"/>店面咨询
+							        	<elseif condition="$vo[channel] eq 6"/>其他咨询
+							    	</if>
+							    </td>
+								<td>{$vo.zone_name}</td>
+								<td>{$vo.sub_zone_name}</td>
+								<td>{$vo.from}</td>
+								<td>{$vo.study_major}</td>
+								<th>{$vo.dst_school}</th>
+								<th>{$vo.dst_major}</th>
+								<td>{$vo.weak_subject}</td>
+								<td>
+									<a href="{:U('User/edit',array('id'=>$vo['id']))}">{:L('EDIT')}</a> |
+									<a href="{:U('User/info',array('id'=>$vo['id']))}">查看</a>
+								</td>
+							</tr>
+							</foreach>
+						</table>
+						<div class="page clearfix">{$page}</div>
+				</div>
+				<!-- 右边主页面结束 -->
+				<script src="__PUBLIC__/js/common.js"></script>
+				<script src="__PUBLIC__/js/datePicker/datePicker.js"></script>
+				<script>
+					$(function(){
+						//校区和分校
+						$("#zone").change(function () {
+							var pid = $(this).val();
+							var url = "/index.php?g=Market&m=Activity&a=ajaxGetSubZone";
+							$.post(url,{pid:pid},function (msg) {
+								if (msg.code == 0) {
+									alert(msg.msg);
+								}
+								var str = '<option value="">全部</option>';
+								var data = msg.data;
+								console.log(data);
+								for(var i=0; i<data.length; i++){
+									str+='<option value="'+data[i]['id']+'">'+data[i]['sz_name']+'</option>';
+								}
+								$("#sub_zone").html(str);
+							});
+						});
+
+					});
+				</script>
+			</div>
+			<!-- END PAGE CONTAINER-->
+
+		</div>
+
+		<!-- END PAGE -->
+
+	</div>
+<!-- 加载的右边框架 -->
+
+	<!-- END CONTAINER -->
+	<!-- 引入底部开始 -->
+	<admintpl file="footer" />
+	<!-- 引入底部结束 -->
+	<admintpl file="footer_js" />
+</body>
+<!-- END BODY -->
+</html>

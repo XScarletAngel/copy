@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+
+<!--[if !IE]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+
+<!-- BEGIN HEAD -->
+
+<head>
+
+	<meta charset="utf-8" />
+
+	<title>星空海天教育</title>
+
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+	<meta content="" name="description" />
+
+	<meta content="" name="author" />
+
+	<!-- 引入顶部样式文件 -->
+
+	<admintpl file="head_css" />
+	<script src="__PUBLIC__/js/jquery.js"></script>
+    <script src="__PUBLIC__/js/wind.js"></script>
+    <!-- <script src="__PUBLIC__/simpleboot/bootstrap/js/bootstrap.min.js"></script> -->
+    <script>
+    	$(function(){
+    		$("[data-toggle='tooltip']").tooltip();
+    	});
+    </script>
+	<style>.expander{margin-left: -20px;}</style>
+
+</head>
+
+<!-- END HEAD -->
+
+<!-- BEGIN BODY -->
+
+<body class="page-header-fixed">
+
+	<!-- 引入顶部开始 -->
+
+	<admintpl file="head" />
+
+	<!-- 引入顶部结束 -->
+
+	<!-- BEGIN CONTAINER -->
+
+	<div class="page-container">
+
+		<!-- 引入左侧边栏开始 -->
+
+		<admintpl file="lefter" />
+
+		<!-- 引入左侧边栏结束 -->
+
+		<!-- BEGIN PAGE -->
+
+		<div class="page-content">
+
+			<!-- BEGIN PAGE CONTAINER-->
+
+			<div class="container-fluid">
+
+				<admintpl file="style_bn" />
+
+				<!-- END PAGE HEADER-->
+
+				<!-- 右边主页面开始 -->
+				<div class="wrap js-check-wrap">
+					<ul class="nav nav-tabs">
+						<li><a href="{:U('menu/index')}">后台菜单</a></li>
+						<li><a href="{:U('menu/add')}">添加菜单</a></li>
+						<li class="active"><a href="{:U('menu/lists')}">所有菜单</a></li>
+					</ul>
+					<form class="form-horizontal js-ajax-form" action="{:U('Menu/listorders')}" method="post">
+						<div class="table-actions">
+							<a class="btn btn-primary btn-small js-ajax-dialog-btn" href="{:U('menu/restore_menu')}" data-msg="您确定恢复已备份菜单吗？它将覆盖您已经更新的菜单！">恢复菜单</a>
+							<a class="btn btn-primary btn-small js-ajax-dialog-btn" href="{:U('menu/backup_menu')}" data-msg="您确定备份菜单吗？">备份菜单</a>
+							<a class="btn btn-primary btn-small js-ajax-dialog-btn" href="{:U('menu/export_menu_lang')}" data-msg="您确定生成菜单多语言包吗？请确保应用目录下Lang目录可写！">生成菜单多语言包</a>
+							<a class="btn btn-warning btn-small" href="{:U('menu/getactions')}">导入新菜单</a>
+						</div>
+						<div class="alert alert-warning" style="margin: 0 0 5px 0;">
+							 请在开发人员指导下进行以上操作！
+						</div>
+						<table class="table table-hover table-bordered table-list">
+							<thead>
+								<tr>
+									<th width="50">ID</th>
+									<th>菜单英文名称</th>
+									<th width="40">状态</th>
+									<th width="80">管理操作</th>
+								</tr>
+							</thead>
+							<foreach name="menus" item="vo">
+							<tr>
+								<td>{$vo.id}</td>
+								<td>{$vo.name}:{$vo.app}/{$vo.model}/{$vo.action}</td>
+								<td>
+								<if condition="$vo['status'] eq 1"> 
+								显示
+								<else /> 
+								隐藏
+								</if>
+								</td>
+								<td>
+									<a href="{:U('menu/edit',array('id'=>$vo['id']))}">修改</a> | 
+									<a class="js-ajax-delete" href="{:U('menu/delete',array('id'=>$vo['id']))}">删除</a>
+								</td>
+							</tr>
+							</foreach>
+							<tfoot>
+								<tr>
+									<th width="50">ID</th>
+									<th>菜单英文名称</th>
+									<th width="40">状态</th>
+									<th width="80">管理操作</th>
+								</tr>
+							</tfoot>
+						</table>
+					</form>
+				</div>
+				<script src="__PUBLIC__/js/common.js"></script>
+			<!-- 右边主页面结束 -->
+			
+			</div>
+			<!-- END PAGE CONTAINER-->    
+			
+		</div>
+
+		<!-- END PAGE -->
+
+	</div>
+<!-- 加载的右边框架 -->
+
+	<!-- END CONTAINER -->
+			
+	<!-- 引入底部开始 -->
+
+	<admintpl file="footer" />
+
+	<!-- 引入底部结束 -->
+
+	<admintpl file="footer_js" />
+
+</body>
+
+<!-- END BODY -->
+
+</html>

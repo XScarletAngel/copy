@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+
+<!--[if IE 8]>
+<html lang="en" class="ie8 no-js"> <![endif]-->
+
+<!--[if IE 9]>
+<html lang="en" class="ie9 no-js"> <![endif]-->
+
+<!--[if !IE]><!-->
+<html lang="en" class="no-js"> <!--<![endif]-->
+
+<!-- BEGIN HEAD -->
+
+<head>
+
+    <meta charset="utf-8"/>
+
+    <title>Metronic | Admin Dashboard Template</title>
+
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+
+    <meta content="" name="description"/>
+
+    <meta content="" name="author"/>
+
+    <!-- 引入顶部样式文件 -->
+    <admintpl file="head_css"/>
+    <script src="__PUBLIC__/js/jquery.js"></script>
+    <script src="__PUBLIC__/js/wind.js"></script>
+    <!-- <script src="__PUBLIC__/simpleboot/bootstrap/js/bootstrap.min.js"></script> -->
+    <script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+    <script>
+        $(function () {
+            $("[data-toggle='tooltip']").tooltip();
+        });
+    </script>
+
+
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <script type="text/javascript" charset="utf-8" src="vendor/qiniu_ueditor/ueditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="vendor/qiniu_ueditor/ueditor.all.min.js"></script>
+    <!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
+    <!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
+    <script type="text/javascript" charset="utf-8" src="vendor/qiniu_ueditor/lang/zh-cn/zh-cn.js"></script>
+    <script type="text/javascript" charset="utf-8" src="vendor/qiniu_ueditor/kityformula-plugin/addKityFormulaDialog.js"></script>
+    <script type="text/javascript" charset="utf-8" src="vendor/qiniu_ueditor/kityformula-plugin/getKfContent.js"></script>
+    <script type="text/javascript" charset="utf-8" src="vendor/qiniu_ueditor/kityformula-plugin/defaultFilterFix.js"></script>
+
+    <style>
+        .question {
+            width: 100%;
+            height: 100px;
+        }
+
+        label {
+            display: inline-block;
+        }
+
+        .controls input[type="radio"] {
+            margin-left: 0px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .dropdown2 {
+            display: inline-block;
+            width: 220px;
+            height: 20px;
+            position: relative;
+            margin-left: 20px;
+        }
+
+        .dropdown2 .editor {
+            display: block;
+            border: 0;
+            padding: 0;
+            width: 100%;
+            box-shadow: inset 1px 2px 3px #ddd;
+            height: inherit;
+        }
+
+        .dropdown2 .trigger {
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding: 3px;
+        }
+
+        .dropdown2 ul {
+            display: none;
+            width: 98%;
+            height: 140px;
+            padding: 2px;
+            position: absolute;
+            top: 100%;
+            background-color: #FFF;
+            border: 1px solid #DDD;
+            border-radius: 0 0 5px 5px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            margin: 0px;
+            z-index: 10;
+            margin-top: 8px;
+        }
+
+        .dropdown2 ul li {
+            height: 20px;
+            display: block;
+            font-size: 12px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .dropdown2 ul li .hot {
+            color: red;
+        }
+
+        .dropdown2 ul li:hover {
+            background-color: #EEE;
+        }
+
+        .dropdown2 ul .search {
+            display: block;
+            border-bottom: 1px solid #808080;
+        }
+
+        .dropdown2 ul .search:hover {
+            background-color: #FFF;
+        }
+
+        .dropdown2 ul .search input {
+            padding: 2px;
+            width: 100%;
+            border: 0;
+            font-size: 14px;
+            background: none;
+        }
+        .table-catalog > td {
+            text-align: left;
+        }
+        .table-catalog  {
+            text-align: left;
+        }
+    </style>
+</head>
+
+<!-- END HEAD -->
+
+<!-- BEGIN BODY -->
+
+<body class="page-header-fixed">
+
+<!-- 引入顶部开始 -->
+
+<admintpl file="head"/>
+
+<!-- 引入顶部结束 -->
+
+<!-- BEGIN CONTAINER -->
+
+<div class="page-container">
+
+    <!-- 引入左侧边栏开始 -->
+
+    <admintpl file="lefter"/>
+
+    <!-- 引入左侧边栏结束 -->
+
+    <!-- BEGIN PAGE -->
+
+    <div class="page-content">
+
+        <!-- BEGIN PAGE CONTAINER-->
+
+        <div class="container-fluid">
+
+            <admintpl file="style_bn"/>
+
+            <!-- END PAGE HEADER-->
+
+            <form action="{:U('exercises/store')}" method="post" enctype="multipart/form-data">
+                <input name="course_id" type="hidden" value="<?php echo $_GET['id']; ?>">
+                <table class="table table-hover table-bordered table-list">
+                    <tr>
+                        <td  style="width:80px;">
+                            题型:
+                        </td>
+                        <td>
+                            <select name="ce_type" id="ce_type" autocomplete="off" required>
+                                <option value="">--请选择--</option>
+                                <option value="1">单选</option>
+                                <option value="2">多选</option>
+                                <option value="3">不定选</option>
+                                <option value="4">判断</option>
+                            </select>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td> 题干:</td>
+                        <td>
+                            <script id="ce_title" type="text/plain" name="ce_title" style="width:100%;height:100px;"></script>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>选项：</td>
+                        <td>
+                        <script id="options" type="text/plain" name="lloptions[]" style="width:100%;height:100px;"></script>
+                        <div class="conttitle" id="conttitle"></div>
+                            <a href="javascript:;" onclick="getUE()">添加选项</a>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>解析：</td>
+                        <td>
+                            <script id="ce_analyze" type="text/plain" name="ce_analyze" style="width:100%;height:100px;"></script>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>技能：</td>
+                        <td>
+                            <select name="ce_skill" id="ce_skill" autocomplete="off">
+                                <option value="全部" onclick="$('#diy_ce_skill').hide().val('全部');">全部</option>
+                                <option value="常识" onclick="$('#diy_ce_skill').hide().val('常识');">常识</option>
+                                <option value="应用" onclick="$('#diy_ce_skill').hide().val('应用');">应用</option>
+                            </select>
+                                <a href="javascript:;" onclick="$('#diy_ce_skill').show().val('');">新增技能</a>
+                                <input name="diy_ce_skill" type="text" id="diy_ce_skill" style="display: none" value="0">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>难度：</td>
+                        <td>
+                            <label><input name="ce_level" type="radio" value="1">难</label>
+                            <label><input name="ce_level" type="radio" value="2">中</label>
+                            <label><input name="ce_level" type="radio" value="3">易</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>答案：</td>
+                        <td>
+                            <div id=answerArea>
+                                <label><input name="answer[]" type="checkbox" value="A">A</label>
+                            </div>
+                            </td>
+                        </tr>
+                    <tr>
+                        <td>分数：</td>
+                         <td>
+                            <input name="score" type="text" required placeholder="请填入分值">
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>知识点：</td>
+                        <td>
+                        <!--  <input name="point_info" type="text" required >-->
+                        <table class='table-catalog'>
+                            <foreach name="res" item="vo">
+                            <tr>
+                            <td style='text-align: left;'><input type='checkbox' name="point_info[]" value='{$vo.id}'>&nbsp;&nbsp;
+                            {$vo.catalog_name}&nbsp;&nbsp;
+                        <if condition="$vo.tag neq ''">【{$vo.tag}】</if>
+                        </td>
+                        </tr>
+                        </foreach>
+                        </table>
+                        </td>
+                    </tr>
+
+                </table>
+                <div class="frombtn">
+                    <input type="submit" value='提交' class="btn btn-primary">
+                </div>
+            </form>
+
+
+            <!-- 右边主页面结束 -->
+            <script src="__PUBLIC__/js/common.js"></script>
+            <script type="text/javascript">
+                //定义工具栏
+                 var tools = [["undo","redo","selectall","searchreplace","insertimage","emotion","bold","italic","underline","strikethrough","forecolor"]];
+                 var options = UE.getEditor(
+                     'options',{
+                         toolbars:tools, //工具栏
+                         wordCount:true, //开启字数统计
+                         maximumWords:10000, //允许的最大字符数
+                         initialContent:'请在此输入选项A内容', //初始化编辑器的内容,也可以通过textarea/script给值，看官网例子
+                         autoClearinitialContent:true, //是否自动清除编辑器初始内容，注意：如果focus属性设置为true,这个也为真，那么编辑器一上来就会触发导致初始化的内容看不到了
+                         pasteplain:true, //是否默认为纯文本粘贴。false为不使用纯文本粘贴，true为使用纯文本粘贴
+                      });
+                 var point_info = UE.getEditor('point_info',{toolbars:tools});
+                 var ce_title = UE.getEditor('ce_title',{toolbars:tools});
+                 var ce_analyze = UE.getEditor('ce_analyze',{toolbars:tools});
+                 var optsel = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
+                optselectNo=1;
+                 //生成ueditor
+                function getUE() {
+
+                     crateueditor("aa"+optselectNo,'admin'+optselectNo);
+                     createanwser();
+                    optselectNo++;
+                 }
+                 //创建新的答案checkbox DOM
+                 function createanwser() {
+
+                     $("#answerArea").append(' <label><input name="answer[]" type="checkbox" value="'+optsel[optselectNo]+'">'+optsel[optselectNo]+'</label>');
+
+                 }
+                 //创建一个新的UE编辑器选项
+                 function crateueditor(str,val){
+                     //新建DOM
+                     $("#conttitle").append("<script id='"+str+"' type='text/plain' name='lloptions[]' style='width:100%;height:100px;'><\/script>");
+                     //实例化UE
+                     var val = UE.getEditor(str,{
+                         toolbars:[tools],
+                         wordCount:true, //开启字数统计
+                         maximumWords:10000, //允许的最大字符数
+                         initialContent:'请在此输入选项'+optsel[optselectNo]+'内容', //初始化编辑器的内容,也可以通过textarea/script给值，看官网例子
+                         autoClearinitialContent:true, //是否自动清除编辑器初始内容，注意：如果focus属性设置为true,这个也为真，那么编辑器一上来就会触发导致初始化的内容看不到了
+                         pasteplain:true, //是否默认为纯文本粘贴。false为不使用纯文本粘贴，true为使用纯文本粘贴
+                     });
+                 }
+
+            </script>
+
+            </div>
+    </div>
+</div>
+<admintpl file="footer"/>
+
+<!-- 引入底部结束 -->
+
+<admintpl file="footer_js"/>
+
+</body>
+
+<!-- END BODY -->
+
+</html>

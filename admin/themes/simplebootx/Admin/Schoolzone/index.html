@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+
+<!--[if !IE]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+
+<!-- BEGIN HEAD -->
+
+<head>
+
+	<meta charset="utf-8" />
+
+	<title>星空海天教育</title>
+
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+	<meta content="" name="description" />
+
+	<meta content="" name="author" />
+
+	<!-- 引入顶部样式文件 -->
+
+	<admintpl file="head_css" />
+	<script src="__PUBLIC__/js/jquery.js"></script>
+    <script src="__PUBLIC__/js/wind.js"></script>
+    <!-- <script src="__PUBLIC__/simpleboot/bootstrap/js/bootstrap.min.js"></script> -->
+    <script>
+    	$(function(){
+    		$("[data-toggle='tooltip']").tooltip();
+    	});
+    </script>
+	<style>.expander{margin-left: -20px;}</style>
+
+</head>
+
+<!-- END HEAD -->
+
+<!-- BEGIN BODY -->
+
+<body class="page-header-fixed">
+
+	<!-- 引入顶部开始 -->
+
+	<admintpl file="head" />
+
+	<!-- 引入顶部结束 -->
+
+	<!-- BEGIN CONTAINER -->
+
+	<div class="page-container">
+
+		<!-- 引入左侧边栏开始 -->
+
+		<admintpl file="lefter" />
+
+		<!-- 引入左侧边栏结束 -->
+
+		<!-- BEGIN PAGE -->
+
+		<div class="page-content">
+
+			<!-- BEGIN PAGE CONTAINER-->
+
+			<div class="container-fluid">
+
+				<admintpl file="style_bn" />
+
+				<!-- END PAGE HEADER-->
+
+				<!-- 右边主页面开始 -->
+				<div class="wrap js-check-wrap">
+					<if condition="$categorys eq ''">
+					<ul class="nav nav-tabs">
+						<li><a href="{:U('Schoolzone/add')}">添加校区</a></li>
+					</ul>
+					</if>
+					<form class="js-ajax-form" action="" method="post">
+						<table class="table table-hover table-bordered table-list" id="menus-table">
+							<thead>
+								<tr>
+									<th width="70"></th>
+									<th width="50">类型</th>
+									<th width="50">编号</th>
+									<th width="100">名称</th>
+									<th width="300">地址</th>
+									<th width="80">负责人</th>
+									<th width="80">电话</th>
+									<th width="180">{:L('ACTIONS')}</th>
+								</tr>
+							</thead>
+							<tbody>
+								{$categorys}
+							</tbody>
+						</table>
+					</form>
+				</div>
+				<script src="__PUBLIC__/js/common.js"></script>
+				<script>
+					$(document).ready(function() {
+						Wind.css('treeTable');
+						Wind.use('treeTable', function() {
+							$("#menus-table").treeTable({
+								indent : 20
+							});
+						});
+					});
+
+					setInterval(function() {
+						var refersh_time = getCookie('refersh_time_admin_menu_index');
+						if (refersh_time == 1) {
+							reloadPage(window);
+						}
+					}, 1000);
+					setCookie('refersh_time_admin_menu_index', 0);
+
+					$(function(){
+						$(".delete").click(function(){
+							var id = $(this).attr('id-value');
+							var url = "index.php?g=Admin&m=Schoolzone&a=delete";
+							var index = layer.confirm('确认要删除吗?',function(){
+								$.ajax({
+								    type:'POST',
+								    url:url,
+								    data:{id:id},
+								    success:function(msg){
+								       if(msg.code == '1'){
+								       	  layer.msg(msg.msg);
+								          window.location.href='index.php?g=Admin&m=Schoolzone&a=index';
+								       // location.reload();
+								       }else{
+								       	layer.msg(msg.msg);
+								       }
+								    },
+								    error:function(){
+								    	alert('请求失败');
+								    }
+								});
+								layer.close(index)
+							})
+						});
+					});
+				</script>
+			<!-- 右边主页面结束 -->
+
+			</div>
+			<!-- END PAGE CONTAINER-->
+
+		</div>
+
+		<!-- END PAGE -->
+
+	</div>
+<!-- 加载的右边框架 -->
+
+
+	<!-- END CONTAINER -->
+
+	<!-- 引入底部开始 -->
+
+	<admintpl file="footer" />
+
+	<!-- 引入底部结束 -->
+
+	<admintpl file="footer_js" />
+
+</body>
+
+<!-- END BODY -->
+
+</html>

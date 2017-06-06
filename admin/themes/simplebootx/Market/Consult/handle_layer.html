@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+
+<!--[if !IE]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+
+<!-- BEGIN HEAD -->
+
+<head>
+
+	<meta charset="utf-8" />
+
+	<title>Metronic | Admin Dashboard Template</title>
+
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+	<meta content="" name="description" />
+
+	<meta content="" name="author" />
+
+	<!-- 引入顶部样式文件 -->
+	<link href="__PUBLIC__/media/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+
+	<link href="__PUBLIC__/media/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css"/>
+	<style>
+		.expander{margin-left: -20px;}
+		.controls input[type="radio"] {margin-left:0px;}
+	</style>
+
+</head>
+
+<!-- END HEAD -->
+
+<!-- BEGIN BODY -->
+
+<body class="page-header-fixed">
+
+	<!-- 引入顶部开始 -->
+
+
+	<!-- 引入顶部结束 -->
+
+	<!-- BEGIN CONTAINER -->
+
+	<div class="page-container">
+
+		<!-- 引入左侧边栏开始 -->
+
+
+		<!-- 引入左侧边栏结束 -->
+
+		<!-- BEGIN PAGE -->
+
+		<div class="page-content">
+
+			<!-- BEGIN PAGE CONTAINER-->
+
+			<div class="container-fluid">
+
+				<!-- END PAGE HEADER-->
+
+				<!-- 右边主页面开始 -->
+				<div class="wrap js-check-wrap">
+					<form method="post" class="form-horizontal js-ajax-forms" action="{:U('Consult/handle_layer_post')}">
+						<table>
+							<tr>
+								<input type="hidden" name="id" value="{$id}">
+								<td width="500" height="40">
+									<div class="control-group">
+										<label class="control-label">*处理操作:</label>
+										<div class="controls">
+											<input type="radio" name="oper_type" value="4" checked>处理完成
+											<input type="radio" name="oper_type" value="3">继续跟进
+											<input type="radio" name="oper_type" value="2">分配
+											<select name="forward_uid">
+												<foreach name="data" item="vo">
+												<option value="{$vo.id}">{$vo.user_nicename}</option>
+												</foreach>
+											</select>
+										</div>
+									</div>
+								</td>
+								<td width="500" height="40">
+								</td>
+							</tr>
+							<tr>
+								<td width="500" height="40">
+									<div class="control-group">
+										<label class="control-label">备注:</label>
+										<div class="controls">
+											<textarea name="remark"></textarea>
+										</div>
+									</div>
+								</td>
+								<td width="500" height="40">
+								</td>
+							</tr>
+						</table>
+						<div class="form-actions">
+							<button type="submit" class="btn btn-primary js-ajax-submit">{:L('ADD')}</button>
+							<a class="btn" href="javascript:history.back(-1);">{:L('BACK')}</a>
+						</div>
+					</form>
+
+					<table class="table table-hover table-bordered table-list">
+						<thead>
+							<tr>
+								<th width="9%">操作时间</th>
+								<th width="9%">操作类型</th>
+								<th width="9%">操作人</th>
+								<th width="9%">被分配人</th>
+								<th width="9%">备注</th>
+							</tr>
+						</thead>
+						<foreach name="datalog" item="vo">
+						<tr>
+		                    <td>{$vo.add_time}</td>
+							<td>
+								<if condition="$vo[oper_type] eq 1 ">创建
+						        	<elseif condition="$vo[oper_type] eq 2"/>分配
+						        	<elseif condition="$vo[oper_type] eq 3"/>继续跟进
+						        	<elseif condition="$vo[oper_type] eq 4"/>处理完成
+						    	</if>
+						    </td>
+							<td>{$vo.oper_uname}</td>
+							<td>{$vo.forward_uname}</td>
+							<td>{$vo.remark}</td>
+						</tr>
+						</foreach>
+					</table>
+
+				</div>
+				<!-- 右边主页面结束 -->
+			</div>
+			<!-- END PAGE CONTAINER-->    
+			
+		</div>
+
+		<!-- END PAGE -->
+
+	</div>
+<!-- 加载的右边框架 -->
+
+
+	<!-- END CONTAINER -->
+			
+	<!-- 引入底部开始 -->
+
+
+	<!-- 引入底部结束 -->
+
+
+</body>
+
+<!-- END BODY -->
+
+</html>

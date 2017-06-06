@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+
+<!--[if !IE]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+
+<!-- BEGIN HEAD -->
+
+<head>
+
+	<meta charset="utf-8" />
+
+	<title>星空海天教育</title>
+
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+	<meta content="" name="description" />
+
+	<meta content="" name="author" />
+
+	<!-- 引入顶部样式文件 -->
+	<admintpl file="head_css" />
+	<script src="__PUBLIC__/js/jquery.js"></script>
+    <script src="__PUBLIC__/js/wind.js"></script>
+    <!-- <script src="__PUBLIC__/simpleboot/bootstrap/js/bootstrap.min.js"></script> -->
+    <script>
+    	$(function(){
+    		$("[data-toggle='tooltip']").tooltip();
+    	});
+    </script>
+
+</head>
+
+<!-- END HEAD -->
+
+<!-- BEGIN BODY -->
+
+<body class="page-header-fixed">
+
+	<!-- 引入顶部开始 -->
+
+	<admintpl file="head" />
+
+	<!-- 引入顶部结束 -->
+
+	<!-- BEGIN CONTAINER -->
+
+	<div class="page-container">
+
+		<!-- 引入左侧边栏开始 -->
+
+		<admintpl file="lefter" />
+
+		<!-- 引入左侧边栏结束 -->
+
+		<!-- BEGIN PAGE -->
+
+		<div class="page-content">
+
+			<!-- BEGIN PAGE CONTAINER-->
+
+			<div class="container-fluid">
+
+				<admintpl file="style_bn" />
+
+				<!-- END PAGE HEADER-->
+
+				<!-- 右边主页面开始 -->
+
+				<table   class="table table-hover table-bordered table-list">
+					<tr>
+						<td colspan="4" style="text-align: center;"><h5>教师基本信息</h5></td>
+					</tr>
+					<tr>
+						<td>手机号</td>  <td>{$userData.user_login}</td>
+						<td>姓名</td>    <td>{$userData.user_name}</td>
+					</tr>
+					<tr>
+						<td>头像</td>    <td><img src="http://ooylo9ron.bkt.clouddn.com/{$userData.avatar}" width="100px" height="100px" /></td>
+						<td>邮箱</td> <td>{$userData.user_email}</td>
+					</tr>
+					<tr>
+						<td>个人网站</td> <td>{$userData.user_url}</td>
+						<td>性别</td>
+						<td>
+							<if condition="$userData.sex eq 1 ">男 <else />女 </if>
+						</td>
+					</tr>
+					<tr>
+						<td>生日</td> <td>{$userData.birthday}</td>
+						<td>个性签名</td> <td>{$userData.signature}</td>
+					</tr>
+					<tr>
+						<td>创建时间</td> <td>{$userData.create_time}</td>
+						<td>用户状态</td>
+						<td>
+							<if condition="$userData.user_status eq 0 ">禁用</if>
+							<if condition="$userData.user_status eq 1 ">正常</if>
+							<if condition="$userData.user_status eq 2 ">未验证</if>
+						</td>
+					</tr>
+					<tr>
+						<td>积分</td> <td>{$userData.score}</td>
+						<td>是否同时是学生</td>
+						<td>
+							<if condition="$userData.user_type eq 3 ">是<else />否</if>
+						</td>
+					</tr>
+					<tr>
+						<td>金币</td> <td>{$userData.coin}</td>
+						<td>发言权限</td>
+						<td>
+							<if condition="$userData.no_talk eq 1 ">可以发言</if>
+							<if condition="$userData.no_talk eq 2 ">禁止发言</if>
+						</td>
+					</tr>
+					<tr>
+
+						<td>来源</td>
+						<td>
+							<if condition="$userData.source eq 1 ">后台创建</if>
+							<if condition="$userData.source eq 2 ">手机端注册</if>
+							<if condition="$userData.source eq 3 ">web端注册</if>
+						</td>
+						</td>
+						<td>联系方式</td> <td>{$userData.mobile}</td>
+					</tr>
+					</tr>
+					<tr>
+
+						<td colspan="4" style="text-align: center;"><h5>教师相关信息</h5></td>
+					</tr>
+					<tr>
+						<td>教师编号</td> <td>{$tcData.tch_no}</td>
+						<td>签约状态</td>
+						<td>
+							<if condition="$tcData.sign_status eq 1 ">签约</if>
+							<if condition="$tcData.sign_status eq 2 ">解约</if>
+						</td>
+					</tr>
+					<tr>
+						<td>签约日期</td> <td>{$tcData.sign_date}</td>
+						<td>读研时间</td> <td>{$tcData.graduate_time}</td>
+					</tr>
+					<tr>
+						<td>读研学校</td> <td>{$tcData.school}</td>
+						<td>读研学校编号</td> <td>{$tcData.school_code}</td>
+					</tr>
+					<tr>
+						<td>读研院系</td> <td>{$tcData.school_dept}</td>
+						<td>读研院系编号</td> <td>{$tcData.school_dept_code}</td>
+					</tr>
+					<tr>
+						<td>读研专业</td> <td>{$tcData.school_major}</td>
+						<td>读研专业编号</td> <td>{$tcData.school_major_code}</td>
+					</tr>
+					<tr>
+						<td>读研方向</td> <td>{$tcData.school_research}</td>
+						<td>读研方向编号</td> <td>{$tcData.school_research_code}</td>
+					</tr>
+					<tr>
+						<td>居住城市</td>    <td>{$userData.province}-{$userData.city}-{$userData.county}</td>
+						<td>备注信息</td>    <td>{$tcData.remark}</td>
+					</tr>
+				</table>
+
+				<!-- 右边主页面结束 -->
+				<script src="__PUBLIC__/js/common.js"></script>
+				<script type="text/javascript" src="__PUBLIC__/js/datePicker/datePicker.js?v="></script>
+
+			</div>
+			<!-- END PAGE CONTAINER-->    
+			
+		</div>
+
+		<!-- END PAGE -->
+
+	</div>
+<!-- 加载的右边框架 -->
+
+
+	<!-- END CONTAINER -->
+			
+	<!-- 引入底部开始 -->
+
+	<admintpl file="footer" />
+
+	<!-- 引入底部结束 -->
+
+	<admintpl file="footer_js" />
+
+</body>
+
+<!-- END BODY -->
+
+</html>

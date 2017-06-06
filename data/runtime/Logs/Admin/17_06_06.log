@@ -1,0 +1,50 @@
+[ 2017-06-06T10:44:57+08:00 ] 127.0.0.1 /index.php?g=Admin&m=Menu&a=index
+NOTIC: D方法实例化没找到模型类Common\Model\AuthRuleModel
+
+[ 2017-06-06T11:27:15+08:00 ] 127.0.0.1 /index.php?g=&m=public&a=dologin
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000641s ]
+INFO: Run Behavior\CheckLangBehavior [ RunTime:0.000795s ]
+INFO: Run Common\Behavior\UrldecodeGetBehavior [ RunTime:0.000234s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002332s ]
+INFO: [ admin_begin ] --START--
+INFO: Run Common\Behavior\AdminDefaultLangBehavior [ RunTime:0.000842s ]
+INFO: [ admin_begin ] --END-- [ RunTime:0.000916s ]
+INFO: [ action_begin ] --START--
+INFO: Run Common\Behavior\AdminLogBehavior [ RunTime:0.000564s ]
+INFO: [ action_begin ] --END-- [ RunTime:0.000653s ]
+SQL: SHOW COLUMNS FROM `xkht_admin_users` [ RunTime:0.0104s ]
+SQL: SELECT * FROM `xkht_admin_users` WHERE `user_login` = 'xlyt' LIMIT 1   [ RunTime:0.0104s ]
+
+[ 2017-06-06T11:27:28+08:00 ] 127.0.0.1 /index.php?g=&m=public&a=dologin
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000560s ]
+INFO: Run Behavior\CheckLangBehavior [ RunTime:0.000683s ]
+INFO: Run Common\Behavior\UrldecodeGetBehavior [ RunTime:0.000161s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001873s ]
+INFO: [ admin_begin ] --START--
+INFO: Run Common\Behavior\AdminDefaultLangBehavior [ RunTime:0.000752s ]
+INFO: [ admin_begin ] --END-- [ RunTime:0.000822s ]
+INFO: [ action_begin ] --START--
+INFO: Run Common\Behavior\AdminLogBehavior [ RunTime:0.000406s ]
+INFO: [ action_begin ] --END-- [ RunTime:0.000458s ]
+SQL: SHOW COLUMNS FROM `xkht_admin_users` [ RunTime:0.0124s ]
+
+[ 2017-06-06T11:27:57+08:00 ] 127.0.0.1 /index.php?g=&m=public&a=dologin
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000504s ]
+INFO: Run Behavior\CheckLangBehavior [ RunTime:0.000887s ]
+INFO: Run Common\Behavior\UrldecodeGetBehavior [ RunTime:0.000163s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001976s ]
+INFO: [ admin_begin ] --START--
+INFO: Run Common\Behavior\AdminDefaultLangBehavior [ RunTime:0.001460s ]
+INFO: [ admin_begin ] --END-- [ RunTime:0.001594s ]
+INFO: [ action_begin ] --START--
+INFO: Run Common\Behavior\AdminLogBehavior [ RunTime:0.000816s ]
+INFO: [ action_begin ] --END-- [ RunTime:0.000918s ]
+SQL: SHOW COLUMNS FROM `xkht_admin_users` [ RunTime:0.0059s ]
+SQL: SELECT * FROM `xkht_admin_users` WHERE `user_login` = '123' LIMIT 1   [ RunTime:0.0464s ]
+SQL: SHOW COLUMNS FROM `xkht_role_user` [ RunTime:0.0102s ]
+SQL: SELECT `role_id` FROM xkht_role_user a INNER JOIN xkht_role as b on a.role_id =b.id  WHERE `user_id` = '3' AND `status` = 1  [ RunTime:0.0069s ]
+SQL: UPDATE `xkht_admin_users` SET `user_login`='123',`user_no`='',`user_pass`='###13c701ca68908b237af1371a50486629',`user_nicename`='123',`user_email`='12377@qq.com',`user_url`='',`avatar`=NULL,`sex`='0',`birthday`='2000-01-01',`signature`=NULL,`last_login_ip`='127.0.0.1',`last_login_time`='2017-06-06 11:27:57',`create_time`='2017-05-17 17:45:40',`user_activation_key`='',`user_status`='1',`score`='0',`user_type`='1',`coin`='0',`mobile`='',`pw_reset`='1' WHERE `id` = '3' [ RunTime:0.0134s ]
+

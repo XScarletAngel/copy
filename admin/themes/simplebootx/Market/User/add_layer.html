@@ -1,0 +1,5 @@
+<form action="" method="post">
+		<foreach name="data" item="vo">
+			<input type="checkbox" name="cat[]" value="{$vo.id}">{$vo.act_name}
+		</foreach>
+</form>

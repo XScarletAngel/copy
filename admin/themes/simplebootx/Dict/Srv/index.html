@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+
+<!--[if !IE]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+
+<!-- BEGIN HEAD -->
+
+<head>
+
+	<meta charset="utf-8" />
+
+	<title>星空海天教育</title>
+
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+	<meta content="" name="description" />
+
+	<meta content="" name="author" />
+
+	<!-- 引入顶部样式文件 -->
+
+	<admintpl file="head_css" />
+	<script src="__PUBLIC__/js/jquery.js"></script>
+    <script src="__PUBLIC__/js/wind.js"></script>
+	<script src="__PUBLIC__/simpleboot/bootstrap/js/bootstrap.min.js"></script>
+
+    <script>
+    	$(function(){
+    		$("[data-toggle='tooltip']").tooltip();
+    	});
+    </script>
+	<style>.expander{margin-left: -20px;}</style>
+
+</head>
+
+<!-- END HEAD -->
+
+<!-- BEGIN BODY -->
+
+<body class="page-header-fixed">
+
+	<!-- 引入顶部开始 -->
+
+	<admintpl file="head" />
+
+	<!-- 引入顶部结束 -->
+
+	<!-- BEGIN CONTAINER -->
+
+	<div class="page-container">
+
+		<!-- 引入左侧边栏开始 -->
+
+		<admintpl file="lefter" />
+
+		<!-- 引入左侧边栏结束 -->
+
+		<!-- BEGIN PAGE -->
+
+		<div class="page-content">
+
+			<!-- BEGIN PAGE CONTAINER-->
+
+			<div class="container-fluid">
+
+				<admintpl file="style_bn" />
+
+				<!-- END PAGE HEADER-->
+
+				<!-- 右边主页面开始 -->
+				<div class="wrap js-check-wrap">
+					<form class="well form-search" method="post" action="{:U('Srv/index')}">
+						<ul class="fromUl clearfix">
+							<li>
+								服务名称：
+								<input type="text" id="kw" name="kw" style="width: 200px;" value="{$Think.request.kw}" placeholder="请输入...">
+							</li>
+						</ul>
+						<div class="frombtn">
+								<input type="submit" class="btn btn-primary" value="搜索" />
+								<input type="reset" class="btn btn-primary" value="清空" />
+								<input type="button" class="btn btn-primary" value="添加服务" id="addSrv"/>
+						</div>
+					</form>
+						<table class="table table-hover table-bordered table-list">
+							<thead>
+								<tr>
+									<th width="10%">ID</th>
+									<th width="20%">服务名称</th>
+									<th width="10%">服务类型</th>
+									<th width="30%">服务说明</th>
+									<th width="10%">服务状态</th>
+									<th width="20%">{:L('ACTIONS')}</th>
+								</tr>
+							</thead>
+							<foreach name="res.data" item="vo">
+							<tr>
+			                    <td>{$vo.id}</td>
+								<td>{$vo.srv_name}</td>
+								<td>
+									<if condition="$vo.srv_type eq 1 ">线上服务<else />线下服务</if>
+								</td>
+								<td>{$vo.srv_info}</td>
+								<td><if condition="$vo.srv_status eq 1 ">启用<else />停用</if></td>
+
+								<td>
+									<a class="editRow" url="{:U('Dict/Srv/edit',array('id'=>$vo['id']))}" href="javascript:void(0);">{:L('EDIT')}</a> |
+									<if condition="$vo.srv_status eq 2 ">
+										<a href="javascript:void(0);" id-value="{$vo.id}" srv_status="1" class="changeSt">
+											启用
+										</a>
+									<else/>
+										<a href="javascript:void(0);" id-value="{$vo.id}" srv_status="2" class="changeSt">
+											停用
+										</a>
+									</if>
+								</td>
+							</tr>
+							</foreach>
+						</table>
+						<div class="page clearfix">{$res.page}</div>
+				</div>
+				<!-- 右边主页面结束 -->
+				<script>
+					$("#addSrv").on('click',function () {
+						var html = "{:U('Dict/Srv/add')}";
+						layer.open({
+							type: 2,
+							title: '添加服务',
+							skin: 'layui-layer-rim', //加上边框
+							area: ['50%', '50%'], //宽高
+							content: html
+						});
+					});
+
+					$(".editRow").on('click',function () {
+						var html = $(this).attr('url');
+						layer.open({
+							type: 2,
+							title: '编辑服务',
+							skin: 'layui-layer-rim', //加上边框
+							area: ['50%', '50%'], //宽高
+							content: html
+						});
+					});
+					$("input[type=reset]").click(function () {
+						$("#kw").val("");return false;
+					});
+				</script>
+
+				<script>
+					$(function(){
+						$(".changeSt").click(function(){
+
+							var id = $(this).attr('id-value');
+							var url = "{:U('Dict/Srv/changeStatus')}";
+							var srv_status = $(this).attr('srv_status');
+							$.ajax({
+							    type:'POST',
+							    url:url,
+							    data:{id:id,srv_status:srv_status},
+							    success:function(msg){
+							       if(msg.code == '1'){
+					       	     	layer.msg(msg.msg)
+					       	    	location.reload();
+							       }else{
+							       		layer.msg(msg.msg)
+							       }
+							    },
+							    error:function(){
+							    	layer.msg('请求失败')
+							    }
+							});
+						});
+
+					});
+				</script>
+			</div>
+			<!-- END PAGE CONTAINER-->
+
+		</div>
+
+		<!-- END PAGE -->
+
+	</div>
+<!-- 加载的右边框架 -->
+
+
+	<!-- END CONTAINER -->
+
+	<!-- 引入底部开始 -->
+
+	<admintpl file="footer" />
+
+	<!-- 引入底部结束 -->
+
+	<admintpl file="footer_js" />
+
+</body>
+
+<!-- END BODY -->
+
+</html>

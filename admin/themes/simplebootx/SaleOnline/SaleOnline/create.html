@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+
+<!--[if IE 8]>
+<html lang="en" class="ie8 no-js"> <![endif]-->
+
+<!--[if IE 9]>
+<html lang="en" class="ie9 no-js"> <![endif]-->
+
+<!--[if !IE]><!-->
+<html lang="en" class="no-js"> <!--<![endif]-->
+
+<!-- BEGIN HEAD -->
+
+<head>
+
+    <meta charset="utf-8"/>
+
+    <title>Metronic | Admin Dashboard Template</title>
+
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+
+    <meta content="" name="description"/>
+
+    <meta content="" name="author"/>
+
+    <!-- 引入顶部样式文件 -->
+    <admintpl file="head_css"/>
+    <script src="__PUBLIC__/js/jquery.js"></script>
+    <script src="__PUBLIC__/js/wind.js"></script>
+    <!-- <script src="__PUBLIC__/simpleboot/bootstrap/js/bootstrap.min.js"></script> -->
+    <script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+    <script>
+        $(function () {
+            $("[data-toggle='tooltip']").tooltip();
+        });
+    </script>
+    <style>
+        label {
+            display: inline-block;
+        }
+
+        .controls input[type="radio"] {
+            margin-left: 0px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .dropdown2 {
+            display: inline-block;
+            width: 220px;
+            height: 20px;
+            position: relative;
+            margin-left: 20px;
+        }
+
+        .dropdown2 .editor {
+            display: block;
+            border: 0;
+            padding: 0;
+            width: 100%;
+            box-shadow: inset 1px 2px 3px #ddd;
+            height: inherit;
+        }
+
+        .dropdown2 .trigger {
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding: 3px;
+        }
+
+        .dropdown2 ul {
+            display: none;
+            width: 98%;
+            height: 140px;
+            padding: 2px;
+            position: absolute;
+            top: 100%;
+            background-color: #FFF;
+            border: 1px solid #DDD;
+            border-radius: 0 0 5px 5px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            margin: 0px;
+            z-index: 10;
+            margin-top: 8px;
+        }
+
+        .dropdown2 ul li {
+            height: 20px;
+            display: block;
+            font-size: 12px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .dropdown2 ul li .hot {
+            color: red;
+        }
+
+        .dropdown2 ul li:hover {
+            background-color: #EEE;
+        }
+
+        .dropdown2 ul .search {
+            display: block;
+            border-bottom: 1px solid #808080;
+        }
+
+        .dropdown2 ul .search:hover {
+            background-color: #FFF;
+        }
+
+        .dropdown2 ul .search input {
+            padding: 2px;
+            width: 100%;
+            border: 0;
+            font-size: 14px;
+            background: none;
+        }
+    </style>
+</head>
+
+<!-- END HEAD -->
+
+<!-- BEGIN BODY -->
+
+<body class="page-header-fixed">
+
+<!-- 引入顶部开始 -->
+
+<admintpl file="head"/>
+
+<!-- 引入顶部结束 -->
+
+<!-- BEGIN CONTAINER -->
+
+<div class="page-container">
+
+    <!-- 引入左侧边栏开始 -->
+
+    <admintpl file="lefter"/>
+
+    <!-- 引入左侧边栏结束 -->
+
+    <!-- BEGIN PAGE -->
+
+    <div class="page-content">
+
+        <!-- BEGIN PAGE CONTAINER-->
+
+        <div class="container-fluid">
+
+            <admintpl file="style_bn"/>
+
+            <!-- END PAGE HEADER-->
+
+            <form action="{:U('SaleOnline/store')}" method="post" enctype="multipart/form-data">
+                <table class="table table-hover table-bordered table-list">
+                    <tr>
+                        <td>
+                            *商品名:
+                        </td>
+                        <td>
+                            <input name="goods_name" type="text" class="" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>限招人数：</td>
+                        <td>
+                            <input name="limit_num" type="text" class="limit_num" id="limit_num" readonly="readonly"
+                                   autocomplete="off" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td> 优惠金额：</td>
+                        <td>
+                            <input name="dct_price" type="text" class="dct_price" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>*售价：</td>
+                        <td>
+                            <input name="sale_price" type="text" class="sale_price" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td> *班级:</td>
+                        <td>
+                            <select name="class_id" id="class_id" autocomplete="off" required>
+                                <option value="">--请选择--</option>
+                                <foreach name="classes" item="class">
+                                    <option value="{$class.id}" id-value="{$class.class_no}"
+                                            name-value="{$class.class_name}" linmit-value="{$class.limit_num}">
+                                        {$class.class_name}
+                                    </option>
+                                </foreach>
+                            </select>
+                            <input name="class_no" type="hidden" id="class_no">
+                            <input name="class_name" type="hidden" id="class_name">
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>*班级封面：</td>
+                        <td>
+                            <input type="file" name="filess" id="filess" autocomplete="off" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>*班级详情：</td>
+                        <td>
+                            <script type="text/plain" id="content" name="goods_info">{$post.post_content}</script>
+                            <script type="text/javascript">
+                                //编辑器路径定义
+                                var editorURL = GV.DIMAUB;
+                            </script>
+                            <script type="text/javascript" src="__ROOT__/statics/js/ueditor/ueditor.config.js"></script>
+                            <script type="text/javascript" src="__ROOT__/statics/js/ueditor/ueditor.all.min.js"></script>
+
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>*开放试看功能：</td>
+                        <td>
+                            <label><input name="try_look" type="radio" value="1">不试看</label>
+                            <label><input name="try_look" type="radio" value="2"> 试看</label>
+                        </td>
+                    </tr>
+                </table>
+                <div class="frombtn">
+                    <input type="submit" value='提交' class="btn btn-primary">
+                </div>
+            </form>
+
+
+            <!-- 右边主页面结束 -->
+            <script src="__PUBLIC__/js/common.js"></script>
+            <script type="text/javascript" src="__PUBLIC__/js/datePicker/datePicker.js?v="></script>
+            <script type="text/javascript">
+                //编辑器路径定义
+                var editorURL = GV.WEB_ROOT;
+            </script>
+            <script type="text/javascript" src="__PUBLIC__/js/ueditor/ueditor.config.js"></script>
+            <script type="text/javascript" src="__PUBLIC__/js/ueditor/ueditor.all.min.js"></script>
+            <script type="text/javascript">
+                //点击给input赋值
+                $("#class_id").delegate("option", "click", function () {
+                    var class_name = $(this).attr('name-value');
+                    var class_no = $(this).attr('id-value');
+                    var limit_num = $(this).attr('linmit-value');
+                    $('#class_name').val(class_name);
+                    $('#class_no').val(class_no);
+                    $('#limit_num').val(limit_num);
+                });
+                $(function () {
+                    Wind.use('validate', 'ajaxForm', 'artDialog', function () {
+                        //添加控制编辑器高度和宽度
+                        window.UEDITOR_CONFIG.initialFrameWidth = 800;
+                        window.UEDITOR_CONFIG.initialFrameHeight = 320;
+                        //编辑器
+                        editorcontent = new baidu.editor.ui.Editor();
+                        editorcontent.render('content');
+                    });
+
+                });
+
+
+            </script>
+
+        </div>
+        <!-- END PAGE CONTAINER-->
+
+    </div>
+
+    <!-- END PAGE -->
+
+</div>
+<!-- 加载的右边框架 -->
+
+
+<!-- END CONTAINER -->
+
+<!-- 引入底部开始 -->
+
+<admintpl file="footer"/>
+
+<!-- 引入底部结束 -->
+
+<admintpl file="footer_js"/>
+
+</body>
+
+<!-- END BODY -->
+
+</html>

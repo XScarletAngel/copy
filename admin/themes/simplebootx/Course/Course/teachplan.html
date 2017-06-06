@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+
+<!--[if !IE]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+
+<!-- BEGIN HEAD -->
+
+<head>
+
+	<meta charset="utf-8" />
+
+	<title>Metronic | Admin Dashboard Template</title>
+
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+	<meta content="" name="description" />
+
+	<meta content="" name="author" />
+
+	<!-- 引入顶部样式文件 -->
+
+	<admintpl file="head_css" />
+	<script src="__PUBLIC__/js/jquery.js"></script>
+    <script src="__PUBLIC__/js/wind.js"></script>
+    <!-- <script src="__PUBLIC__/simpleboot/bootstrap/js/bootstrap.min.js"></script> -->
+    <script>
+    	$(function(){
+    		$("[data-toggle='tooltip']").tooltip();
+    	});
+    </script>
+	<style>
+		.expander{margin-left: -20px;}
+		.controls input[type="radio"] {margin-left:-20px;}
+	</style>
+
+</head>
+
+<!-- END HEAD -->
+
+<!-- BEGIN BODY -->
+
+<body class="page-header-fixed">
+
+	<!-- 引入顶部开始 -->
+
+	<admintpl file="head" />
+
+	<!-- 引入顶部结束 -->
+
+	<!-- BEGIN CONTAINER -->
+
+	<div class="page-container">
+
+		<!-- 引入左侧边栏开始 -->
+
+		<admintpl file="lefter" />
+
+		<!-- 引入左侧边栏结束 -->
+
+		<!-- BEGIN PAGE -->
+
+		<div class="page-content">
+
+			<!-- BEGIN PAGE CONTAINER-->
+
+			<div class="container-fluid">
+
+				<admintpl file="style_bn" />
+
+				<!-- END PAGE HEADER-->
+
+				<!-- 右边主页面开始 -->
+					<div class="tabbable tabbable-custom tabbable-full-width">
+						<ul class="nav nav-tabs">
+							<if condition="$editid eq ''">
+								<li><a href="#tab_1_1">基本信息</a></li>
+								<li><a href="#tab_1_2">知识点大纲</a></li>
+								<li class="active"><a href="#tab_1_3">教案</a></li>
+								<li><a href="#tab_1_4">图文课件</a></li>
+								<li><a href="#tab_1_5">视频课件</a></li>
+								<li><a href="#tab_1_6">习题库</a></li>
+								<li><a href="#tab_1_7">设计试卷</a></li>
+								<li><a href="#tab_1_8">试卷分配</a></li>
+							<elseif condition="$editid neq ''" />
+								<li><a href="{:U('Course/addcourse?id='.$id.'&editid=1')}">基本信息</a></li>
+								<li><a href="{:U('Course/outline?id='.$id.'&editid=1')}">知识点大纲</a></li>
+								<li class="active"><a href="{:U('Course/teachplan?id='.$id.'&editid=1')}">教案</a></li>
+								<li><a href="{:U('Course/ware?id='.$id.'&editid=1')}">图文课件</a></li>
+								<li><a href="{:U('Course/video?id='.$id.'&editid=1')}">视频课件</a></li>
+								<li><a href="{:U('Course/exercises?id='.$id.'&editid=1')}">习题库</a></li>
+								<li><a href="{:U('Course/paper?id='.$id.'&editid=1')}">设计试卷</a></li>
+								<li><a href="{:U('Course/distribution?id='.$id.'&editid=1')}">试卷分配</a></li>
+							</if>
+						</ul>
+						<div class="tab-content">
+							<div class="tab-pane row-fluid active" id="tab_1_1">
+								<form method="post" class="form-horizontal js-ajax-form" action="{:U('Course/teachplan_post')}" enctype="multipart/form-data">
+									<a href="javascript:void(0);" onclick="imports()">添加</a>
+									<input type="hidden" name="id" value="{$id}">
+										<table style="height:80%;width:80%;margin:10px auto;">
+											<foreach name="res" item="vo">
+												<tr>
+													<td><if condition="$vo.parentid neq 0 "><input style="margin-left:0px;" type="radio" name="catalog" value="{$vo.id}"></if>{$vo.catalog_name}
+													<foreach name="vo.plan" item="voo">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="teachFile" href="javascript:void(0);" id-value="{$voo.id}">{$voo.file_name}</a>&nbsp;&nbsp;<a href="javascript:void(0);" id-value="{$voo.id}" class="deleteFile">✘</a></foreach>
+													</td>
+												</tr>
+											</foreach>
+										</table>
+									<div class="form-actions">
+										<button type="submit" class="btn btn-primary js-ajax-submit">保存并下一步</button>
+										<a class="btn" href="javascript:history.back(-1);">{:L('BACK')}</a>
+									</div>
+								</form>
+
+							</div>
+
+						</div>
+
+					</div>
+				<!-- 右边主页面结束 -->
+				<script src="__PUBLIC__/js/common.js"></script>
+				<script type="text/javascript" src="__PUBLIC__/js/datePicker/datePicker.js?v="></script>
+				<input type="hidden" name="course_id" id="hid_course_id" value="{$Think.request.id}"/>
+				<script src="__PUBLIC__/js/layer/layer.js"></script>
+				<script>
+
+					$(function(){
+						$('td').on('click', 'a.teachFile', function(){
+							var id   = $(this).attr('id-value');
+                            var course_id = $("#hid_course_id").val();
+						  	var html = "/index.php?g=Course&m=Course&a=teachplan_file_layer&id="+id+"&course_id="+course_id;
+
+					        layer.open({
+					            type: 2,
+					            title: '文件锚点修改',
+					            skin: 'layui-layer-rim', //加上边框
+					            area: ['70%', '70%'], //宽高
+					            content: html
+					        });
+						});
+					});
+
+					function imports() {
+						id = $("input[type='radio']:checked").val();
+						if(id == null){
+							alert("请先选择教案节点");
+						} else {
+                            var course_id = $("#hid_course_id").val();
+						    var html = "/index.php?g=Course&m=Course&a=teachplan_layer&id="+id+"&course_id="+course_id;
+
+					        layer.open({
+					            type: 2,
+					            title: '导入教案',
+					            skin: 'layui-layer-rim', //加上边框
+					            area: ['70%', '70%'], //宽高
+					            content: html
+					        });
+				        }
+				    }
+
+
+					$(function(){
+						$('td').on('click', 'a.deleteFile', function(){
+							var status = confirm("确认要删除吗?");
+							if(!status){
+							   return false;
+							}
+
+							var id     = $(this).attr('id-value');
+							var url    = "index.php?g=Course&m=Course&a=del_plan";
+
+							$.ajax({
+							    type:'POST',
+							    url:url,
+							    data:{id:id},
+							    success:function(msg){
+							       	if(msg.code == 1){
+							       		alert(msg.msg);
+							       		window.location.reload();
+							        } else {
+							       		alert(msg.msg);
+							        }      
+							    },
+							    error:function(){
+							    	alert('请求失败');
+							    }
+							});
+						});
+					  
+					});
+				</script>
+			</div>
+			<!-- END PAGE CONTAINER-->    
+			
+		</div>
+
+		<!-- END PAGE -->
+
+	</div>
+<!-- 加载的右边框架 -->
+
+
+	<!-- END CONTAINER -->
+			
+	<!-- 引入底部开始 -->
+
+	<admintpl file="footer" />
+
+	<!-- 引入底部结束 -->
+
+	<admintpl file="footer_js" />
+
+</body>
+
+<!-- END BODY -->
+
+</html>

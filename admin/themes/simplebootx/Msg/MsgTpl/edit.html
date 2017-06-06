@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+
+<!--[if !IE]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+
+<!-- BEGIN HEAD -->
+
+<head>
+
+	<meta charset="utf-8" />
+
+	<title>星空海天教育</title>
+
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+	<meta content="" name="description" />
+
+	<meta content="" name="author" />
+
+	<!-- 引入顶部样式文件 -->
+
+	<admintpl file="head_css" />
+	<script src="__PUBLIC__/js/jquery.js"></script>
+    <script src="__PUBLIC__/js/wind.js"></script>
+    <script src="__PUBLIC__/simpleboot/bootstrap/js/bootstrap.min.js"></script>
+
+    <script>
+    	$(function(){
+    		$("[data-toggle='tooltip']").tooltip();
+    	});
+    </script>
+	<style>
+		.expander{margin-left: -20px;}
+		.controls input[type="radio"] {margin-left:0px;}
+		.controls label {display: inline;}
+	</style>
+
+</head>
+
+<!-- END HEAD -->
+
+<!-- BEGIN BODY -->
+
+<body class="page-header-fixed">
+
+	<!-- 引入顶部开始 -->
+
+
+	<!-- 引入顶部结束 -->
+
+	<!-- BEGIN CONTAINER -->
+
+	<div class="page-container">
+
+		<!-- 引入左侧边栏开始 -->
+		<!-- 引入左侧边栏结束 -->
+
+		<!-- BEGIN PAGE -->
+
+		<div class="page-content">
+
+			<!-- BEGIN PAGE CONTAINER-->
+
+			<div class="container-fluid">
+
+				<!-- END PAGE HEADER-->
+
+				<!-- 右边主页面开始 -->
+				<div class="wrap">
+					<form method="post" class="form-horizontal js-ajax-forms" action="{:U('MsgTpl/editPost')}">
+						<fieldset>
+							<div class="control-group">
+								<label class="control-label">模版类型:</label>
+								<div class="controls">
+									<select name="msg_type" style="width:120px;">
+										<option value="">--选择类型--</option>
+										<option value="1"  <if condition="$item.msg_type eq 1 ">selected="selected"</if>>互动消息</option>
+										<option value="2"  <if condition="$item.msg_type eq 2 ">selected="selected"</if>>课表消息</option>
+										<option value="3"  <if condition="$item.msg_type eq 3 ">selected="selected"</if>>课表消息</option>
+										<option value="4"  <if condition="$item.msg_type eq 4 ">selected="selected"</if>>系统消息</option>
+										<option value="5"  <if condition="$item.msg_type eq 5 ">selected="selected"</if>>班级公告</option>
+									</select>
+									<span class="form-required">*</span>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">触发条件:</label>
+								<div class="controls">
+									<input type="text" name="tpl_name" value="{$item.tpl_name}" placeholder="模版说明">
+									<span class="form-required">*</span>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">模版code:</label>
+								<div class="controls">
+									<input type="text" name="tpl_code" placeholder="模版识别别名,唯一" value="{$item.tpl_code}">
+									<span class="form-required">*</span>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">模版内容:</label>
+								<div class="controls">
+									<textarea cols="100" rows="4" name="tpl_content" placeholder="模版变量类似 ${var} ">{$item.tpl_content}</textarea>
+									<span class="form-required">*&nbsp;</span>
+								</div>
+							</div>
+
+							<div class="control-group">
+								<label class="control-label">是否启用:</label>
+								<div class="controls mt8">
+									<label class="radio"><input type="radio" name="tpl_status" value="1" <if condition="$item[tpl_status] eq 1">checked="checked"</if>><em>是</em></label>
+									<label class="radio"><input type="radio" name="tpl_status" value="2" <if condition="$item[tpl_status] eq 2">checked="checked"</if>><em>否</em></label>
+								</div>
+							</div>
+
+							<div class="control-group">
+								<label class="control-label">是否推送:</label>
+								<div class="controls mt8">
+									<label class="radio"><input type="radio" name="is_push" value="2"  <if condition="$item[is_push] eq 2">checked="checked"</if> ><em>是</em></label>
+									<label class="radio"><input type="radio" name="is_push" value="1" <if condition="$item[is_push] eq 1">checked="checked"</if> ><em>否</em></label>
+								</div>
+							</div>
+
+							<div class="control-group">
+								<label class="control-label">后续操作:</label>
+								<div class="controls">
+									<input type="text" name="after_open" placeholder="推送时必填" value="{$item.after_open}">
+									<span class="form-required">*</span>
+								</div>
+							</div>
+
+							<div class="control-group">
+								<div class="controls">
+									<input type="hidden" name="id" value="{$item.id}">
+									<button type="submit" class="btn btn-primary js-ajax-submit">{:L('EDIT')}</button>
+									<a class="btn" href="javascript:history.back(-1);">{:L('BACK')}</a>
+								</div>
+							</div>
+						</fieldset>
+					</form>
+				</div>
+				<script src="__PUBLIC__/js/common.js"></script>
+				<script type="text/javascript" src="__PUBLIC__/js/datePicker/datePicker.js?v="></script>
+				<script src="__PUBLIC__/js/layer/layer.js"></script>
+				<!-- 右边主页面结束 -->
+				<script>
+					$(function () {
+						/////---------------------
+						Wind.use('validate','ajaxForm','artDialog',function() {
+							var form = $('form.js-ajax-forms');
+							//ie处理placeholder提交问题
+							if ($.browser && $.browser.msie) {
+								form.find('[placeholder]').each(function() {
+									var input = $(this);
+									if (input.val() == input
+													.attr('placeholder')) {
+										input.val('');
+									}
+								});
+							}
+							//表单验证开始
+							form.validate({
+								//是否在获取焦点时验证
+								onfocusout : false,
+								//是否在敲击键盘时验证
+								onkeyup : false,
+								//当鼠标掉级时验证
+								onclick : false,
+								//验证错误
+								showErrors : function(errorMap,errorArr) {
+									//errorMap {'name':'错误信息'}
+									//errorArr [{'message':'错误信息',element:({})}]
+									try {
+										$(errorArr[0].element).focus();
+										art.dialog({
+											id : 'error',
+											icon : 'error',
+											lock : true,
+											fixed : true,
+											background : "#CCCCCC",
+											opacity : 0,
+											content : errorArr[0].message,
+											cancelVal : '确定',
+											cancel : function() {
+												$(errorArr[0].element).focus();
+											}
+										});
+									} catch (err) {}
+								},
+								//验证规则
+								rules : {
+									'tpl_name' : {required : 1},
+									'tpl_code' : {required : 1},
+									'tpl_content' : {required : 1},
+								},
+								//验证未通过提示消息
+								messages : {
+									'tpl_name' : {required : '模版名称必填'},
+									'tpl_code' : {required : '模版识别代码必填'},
+									'tpl_content' : {required : '模版内容必填'},
+								},
+								//给未通过验证的元素加效果,闪烁等
+								highlight : false,
+								//是否在获取焦点时验证
+								onfocusout : false,
+								//验证通过，提交表单
+								submitHandler : function(forms) {
+									$(forms).ajaxSubmit({
+										url : form.attr('action'), //按钮上是否自定义提交地址(多按钮情况)
+										dataType : 'json',
+										beforeSubmit : function(arr,$form,options) {
+
+										},
+										success : function(data,statusText,xhr,$form) {
+											if (data.status) {
+												setCookie("refersh_time",1);
+												//添加成功
+												Wind.use("artDialog",function() {
+													art.dialog({
+														id : "succeed",
+														icon : "succeed",
+														fixed : true,
+														lock : true,
+														background : "#CCCCCC",
+														opacity : 0,
+														content : data.info,
+														button : [
+															{
+																name : '继续修改？',
+																callback : function() {
+																	reloadPage(window);
+																	return true;
+																},
+																focus : true
+															},
+															{
+																name : '返回列表',
+																callback : function() {
+																	parent.location.reload();
+																	//location.href = "{:U('Srv/index')}";
+																	return true;
+																}
+															}
+														]
+													});
+												});
+											} else {
+												alert(data.info);
+											}
+										}
+									});
+								}
+							});
+						});
+						////-------------------------
+					});
+				</script>
+			</div>
+			<!-- END PAGE CONTAINER-->    
+			
+		</div>
+
+		<!-- END PAGE -->
+
+	</div>
+<!-- 加载的右边框架 -->
+
+
+</body>
+
+<!-- END BODY -->
+
+</html>

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+
+<!--[if !IE]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+
+<!-- BEGIN HEAD -->
+
+<head>
+
+	<meta charset="utf-8" />
+
+	<title>星空海天教育</title>
+
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+	<meta content="" name="description" />
+
+	<meta content="" name="author" />
+
+	<!-- 引入顶部样式文件 -->
+
+	<admintpl file="head_css" />
+	<script src="__PUBLIC__/js/jquery.js"></script>
+    <script src="__PUBLIC__/js/wind.js"></script>
+    <!-- <script src="__PUBLIC__/simpleboot/bootstrap/js/bootstrap.min.js"></script> -->
+    <script>
+    	$(function(){
+    		$("[data-toggle='tooltip']").tooltip();
+    	});
+    </script>
+	<style>.expander{margin-left: -20px;}</style>
+
+</head>
+
+<!-- END HEAD -->
+
+<!-- BEGIN BODY -->
+
+<body class="page-header-fixed">
+
+	<!-- 引入顶部开始 -->
+
+	<admintpl file="head" />
+
+	<!-- 引入顶部结束 -->
+
+	<!-- BEGIN CONTAINER -->
+
+	<div class="page-container">
+
+		<!-- 引入左侧边栏开始 -->
+
+		<admintpl file="lefter" />
+
+		<!-- 引入左侧边栏结束 -->
+
+		<!-- BEGIN PAGE -->
+
+		<div class="page-content">
+
+			<!-- BEGIN PAGE CONTAINER-->
+
+			<div class="container-fluid">
+
+				<admintpl file="style_bn" />
+
+				<!-- END PAGE HEADER-->
+
+				<!-- 右边主页面开始 -->
+				<div class="wrap js-check-wrap">
+					<form class="well form-search" method="post" action="{:U('Research/index')}">
+						<ul class="fromUl clearfix">
+							<li>
+								方向编号：
+								<input type="text" name="rch_code" style="width: 200px;" value="{$Think.request.rch_code}" placeholder="请输入方向编号...">
+							</li>
+							<li>
+								方向名称：
+								<input type="text" name="rch_name" style="width: 200px;" value="{$Think.request.rch_name}" placeholder="请输入方向名称...">
+							</li>
+							<li>
+								所属院校：
+								<input type="text" name="school_name" style="width: 200px;" value="{$Think.request.school_name}" placeholder="请输入所属院校...">
+							</li>
+							<li>
+								所属院系：
+								<input type="text" name="dept_name" style="width: 200px;" value="{$Think.request.dept_name}" placeholder="请输入所属院系...">
+							</li>
+							<li>
+								所属专业：
+								<input type="text" name="major_name" style="width: 200px;" value="{$Think.request.major_name}" placeholder="请输入所属专业...">
+							</li>
+							<li>
+								状态：
+								<select name="rch_status" style="width: 120px;">
+									<option value=''>全部</option>
+									<option value='2' <if condition="$Think.request.rch_status eq 2">selected</if>>启用</option>
+									<option value='1' <if condition="$Think.request.rch_status eq 1">selected</if>>禁用</option>
+								</select> &nbsp;&nbsp;
+							</li>
+						</ul>
+						<div class="frombtn">
+							<input type="submit" class="btn btn-primary" value="搜索" />
+							<input type="reset" class="btn btn-primary" value="清空" />
+						</div>
+					</form>
+						<a href="{:U('Research/add')}"><input type="button" class="btn btn-primary" value="添加方向" /></a>
+						<table class="table table-hover table-bordered table-list">
+							<thead>
+								<tr>
+									<th width="25">ID</th>
+									<th width="40">方向编号</th>
+									<th width="130">方向名称</th>
+									<th width="70">所属院校</th>
+									<th width="120">所属院系</th>
+									<th width="80">所属专业</th>
+									<th width="30">状态</th>
+									<th width="70">{:L('ACTIONS')}</th>
+								</tr>
+							</thead>
+							<foreach name="lists" item="vo">
+							<tr>
+			                    <td>{$vo.id}</td>
+								<td>{$vo.rch_code}</td>
+								<td>{$vo.rch_name}</td>
+								<td>{$vo.school_name}</td>
+								<td>{$vo.dept_name}</td>
+								<td>{$vo.major_name}</td>
+								<td>
+									<if condition="$vo.rch_status eq 2 ">启用
+							        	<else /> 禁用
+							    	</if>
+							    </td>
+								<td>
+									<a href="{:U('Research/edit',array('id'=>$vo['id']))}">{:L('EDIT')}</a> |
+									<a href="javascript:void(0);" id-value="{$vo.id}" class="delete">{:L('DELETE')}</a>
+								</td>
+							</tr>
+							</foreach>
+						</table>
+						<div class="page clearfix">{$page}</div>
+				</div>
+				<!-- 右边主页面结束 -->
+				<script>
+					$(function(){
+						$(".delete").click(function(){
+							var id = $(this).attr('id-value');
+							var url = "index.php?g=Admin&m=Research&a=delete";
+							deleteFun(id,url)
+						});
+					});
+				</script>
+			</div>
+			<!-- END PAGE CONTAINER-->
+
+		</div>
+
+		<!-- END PAGE -->
+
+	</div>
+<!-- 加载的右边框架 -->
+
+
+	<!-- END CONTAINER -->
+
+	<!-- 引入底部开始 -->
+
+	<admintpl file="footer" />
+
+	<!-- 引入底部结束 -->
+
+	<admintpl file="footer_js" />
+
+</body>
+
+<!-- END BODY -->
+
+</html>

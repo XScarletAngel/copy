@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+
+<!--[if IE 8]>
+<html lang="en" class="ie8 no-js"> <![endif]-->
+
+<!--[if IE 9]>
+<html lang="en" class="ie9 no-js"> <![endif]-->
+
+<!--[if !IE]><!-->
+<html lang="en" class="no-js"> <!--<![endif]-->
+
+<!-- BEGIN HEAD -->
+
+<head>
+
+    <meta charset="utf-8"/>
+
+    <title>星空海天教育</title>
+
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+
+    <meta content="" name="description"/>
+
+    <meta content="" name="author"/>
+
+    <!-- 引入顶部样式文件 -->
+    <admintpl file="head_css"/>
+    <script src="__PUBLIC__/js/jquery.js"></script>
+    <script src="__PUBLIC__/js/wind.js"></script>
+    <!-- <script src="__PUBLIC__/simpleboot/bootstrap/js/bootstrap.min.js"></script> -->
+    <script>
+        $(function () {
+            $("[data-toggle='tooltip']").tooltip();
+        });
+    </script>
+    <style>
+        .controls input[type="radio"] {
+            margin-left: 0px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .dropdown2 {
+            display: inline-block;
+            width: 220px;
+            height: 20px;
+            position: relative;
+            margin-left: 20px;
+        }
+
+        .dropdown2 .editor {
+            display: block;
+            border: 0;
+            padding: 0;
+            width: 100%;
+            box-shadow: inset 1px 2px 3px #ddd;
+            height: inherit;
+        }
+
+        .dropdown2 .trigger {
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding: 3px;
+        }
+
+        .dropdown2 ul {
+            display: none;
+            width: 98%;
+            height: 140px;
+            padding: 2px;
+            position: absolute;
+            top: 100%;
+            background-color: #FFF;
+            border: 1px solid #DDD;
+            border-radius: 0 0 5px 5px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            margin: 0px;
+            z-index: 10;
+            margin-top: 8px;
+        }
+
+        .dropdown2 ul li {
+            height: 20px;
+            display: block;
+            font-size: 12px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .dropdown2 ul li .hot {
+            color: red;
+        }
+
+        .dropdown2 ul li:hover {
+            background-color: #EEE;
+        }
+
+        .dropdown2 ul .search {
+            display: block;
+            backgound: url(imgs/search.gif) no-repeat scroll center right;
+            border-bottom: 1px solid #808080;
+        }
+
+        .dropdown2 ul .search:hover {
+            background-color: #FFF;
+        }
+
+        .dropdown2 ul .search input {
+            padding: 2px;
+            width: 100%;
+            border: 0;
+            font-size: 14px;
+            background: none;
+        }
+
+        #lessonTable {
+            width: 90%;
+            text-align: center;
+
+        }
+
+        tr {
+            text-align: center;
+            border: solid 1px #CCCCCC;
+        }
+
+        td {
+            text-align: center;
+            border: solid 1px #CCCCCC;
+        }
+
+        #next {
+            float: right;
+            margin-top: 100px;
+        }
+
+        .h-div {
+            text-align: center;
+        }
+
+        #se-head {
+            color: inherit;
+        }
+
+        .head-open {
+            width: 240px;
+            line-height: 50px;
+            text-align: center;
+            /*font-weight: bold;*/
+            color: #fff;
+            text-shadow: 1px 1px 1px #333;
+            border-radius: 5px;
+            margin: 0 30px 30px 0;
+            position: relative;
+            overflow: hidden;
+            display: inline;
+            font-size: 25px;
+            border-color: #cccccc;
+        }
+    </style>
+
+</head>
+
+<!-- END HEAD -->
+
+<!-- BEGIN BODY -->
+
+<body class="page-header-fixed" style="overflow-x:hidden;">
+
+<!-- 引入顶部开始 -->
+
+<admintpl file="head"/>
+
+<!-- 引入顶部结束 -->
+
+<!-- BEGIN CONTAINER -->
+
+<div class="page-container">
+
+    <!-- 引入左侧边栏开始 -->
+
+    <admintpl file="lefter"/>
+
+    <!-- 引入左侧边栏结束 -->
+
+    <!-- BEGIN PAGE -->
+
+    <div class="page-content">
+
+        <!-- BEGIN PAGE CONTAINER-->
+
+        <div class="container-fluid">
+
+            <admintpl file="style_bn"/>
+
+            <!-- END PAGE HEADER-->
+
+            <!-- 右边主页面开始 -->
+            <div class="container">
+                <div class="h-div">
+                    <div class="head-open">1、基本信息</div>
+                    <div class="head-open">2、排课</div>
+                    <div class="head-open" id="se-head">3、发放班级资料</div>
+                </div>
+            </div>
+            <div><a href="javascript:;" onclick="addBooks()">添加资料</a></div>
+            <br>
+            <br>
+            <table id="lessonTable" class="table table-hover table-bordered table-list">
+                <tr>
+                    <td>编号</td>
+                    <td>资料名称</td>
+                    <td>状态</td>
+                    <td>操作</td>
+                </tr>
+                <foreach name="books" item="vo">
+                    <tr>
+                        <td>{$vo.book_no}</td>
+                        <td>{$vo.book_name}</td>
+                        <td>
+                            <if condition="$vo[book_status] eq 1 ">启用</if>
+                            <if condition="$vo[book_status] eq 2 ">停用</if>
+                        </td>
+                        <td>
+                            <a href="javascript:;" onclick="editBook('{$vo.id}')">编辑</a>|
+                            <a href="javascript:;" onclick="chargeBookStatus('{$vo.id}')">
+                                <if condition="$vo[book_status] eq 1 ">停用</if>
+                                <if condition="$vo[book_status] eq 2 ">启用</if>
+                            </a>
+                        </td>
+                    </tr>
+                </foreach>
+            </table>
+            <div class="pagination">{$page}</div>
+
+            <input class="class_id" type="hidden" name="class_id" id="class_id" value="{$class_id}"/><!-- 班级id -->
+            <!--<a href="/index.php?g=ClassLesson&m=Open&a=second&class_id={$class_id}">上一步</a>-->
+            <a href="/index.php?g=ClassLesson&m=Open&a=show" class="btn btn-primary" style="float: right">完成</a>
+
+
+        </div>
+    </div>
+</div>
+<admintpl file="footer_js" />
+</body>
+
+
+<script>
+    function addBooks() {
+        var class_id = $("#class_id").val();
+        var html = "/index.php?g=ClassLesson&m=Open&a=addBook&class_id=" + class_id;
+
+        layer.open({
+            type: 2,
+            title: '添加资料',
+            skin: 'layui-layer-rim', //加上边框
+            area: ['300px', '270px'], //宽高
+            content: html
+        });
+    }
+
+    function editBook(id) {
+        var html = "/index.php?g=ClassLesson&m=Open&a=editBook&book_id=" + id;
+
+        layer.open({
+            type: 2,
+            title: '编辑资料',
+            skin: 'layui-layer-rim', //加上边框
+            area: ['300px', '270px'], //宽高
+            content: html
+        });
+    }
+
+    function chargeBookStatus(book_id) {
+        var url = '/index.php?g=ClassLesson&m=Open&a=chargeBookStatus&book_id=' + book_id;
+        $.ajax({
+            url: url,
+            type: 'GET',
+            dataType: 'json',
+            data: {},
+            success: function (msg) {
+                location.href = location.href;
+            }
+        });
+    }
+</script>
+<!-- END BODY -->
+
+</html>

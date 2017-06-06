@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+
+<!--[if !IE]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+
+<!-- BEGIN HEAD -->
+
+<head>
+
+	<meta charset="utf-8" />
+
+	<title>星空海天教育</title>
+
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+	<meta content="" name="description" />
+
+	<meta content="" name="author" />
+
+	<!-- 引入顶部样式文件 -->
+
+	<admintpl file="head_css" />
+
+</head>
+
+<!-- END HEAD -->
+
+<!-- BEGIN BODY -->
+
+<body class="page-header-fixed">
+
+	<!-- 引入顶部开始 -->
+
+	<admintpl file="head" />
+
+	<!-- 引入顶部结束 -->
+
+	<!-- BEGIN CONTAINER -->
+
+	<div class="page-container">
+
+		<!-- 引入左侧边栏开始 -->
+
+		<admintpl file="lefter" />
+
+		<!-- 引入左侧边栏结束 -->
+
+		<!-- BEGIN PAGE -->
+
+		<div class="page-content">
+
+			<!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+
+			<!-- <div id="portlet-config" class="modal hide">
+
+				<div class="modal-header">
+
+					<button data-dismiss="modal" class="close" type="button"></button>
+
+					<h3>Widget Settings</h3>
+
+				</div>
+
+				<div class="modal-body">
+
+					Widget settings form goes here
+
+				</div>
+
+			</div> -->
+
+			<!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+
+			<!-- BEGIN PAGE CONTAINER-->
+
+			<div class="container-fluid">
+
+
+
+				<!-- END PAGE HEADER-->
+
+				<!-- 右边主页面开始 -->
+
+				<div class="row-fluid">
+							<div class="span8 blog-tag-data">
+								<div class="top-news indexHtml-a clearfix">
+											<a href="#" class="btn green span6">
+											<span>{$con_num}</span>
+											<em>待处理咨询单</em>
+											</a>
+											<a href="#" class="btn yellow span6">
+											<span>{$com_num}</span>
+											<em>待处理投诉单</em>
+											</a>
+								 </div>
+								<h1 class="loginlog">公告信息</h1>
+								<foreach name="not" item="vo">
+									<div class="news-item-page news-index">
+										<p>{$vo.content}</p>
+										<span>{$vo.upd_time}</span>
+									</div>
+								</foreach>
+							</div>
+							<div class="span4">
+								<div class="space20"></div>
+								<h2 class="loginlog">登陆日志</h2>
+								<div class="blog-twitter blog-line">
+								<foreach name="log" item="vo">
+									<div class="blog-twitter-block">
+										<p><i></i>{$vo.user_login}&nbsp;&nbsp;&nbsp;&nbsp;{$vo.add_time}登陆了系统</p>
+									</div>
+								</foreach>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			<!-- 右边主页面结束 -->
+
+			</div>
+			<!-- END PAGE CONTAINER-->
+
+		</div>
+
+		<!-- END PAGE -->
+
+	</div>
+<!-- 加载的右边框架 -->
+
+
+	<!-- END CONTAINER -->
+
+	<!-- 引入底部开始 -->
+
+	<admintpl file="footer" />
+
+	<!-- 引入底部结束 -->
+
+	<admintpl file="footer_js" />
+
+</body>
+
+<!-- END BODY -->
+
+</html>

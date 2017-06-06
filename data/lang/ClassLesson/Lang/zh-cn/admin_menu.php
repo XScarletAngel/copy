@@ -1,0 +1,10 @@
+<?php
+return array (
+  'CLASSLESSON_CLASSLESSON_DEFAULT' => '开班排课',
+  'CLASSLESSON_CLASSROOM_CREATE' => '添加教室',
+  'CLASSLESSON_CLASSROOM_INDEX' => '教学点设置',
+  'CLASSLESSON_LIVE_INDEX' => '直播管理',
+  'CLASSLESSON_OPEN_INDEX' => '开设新班',
+  'CLASSLESSON_OPEN_SHOW' => '开班管理',
+  'CLASSLESSON_SCHEDULE_INDEX' => '课表管理',
+);

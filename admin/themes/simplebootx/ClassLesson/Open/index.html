@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+
+<!--[if IE 8]>
+<html lang="en" class="ie8 no-js"> <![endif]-->
+
+<!--[if IE 9]>
+<html lang="en" class="ie9 no-js"> <![endif]-->
+
+<!--[if !IE]><!-->
+<html lang="en" class="no-js"> <!--<![endif]-->
+
+<!-- BEGIN HEAD -->
+
+<head>
+
+    <meta charset="utf-8"/>
+
+    <title>星空海天教育</title>
+
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+
+    <meta content="" name="description"/>
+
+    <meta content="" name="author"/>
+
+    <!-- 引入顶部样式文件 -->
+    <admintpl file="head_css"/>
+    <script src="__PUBLIC__/js/jquery.js"></script>
+    <script src="__PUBLIC__/js/wind.js"></script>
+    <!-- <script src="__PUBLIC__/simpleboot/bootstrap/js/bootstrap.min.js"></script> -->
+    <script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+
+    <!-- 七牛js-sdk文件 -->
+    <!--<script type="text/javascript" src="__PUBLIC__/js/qiniu/plupload.full.min.js"></script>-->
+    <!--<script type="text/javascript" src="__PUBLIC__/js/qiniu/zh_CN.js"></script>-->
+    <!--<script type="text/javascript" src="__PUBLIC__/js/qiniu/qiniu.js"></script>-->
+    <!--<script type="text/javascript" src="__PUBLIC__/js/qiniu/ui.js"></script>-->
+    <!--<script type="text/javascript" src="__PUBLIC__/js/qiniu/main.js"></script>-->
+
+    <script>
+        $(function () {
+            $("[data-toggle='tooltip']").tooltip();
+        });
+    </script>
+    <style>
+
+        .controls input[type="radio"] {
+            margin-left: 0px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .dropdown2 {
+            display: inline-block;
+            width: 220px;
+            height: 20px;
+            position: relative;
+            margin-left: 0px;
+        }
+
+        .dropdown2 .editor {
+            display: block;
+            border: 0;
+            padding: 0;
+            width: 100%;
+            box-shadow: inset 1px 2px 3px #ddd;
+            height: inherit;
+        }
+
+        .dropdown2 .trigger {
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding: 3px;
+        }
+
+        .dropdown2 ul {
+            display: none;
+            width: 98%;
+            height: 140px;
+            padding: 2px;
+            position: absolute;
+            top: 100%;
+            background-color: #FFF;
+            border: 1px solid #DDD;
+            border-radius: 0 0 5px 5px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            margin: 0px;
+            z-index: 10;
+            margin-top: 8px;
+        }
+
+        .dropdown2 ul li {
+            height: 20px;
+            display: block;
+            font-size: 12px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .dropdown2 ul li .hot {
+            color: red;
+        }
+
+        .dropdown2 ul li:hover {
+            background-color: #EEE;
+        }
+
+        .dropdown2 ul .search {
+            display: block;
+            backgound:  no-repeat scroll center right;
+            border-bottom: 1px solid #808080;
+        }
+
+        .dropdown2 ul .search:hover {
+            background-color: #FFF;
+        }
+
+        .dropdown2 ul .search input {
+            padding: 2px;
+            width: 100%;
+            border: 0;
+            font-size: 14px;
+            background: none;
+        }
+
+        .h-div {
+            text-align: center;
+        }
+
+        #se-head {
+            color: inherit;
+        }
+
+        .head-open {
+            width: 240px;
+            line-height: 50px;
+            text-align: center;
+            /*font-weight: bold;*/
+            color: #fff;
+            text-shadow: 1px 1px 1px #333;
+            border-radius: 5px;
+            margin: 0 30px 30px 0;
+            position: relative;
+            overflow: hidden;
+            display: inline;
+            font-size: 25px;
+            border-color: #cccccc;
+        }
+        .tips_error{
+            text-align: center;
+            color: red;
+        }
+
+    </style>
+
+</head>
+
+<!-- END HEAD -->
+
+<!-- BEGIN BODY -->
+
+<body class="page-header-fixed" style="overflow-x:hidden;">
+
+<!-- 引入顶部开始 -->
+
+<admintpl file="head"/>
+
+<!-- 引入顶部结束 -->
+
+<!-- BEGIN CONTAINER -->
+
+<div class="page-container">
+
+    <!-- 引入左侧边栏开始 -->
+
+    <admintpl file="lefter"/>
+
+    <!-- 引入左侧边栏结束 -->
+
+    <!-- BEGIN PAGE -->
+
+    <div class="page-content">
+
+        <!-- BEGIN PAGE CONTAINER-->
+
+        <div class="container-fluid">
+
+            <admintpl file="style_bn"/>
+
+            <!-- END PAGE HEADER-->
+
+            <!-- 右边主页面开始 -->
+            <div class="container">
+                <div class="h-div">
+                    <div class="head-open" id="se-head">1、基本信息</div>
+                    <div class="head-open">2、排课</div>
+                    <div class="head-open">3、发放班级资料</div>
+                </div>
+            </div>
+
+            <!--<div class="fileUpload btn btn-primary" id="file_container">-->
+            <!--<input class="upload" type="file" id="file">-->
+            <!--</div>-->
+            <!--<input type="hidden" class="uptoken_url" id="uptoken_url" value="http://www.xingkonght.com:81/index.php?g=ClassLesson&m=Open&a=getQiNiuToken">-->
+
+            <br><br>
+
+            <form class="form-horizontal" action="{:U('Open/store')}" method="post"
+                  onsubmit="return sumbit_sure()"
+                  enctype="multipart/form-data">
+
+                <table class="table table-hover table-bordered table-list">
+                    <tr>
+                        <td> 班级封面: <input type="file" name="filess" id="filess" autocomplete="off" /></td>
+                        <td>*班级编号: <input type="text" name="class_no" autocomplete="off" required></td>
+                    </tr>
+                    <tr>
+                        <td>*班级名称: <input type="text" name="class_name" autocomplete="off" required></td>
+                        <td>*班级简称: <input type="text" name="class_simple_name" autocomplete="off" required>（显示给学生）</td>
+                    </tr>
+                    <tr>
+                        <td>*班级类型: <select name="class_type" id="class_type" autocomplete="off" required>
+                            <option value="">--请选择--</option>
+                            <option value="1">线下班级</option>
+                            <option value="2">直播课</option>
+                            <option value="3">录播课</option>
+                        </select></td>
+                        <td>*所属课程: <select name="course_id" autocomplete="off" required>
+                            <option value="">--请选择--</option>
+                            <foreach name="courses" item="co">
+                                <option value='{$co.id}'>{$co.course_name}</option>
+                            </foreach>
+                        </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>*所属分校:
+                            <select name="zone_id" id="zone_id" style="width: 120px;" required>
+                                <option value=''>全部</option>
+                                <foreach name="school" item="vo">
+                                    <option value='{$vo.id}' name-value="{$vo.sz_name}">{$vo.sz_name}</option>
+                                </foreach>
+                            </select> &nbsp;&nbsp;
+                            <!--<input type="hidden" id="zone_name" name="zone_name"/>-->
+                        </td>
+                        <td>
+                            *所属校区:
+                            <select name="sub_zone_id" id="sub_zone_id" autocomplete="off">
+                                <option value="">--请选择--</option>
+                            </select>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>默认老师: <select name="tch_id" id="tch_id" style="width: 120px;" autocomplete="off" required>
+                            <option value=''>--请选择--</option>
+                            <foreach name="teachers" item="to">
+                                <option value="{$to.user_id}" name-value="{$to.user_name}">{$to.user_name}</option>
+                            </foreach>
+                        </select> &nbsp;
+                            <input class="tch_name" type="hidden" name="tch_name" id="tch_name"/></td>
+                        <td>老师权限: <select name="can_change" id="can_change" autocomplete="off">
+                            <!--线下课允许老师修改课表时，必须选自定义教室，否则选其它公用教室。-->
+                            <option value=''>--请选择--</option>
+                            <option value='0'>不能修改课表</option>
+                            <option value='1'>可以修改</option>
+                        </select> &nbsp;
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <div id="froom">上课教室</div>
+
+                            <div id="default_room">
+                                默认上课教室:
+                                <select name="room_id" id="room_id" style="width: 120px;" autocomplete="off">
+                                    <option value=''>--请选择--</option>
+                                </select> &nbsp;
+
+                            </div>
+
+                            <div id="diy_room">
+                                默认上课教室:
+                                <input class="room_name" name="room_name" id="room_name" type="text" autocomplete="off"/>
+                            </div>
+                        </td>
+                        <td>*班主任&nbsp;&nbsp;: <input type="text" name="class_master" autocomplete="off"  required>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>*限招人数: <input type="text" name="limit_num" autocomplete="off" required></td>
+                        <td>状态&nbsp;&nbsp;&nbsp;&nbsp;: <select name="class_status" autocomplete="off">
+                            <option value='1'>存盘</option>
+                            <option value='2'>启用</option>
+                            <option value='3'>停用</option>
+                        </select> &nbsp;
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="2">答疑组成员:
+                            <div id="app" style="display:inline-block;">
+                                <foreach name="teachers" item="to">
+                                    <input type="checkbox" id="{$to.id}" value="{$to.user_id}" v-model="checkedNames">
+                                    {$to.user_name}
+                                </foreach>
+                                <input type="hidden" name="answer_group" id="answer_group" v-model="checkedNames"
+                                       placeholder="请勾选..." readonly>
+                            </div>
+
+                            <script>
+                                new Vue({
+                                    el: '#app',
+                                    data: {
+                                        checked: false,
+                                        checkedNames: []
+                                    }
+                                })
+                            </script>
+                        </td>
+
+                    </tr>
+                </table>
+                <input class="zone_name" type="hidden" name="zone_name" id="zone_name" autocomplete="off"/>
+                <input class="sub_zone_name" type="hidden" name="sub_zone_name" id="sub_zone_name"/>
+                <!--<input type="submit" value='保存并下一步' class="btn btn-primary">-->
+                <div style="text-align: center">
+                    <button type="submit" class="btn btn-primary">{:L('SAVE')}</button>
+                </div>
+            </form>
+
+
+            <!-- 右边主页面结束 -->
+            <script src="__PUBLIC__/js/common.js"></script>
+            <script type="text/javascript" src="__PUBLIC__/js/datePicker/datePicker.js?v="></script>
+
+            <script>
+                function sumbit_sure() {
+                    var gnl = confirm("保存后，所属课程、班级类型、所属分校分区将不能再修改，确定要保存吗？");
+                    if (gnl == true) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+                $(function () {
+
+                    $('#default_room').hide();
+                    $('#diy_room').hide();
+
+                    $("#zone_id").delegate("option", "click", function(e){  // 点击校区
+                        var zone_id = $(this).attr('value'); // 获取校区的id值
+                        var zone_name = $(this).attr('name-value'); // 获取校区的name值
+                        $('#zone_name').val(zone_name);
+                        $("#sub_zone_id").find("option").remove();
+
+                        var url = '/index.php?g=Admin&m=Classnotice&a=getZone&zone_id='+zone_id;
+                        $.ajax({
+                            url:url,
+                            type:'GET',
+                            dataType:'json',
+                            data:{},
+                            success:function(msg){
+//                                var msg = JSON.parse(msg);
+//                                alert(msg);
+                                var str = "<option value=''>--全部--</option>";
+                                $(msg).each(function(i){
+                                    var item = msg[i];
+                                    str += '<option value="'+item['id']+'" name-value="'+item['sz_name']+'">'+item['sz_name']+'</option>';
+                                });
+                                $("#sub_zone_id").html(str);
+                            }
+                        });
+
+                        //如果是总部，还可以筛选出属于总部的教室
+                        var zone_id = $('#zone_id').val();
+                        $.ajax({
+                            url: '/index.php?g=ClassLesson&m=Open&a=getRoom',
+                            type: 'GET',
+                            dataType: 'json',
+                            data: {zone_id: zone_id},
+                            success: function (msg) {
+                                var str = "<option value=''>--请选择--</option>";
+                                $(msg).each(function (i) {
+                                    var item = msg[i];
+                                    str += '<option value="' + item['id'] + '"  name-value="' + item['room_name'] + '">' + item['room_name'] + '</option>';
+                                });
+                                $("#room_id").html(str);
+                            }
+                        });
+
+
+                    });
+
+                    //级联筛选教室,ajax获取教室信息
+
+                    $("#sub_zone_id").delegate("option", "click", function () {
+                        var url = '/index.php?g=ClassLesson&m=Open&a=getRoom';
+                        var sub_zone_id = $("#sub_zone_id").val();
+                        var zone_id = $('#zone_id').val();
+                        $.ajax({
+                            url: url,
+                            type: 'GET',
+                            dataType: 'json',
+                            data: {sub_zone_id: sub_zone_id, zone_id: zone_id},
+                            success: function (msg) {
+//                                    var msg = JSON.parse(data);
+                                var str = "<option value=''>--请选择--</option>";
+                                $(msg).each(function (i) {
+                                    var item = msg[i];
+                                    str += '<option value="' + item['id'] + '"  name-value="' + item['room_name'] + '">' + item['room_name'] + '</option>';
+                                });
+                                $("#room_id").html(str);
+                            }
+                        });
+
+                        $('#sub_zone_name').val($(this).attr("name-value"));
+
+                    });
+
+                    //添加教师名字字段的值
+                    $("#tch_id").delegate("option", "click", function (e) {
+                        var sub_v = $(this).attr('name-value');
+                        $('#tch_name').val(sub_v);
+
+                    });
+
+                    //添加教师名字字段的值
+                    $("#room_id").delegate("option", "click", function (e) {
+                        var sub_v = $(this).attr('name-value');
+                        $('#room_name').val(sub_v);
+
+                    });
+
+
+                    //添加教师名字字段的值
+                    $("#can_change").delegate("option", "click", function (e) {
+                        var val = $(this).val();
+                        if (val == '0') {
+                            $('#default_room').show();
+                            $('#diy_room').hide();
+                            $('#froom').hide();
+                        } else {
+                            $('#default_room').hide();
+                            $('#diy_room').show();
+                            $('#froom').hide();
+                        }
+
+                    });
+
+                });
+            </script>
+        </div>
+        <!-- END PAGE CONTAINER-->
+
+    </div>
+
+    <!-- END PAGE -->
+
+</div>
+<!-- 加载的右边框架 -->
+
+
+<!-- END CONTAINER -->
+
+<!-- 引入底部开始 -->
+
+<admintpl file="footer"/>
+
+<!-- 引入底部结束 -->
+
+<admintpl file="footer_js"/>
+
+</body>
+
+<!-- END BODY -->
+
+</html>

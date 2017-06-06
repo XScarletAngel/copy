@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+
+<!--[if !IE]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+
+<!-- BEGIN HEAD -->
+
+<head>
+
+	<meta charset="utf-8" />
+
+	<title>Metronic | Admin Dashboard Template</title>
+
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+	<meta content="" name="description" />
+
+	<meta content="" name="author" />
+
+	<!-- 引入顶部样式文件 -->
+
+	<admintpl file="head_css" />
+	<script src="__PUBLIC__/js/jquery.js"></script>
+    <script src="__PUBLIC__/js/wind.js"></script>
+    <!-- <script src="__PUBLIC__/simpleboot/bootstrap/js/bootstrap.min.js"></script> -->
+    <script>
+    	$(function(){
+    		$("[data-toggle='tooltip']").tooltip();
+    	});
+    </script>
+	<style>
+		.expander{margin-left: -20px;}
+		.controls input[type="radio"] {margin-left:0px;}
+	</style>
+
+</head>
+
+<!-- END HEAD -->
+
+<!-- BEGIN BODY -->
+
+<body class="page-header-fixed">
+
+	<!-- 引入顶部开始 -->
+
+	<admintpl file="head" />
+
+	<!-- 引入顶部结束 -->
+
+	<!-- BEGIN CONTAINER -->
+
+	<div class="page-container">
+
+		<!-- 引入左侧边栏开始 -->
+
+		<admintpl file="lefter" />
+
+		<!-- 引入左侧边栏结束 -->
+
+		<!-- BEGIN PAGE -->
+
+		<div class="page-content">
+
+			<!-- BEGIN PAGE CONTAINER-->
+
+			<div class="container-fluid">
+
+				<admintpl file="style_bn" />
+
+				<!-- END PAGE HEADER-->
+
+				<!-- 右边主页面开始 -->
+
+						<div class="tab-content">
+							<div class="tab-pane row-fluid active" id="tab_1_1">
+								<form method="post" class="form-horizontal" action="{:U('Deal/store')}">
+										<div class="control-group">
+											<label class="control-label">用户手机号:</label>
+											<div class="controls">
+												<input type="text" name="user_login" 	id="user_login" onblur="findUser()" required>
+												<input type="hidden" name="user_id"  		id="user_id">
+												<input type="hidden" name="user_name"  	id="user_name">
+
+												<span id="user_info" ></span>
+											</div>
+										</div>
+										<div class="control-group">
+											<label class="control-label">交易类型:</label>
+											<div class="controls">
+												<select name="pay_status" required>
+													<option value="" >--请选择--</option>
+													<option value="2" >支付交易</option>
+													<option value="5" >退款交易</option>
+												</select>
+											</div>
+										</div>
+										<div class="control-group">
+											<label class="control-label">*交易名称</label>
+											<div class="controls">
+												<input type="text" name="trans_title" required>
+											</div>
+										</div>
+										<div class="control-group">
+											<label class="control-label">账单金额:</label>
+											<div class="controls">
+												<input type="text" name="order_price" required>
+											</div>
+										</div>
+										<div class="control-group">
+											<label class="control-label">关联交易:</label>
+											<div class="controls">
+												<input type="text" name="" required placeholder="退款交易请在此处填写原交易编号">
+											</div>
+										</div>
+										<div class="control-group">
+											<label class="control-label">支付方式:</label>
+											<div class="controls">
+												<select name="pay_way" required>
+													<option value="3" selected="selected" >现金</option>
+												</select>
+											</div>
+										</div>
+
+										<div class="control-group">
+												<label class="control-label">收据编号:</label>
+												<div class="controls mt8">
+													<input type="text" name="receipt_no" required>
+												</div>
+										</div>
+										<div class="control-group">
+											<label class="control-label">备注:</label>
+											<div class="controls">
+												<textarea name="remark" ></textarea>
+											</div>
+										</div>
+										<div class="control-group">
+											<div class="controls">
+											<button type="submit" class="btn btn-primary">保存</button>
+											</div>
+										</div>
+								</form>
+
+							</div>
+
+						</div>
+
+					</div>
+				<!-- 右边主页面结束 -->
+				<script src="__PUBLIC__/js/common.js"></script>
+				<script type="text/javascript" src="__PUBLIC__/js/datePicker/datePicker.js?v="></script>
+				<script type="text/javascript">  
+					function findUser() {
+					    var user_login = $("#user_login").val();
+//						alert(user_login);
+                        var url = "/index.php?g=SaleOnline&m=Deal&a=findUser";
+                        $.ajax({
+                            url:url,
+                            type:'POST',
+                            dataType:'json',
+                            data:{user_login:user_login},
+                            success:function(msg){
+                                if(msg.code == 200){
+                                    $("#user_info").text(msg.msg);
+                                    $("#user_id").val(msg.user_id);
+                                    $("#user_name").val(msg.user_name);
+                                }else{
+                                    $("#user_info").text(msg.msg);
+                                    $("#user_id").val('');
+                                    $("#user_name").val('');
+								}
+
+                            }
+                        });
+                    }
+
+				</script>
+			</div>
+			<!-- END PAGE CONTAINER-->
+
+		</div>
+
+		<!-- END PAGE -->
+
+	</div>
+<!-- 加载的右边框架 -->
+
+
+	<!-- END CONTAINER -->
+			
+	<!-- 引入底部开始 -->
+
+	<admintpl file="footer" />
+
+	<!-- 引入底部结束 -->
+
+	<admintpl file="footer_js" />
+
+</body>
+
+<!-- END BODY -->
+
+</html>

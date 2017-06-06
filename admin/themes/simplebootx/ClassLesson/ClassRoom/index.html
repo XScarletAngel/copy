@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+
+<!--[if !IE]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+
+<!-- BEGIN HEAD -->
+
+<head>
+
+	<meta charset="utf-8" />
+
+	<title>星空海天教育</title>
+
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+	<meta content="" name="description" />
+
+	<meta content="" name="author" />
+
+	<!-- 引入顶部样式文件 -->
+	<admintpl file="head_css" />
+	<script src="__PUBLIC__/js/jquery.js"></script>
+    <script src="__PUBLIC__/js/wind.js"></script>
+    <!-- <script src="__PUBLIC__/simpleboot/bootstrap/js/bootstrap.min.js"></script> -->
+    <script>
+    	$(function(){
+    		$("[data-toggle='tooltip']").tooltip();
+    	});
+    </script>
+	<style>
+		.expander{margin-left: -20px;}
+		.head-open{
+			display: inline-block;
+			width:25%;
+			height:50px;
+			line-height: 50px;
+			border: 1px solid green;
+			text-align: center;
+			border-radius: 5px;
+		}
+		.h-div{
+			text-align: center;
+		}
+		#se-head{
+			 background-color: greenyellow;
+			 color: inherit;
+		 }
+		.se-head{
+			background-color: darkseagreen;
+			font-style: inherit;
+		}
+		.controls input[type="radio"] {margin-left:0px;}
+		* {margin:0;padding:0;}
+
+		.dropdown2 {display:inline-block;width:220px;height:20px;
+			position:relative;margin-left:20px;}
+		.dropdown2 .editor {display:block;border:0;padding:0;width:100%;box-shadow: inset 1px 2px 3px #ddd;height:inherit;}
+		.dropdown2 .trigger {position:absolute;top:0;right:0;padding:3px;}
+		.dropdown2 ul {display:none;width:98%;height:140px;padding:2px;position:absolute;top:100%;background-color:#FFF;border:1px solid #DDD;border-radius: 0 0 5px 5px;overflow-y:auto;overflow-x:hidden;margin:0px;z-index: 10;margin-top:8px;}
+		.dropdown2 ul li {height:20px;display:block;font-size:12px;overflow:hidden;cursor:pointer;}
+		.dropdown2 ul li .hot {color: red;}
+		.dropdown2 ul li:hover {background-color: #EEE;}
+		.dropdown2 ul .search {display:block;backgound: url(imgs/search.gif) no-repeat scroll center right;border-bottom: 1px solid #808080;}
+		.dropdown2 ul .search:hover{background-color:#FFF;}
+		.dropdown2 ul .search input {padding:2px;width:100%;border:0;font-size:14px;background:none;}
+         td{
+			 text-align:center;
+			 line-height: 40px;
+			 height:40px;
+		 }
+	</style>
+
+</head>
+
+<!-- END HEAD -->
+
+<!-- BEGIN BODY -->
+
+<body class="page-header-fixed">
+
+	<!-- 引入顶部开始 -->
+
+	<admintpl file="head" />
+
+	<!-- 引入顶部结束 -->
+
+	<!-- BEGIN CONTAINER -->
+
+	<div class="page-container">
+
+		<!-- 引入左侧边栏开始 -->
+
+		<admintpl file="lefter" />
+
+		<!-- 引入左侧边栏结束 -->
+
+		<!-- BEGIN PAGE -->
+
+		<div class="page-content">
+
+			<!-- BEGIN PAGE CONTAINER-->
+
+			<div class="container-fluid">
+
+				<admintpl file="style_bn" />
+
+				<!-- END PAGE HEADER-->
+
+				<!-- 右边主页面开始 -->
+				快捷操作：<a href="{:U('classRoom/create')}">创建教室</a>
+				<div class="wrap js-check-wrap">
+					<form class="well form-search" action="/index.php?g=ClassLesson&m=ClassRoom&a=index"  method="post">
+						<ul class="fromUl clearfix">
+							<li>
+								<div class="control-group">
+									<span >所属分校：</span>
+									<!--<div class="dropdown2" id="dropdown_sel">  &lt;!&ndash; 模拟 select 的标记， &ndash;&gt;-->
+										<!--<input class="editor2" type="text" name="zone_id" disabled="disabled"value="{$param.zone_name}"/> &lt;!&ndash; 显示当前值的输入框 &ndash;&gt;-->
+										<!--<input class="zone_id" type="hidden" name="zone_id" id="zone_id"value="{$param.zone_id}"/>&lt;!&ndash; 学校id &ndash;&gt;-->
+										<!--<input class="trigger"  type="button" value="↓" /> &lt;!&ndash; 用于显示下拉列表的按钮 &ndash;&gt;-->
+										<!--<ul>   &lt;!&ndash; 列表菜单 &ndash;&gt;-->
+											<!--<li class="search"><input type="text"/></li>   &lt;!&ndash; 过滤输入的列表， &ndash;&gt;-->
+											<!--&lt;!&ndash; 添加数据的时候，都添加在这个地方 &ndash;&gt;-->
+											<!--<foreach name="zones" item="vo">-->
+												<!--<li data-value="{$vo.sz_name}" id-value="{$vo.id}" code-value="{$vo.id}">{$vo.sz_name}</li>-->
+											<!--</foreach>-->
+										<!--</ul>-->
+									<!--</div>-->
+									<select name="zone_id" id="zone_id" style="width: 120px;" required >
+										<option value=''>全部</option>
+										<foreach name="school" item="vo">
+											<option value='{$vo.id}' name-value="{$vo.sz_name}"
+											<?php if($vo['id'] == $param['zone_id']){ ?> selected="selected"<?php } ?>
+											>{$vo.sz_name}</option>
+										</foreach>
+									</select> &nbsp;
+								</div>
+							</li>
+							<li>
+								<div class="control-group">
+
+									<div class="controls">
+										所属校区：<select name="sub_zone_id" id="sub_zone_id">
+													<option value="{$param.sub_zone_id}" selected="">{$param.sub_zone_name}</option>
+												</select>
+									</div>
+								</div>
+								<input  name="zone_name"     type="hidden" id="zone_name" value="{$param.zone_name}">
+								<input  name="sub_zone_name" type="hidden" id="sub_zone_name" value="{$param.sub_zone_name}">
+							</li>
+						</ul>
+						<div class="frombtn">
+							<input type="submit" class="btn btn-primary" value="搜索" />
+						</div>
+					</form>
+				<br><br>
+
+				<table class="table table-hover table-bordered table-list">
+					<tr>
+						<th>分校</th>
+						<th>校区</th>
+						<th>教室名称</th>
+						<th>详细地址</th>
+						<th>座位数</th>
+						<th>座位排数</th>
+						<th>座位列数</th>
+						<th>状态</th>
+						<th>操作</th>
+					</tr>
+					<foreach name="data" item="vo">
+						<tr>
+							<td>{$vo.zone_name}</td>
+							<td>{$vo.sub_zone_name}</td>
+							<td>{$vo.room_name}</td>
+							<td>{$vo.room_addr}</td>
+							<td>{$vo.seat_num}</td>
+							<td>{$vo.rows}</td>
+							<td>{$vo.columns}</td>
+
+							<td>
+								<if condition="$vo[room_status] eq 1 ">启用</if>
+								<if condition="$vo[room_status] eq 2 ">禁用</if>
+							</td>
+							<td>
+
+									<a href="{:U('ClassRoom/edit',array('id'=>$vo['id']))}">{:L('EDIT')}</a>
+							</td>
+						</tr>
+					</foreach>
+				</table>
+
+
+
+					<div class="page clearfix">{$page}</div>
+
+				<!-- 右边主页面结束 -->
+				<script>
+//
+                    $(".delete").click(function(){
+											var id = $(this).attr('id-value');
+											var url = "index.php?g=ClassLesson&m=classRoom&a=delete&id="+id;
+                      var index = layer.confirm('确认要删除吗?',function(){
+												$.ajax({
+                            type:'POST',
+                            url:url,
+                            data:'',
+                            success:function(msg){
+                                if(msg.status == '1'){
+                                    alert(msg.info);
+                                    window.location.href='index.php?g=ClassLesson&m=classRoom&a=index';
+                                }else{
+                                    alert(msg.info);
+                                }
+                            },
+                            error:function(){
+                                alert('请求失败');
+                            }
+                        });
+											})
+                    });
+
+
+                    $(function(){
+                        $("#zone_id").delegate("option", "click", function(e){  // 点击校区
+                            var zone_id = $(this).attr('value'); // 获取校区的id值
+                            var zone_name = $(this).attr('name-value'); // 获取校区的name值
+                            $('#zone_name').val(zone_name);
+                            $("#sub_zone_id").find("option").remove();
+
+                            var url = '/index.php?g=Admin&m=Classnotice&a=getZone&zone_id='+zone_id;
+                            $.ajax({
+                                url:url,
+                                type:'GET',
+                                dataType:'json',
+                                data:{},
+                                success:function(msg){
+                                    var str = "<option value=''>--全部--</option>";
+                                    $(msg).each(function(i){
+                                        var item = msg[i];
+                                        str += '<option value="'+item['id']+'" name-value="'+item['sz_name']+'">'+item['sz_name']+'</option>';
+                                    });
+                                    $("#sub_zone_id").html(str).val('');
+                                    $('#sub_zone_name').val('');
+                                }
+                            });
+                        });
+
+
+						/*------------------------------------------*/
+
+                        $(this).click(function(){   //当数据列表在显示时，如果点击了页面其它区域，则隐藏列表
+                            $(".dropdown2 ul:visible").hide();
+                        });
+
+
+                        $("#sub_zone_id").delegate("option", "click", function(e){
+                            var sub_v = $(this).attr('name-value');
+                            $('#sub_zone_name').val(sub_v);
+
+                        });
+                    });
+				</script>
+			</div>
+			<!-- END PAGE CONTAINER-->
+
+		</div>
+
+		<!-- END PAGE -->
+
+	</div>
+<!-- 加载的右边框架 -->
+
+
+	<!-- END CONTAINER -->
+
+	<!-- 引入底部开始 -->
+
+	<admintpl file="footer" />
+
+	<!-- 引入底部结束 -->
+
+	<admintpl file="footer_js" />
+
+</body>
+
+<!-- END BODY -->
+
+</html>

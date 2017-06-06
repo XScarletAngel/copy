@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+
+<!--[if !IE]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+
+<!-- BEGIN HEAD -->
+
+<head>
+
+	<meta charset="utf-8" />
+
+	<title>Metronic | Admin Dashboard Template</title>
+
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+	<meta content="" name="description" />
+
+	<meta content="" name="author" />
+
+	<!-- 引入顶部样式文件 -->
+	<link href="__PUBLIC__/media/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+
+	<link href="__PUBLIC__/media/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css"/>
+	<script src="__PUBLIC__/js/jquery.js"></script>
+	<script src="__PUBLIC__/js/wind.js"></script>
+	<style>
+		.expander{margin-left: -20px;}
+		.controls input[type="radio"] {margin-left:0px;}
+	</style>
+
+</head>
+
+<!-- END HEAD -->
+
+<!-- BEGIN BODY -->
+
+<body class="page-header-fixed">
+
+	<!-- 引入顶部开始 -->
+
+
+	<!-- 引入顶部结束 -->
+
+	<!-- BEGIN CONTAINER -->
+
+	<div class="page-container">
+
+		<!-- 引入左侧边栏开始 -->
+
+
+		<!-- 引入左侧边栏结束 -->
+
+		<!-- BEGIN PAGE -->
+
+		<div class="page-content">
+
+			<!-- BEGIN PAGE CONTAINER-->
+
+			<div class="container-fluid">
+
+				<!-- END PAGE HEADER-->
+
+				<!-- 右边主页面开始 -->
+				<div class="wrap js-check-wrap">
+					<form method="post" class="form-horizontal js-ajax-forms" action="{:U('Consult/index_layer_post')}">
+						<table>
+							<tr>
+								<td width="500" height="40">
+									<div class="control-group">
+										<label class="control-label">*来源:</label>
+										<div class="controls">
+											<select name="channel" required>
+												<option value="1">线上提交表单咨询</option>
+												<option value="2">线上即时通讯咨询</option>
+												<option value="3">电话咨询</option>
+												<option value="4">宣讲会咨询</option>
+												<option value="5">店面咨询</option>
+												<option value="6">其他咨询</option>
+											</select>
+											<span class="form-required">*</span>
+										</div>
+									</div>
+								</td>
+								<td width="500" height="40">
+								</td>
+							</tr>
+							<tr>
+								<td width="500" height="40">
+									<div class="control-group">
+										<label class="control-label">*手机号:</label>
+										<div class="controls">
+											<input type="text" name="phone" id="user_login"/>
+											<span class="form-required">*</span>
+										</div>
+									</div>
+								</td>
+								<td width="500" height="40">
+									<div class="control-group">
+										<label class="control-label">*姓名:</label>
+										<div class="controls">
+											<input type="text" name="stu_name" id="user_name">
+											<span class="form-required">*</span>
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td width="500" height="40">
+									<div class="control-group">
+										<label class="control-label">*目标学校:</label>
+										<div class="controls">
+											<input type="text" name="dst_shool">
+											<span class="form-required">*</span>
+										</div>
+									</div>
+								</td>
+								<td width="500" height="40">
+									<div class="control-group">
+										<label class="control-label">*目标专业:</label>
+										<div class="controls">
+											<input type="text" name="dst_major">
+											<span class="form-required">*</span>
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td width="500" height="40">
+									<div class="control-group">
+										<label class="control-label">分配:</label>
+										<div class="controls">
+											<select name="now_user_id">
+											<option value="">--请选择--</option>
+												<foreach name="data" item="vo">
+												<option value="{$vo.id}">{$vo.user_nicename}</option>
+												</foreach>
+											</select>
+										</div>
+									</div>
+								</td>
+								<td width="500" height="40">
+								</td>
+							</tr>
+						</table>
+						<div class="form-actions">
+							<button type="submit" class="btn btn-primary js-ajax-submit">{:L('ADD')}</button>
+							<a class="btn" href="javascript:history.back(-1);">{:L('BACK')}</a>
+						</div>
+					</form>
+				</div>
+				<!-- 右边主页面结束 -->
+			</div>
+			<!-- END PAGE CONTAINER-->
+			<script src="__PUBLIC__/js/common.js"></script>
+			<script type="text/javascript">
+                $(function() {
+                    /////---------------------
+                    Wind.use('validate', 'ajaxForm', 'artDialog', function() {
+
+                        var form = $('form.js-ajax-forms');
+                        //ie处理placeholder提交问题
+                        if ($.browser && $.browser.msie) {
+                            form.find('[placeholder]').each(function() {
+                                var input = $(this);
+                                if (input.val() == input.attr('placeholder')) {
+                                    input.val('');
+                                }
+                            });
+                        }
+
+                        var formloading = false;
+                        //表单验证开始
+                        form.validate({
+                            //是否在获取焦点时验证
+                            onfocusout : false,
+                            //是否在敲击键盘时验证
+                            onkeyup : false,
+                            //当鼠标掉级时验证
+                            onclick : false,
+                            //验证错误
+                            showErrors : function(errorMap, errorArr) {
+                                //errorMap {'name':'错误信息'}
+                                //errorArr [{'message':'错误信息',element:({})}]
+                                try {
+                                    $(errorArr[0].element).focus();
+                                    art.dialog({
+                                        id : 'error',
+                                        icon : 'error',
+                                        lock : true,
+                                        fixed : true,
+                                        background : "#CCCCCC",
+                                        opacity : 0,
+                                        content : errorArr[0].message,
+                                        cancelVal : '确定',
+                                        cancel : function() {
+                                            $(errorArr[0].element).focus();
+                                        }
+                                    });
+                                } catch (err) {
+                                }
+                            },
+                            //验证规则
+                            rules : {
+                                'channel' : {
+                                    required : 1
+                                },
+                                'phone' : {
+                                    required : 1
+                                },
+                                'stu_name' : {
+                                    required : 1
+                                },
+                                'dst_shool' : {
+                                    required : 1
+                                },
+                                'dst_major' : {
+                                    required : 1
+                                }
+                            },
+                            //验证未通过提示消息
+                            messages : {
+                                'channel' : {
+                                    required : '请选择来源'
+                                },
+                                'phone' : {
+                                    required : '请填写手机号'
+                                },
+                                'stu_name' : {
+                                    required : '请填写姓名'
+                                },
+                                'dst_shool' : {
+                                    required : '请填写目标学校'
+                                },
+                                'dst_major' : {
+                                    required : '请填写目标专业'
+                                }
+                            },
+                            //给未通过验证的元素加效果,闪烁等
+                            highlight : false,
+                            //是否在获取焦点时验证
+                            onfocusout : false,
+                            //验证通过，提交表单
+                            submitHandler : function(forms) {
+                                if (formloading)
+                                    return;
+                                $(forms).ajaxSubmit({
+                                    url : form.attr('action'), //按钮上是否自定义提交地址(多按钮情况)
+                                    dataType : 'json',
+                                    beforeSubmit : function(arr, $form, options) {
+                                        formloading = true;
+                                    },
+                                    success : function(data, statusText, xhr, $form) {
+                                        formloading = false;
+                                        if (data.status) {
+                                            setCookie("refersh_time", 1);
+                                            //添加成功
+                                            Wind.use("artDialog", function() {
+                                                art.dialog({
+                                                    id : "succeed",
+                                                    icon : "succeed",
+                                                    fixed : true,
+                                                    lock : true,
+                                                    background : "#CCCCCC",
+                                                    opacity : 0,
+                                                    content : data.info,
+                                                    button : [ {
+                                                        name : '继续添加？',
+                                                        callback : function() {
+                                                            reloadPage(window);
+                                                            return true;
+                                                        },
+                                                        focus : true
+                                                    }, {
+                                                        name : '返回列表页',
+                                                        callback : function() {
+                                                            location = "{:U('Major/index')}";
+                                                            return true;
+                                                        }
+                                                    } ]
+                                                });
+                                            });
+                                        } else {
+                                            artdialog_alert(data.info);
+                                        }
+                                    }
+                                });
+                            }
+                        });
+                    });
+                    ////-------------------------
+                });
+			</script>
+		</div>
+
+		<!-- END PAGE -->
+
+	</div>
+<!-- 加载的右边框架 -->
+
+
+	<!-- END CONTAINER -->
+			
+	<!-- 引入底部开始 -->
+
+
+	<!-- 引入底部结束 -->
+
+
+</body>
+
+<!-- END BODY -->
+
+</html>

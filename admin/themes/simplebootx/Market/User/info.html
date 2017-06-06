@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+
+<!--[if !IE]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+
+<!-- BEGIN HEAD -->
+
+<head>
+
+	<meta charset="utf-8" />
+
+	<title>Metronic | Admin Dashboard Template</title>
+
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+	<meta content="" name="description" />
+
+	<meta content="" name="author" />
+
+	<!-- 引入顶部样式文件 -->
+
+	<admintpl file="head_css" />
+
+	<style>
+		.expander{margin-left: -20px;}
+		.controls input[type="radio"] {margin-left:0px;}
+		body{line-height: 35px;}
+		.dropdown2 {display:inline-block;width:220px;height:20px;
+			position:relative;margin-left:20px;}
+
+
+		.dropdown3 {display:inline-block;width:220px;height:20px;
+			position:relative;margin-left:20px;}
+	</style>
+
+</head>
+
+<!-- END HEAD -->
+
+<!-- BEGIN BODY -->
+
+<body class="page-header-fixed">
+
+	<!-- 引入顶部开始 -->
+
+	<admintpl file="head" />
+
+	<!-- 引入顶部结束 -->
+
+	<!-- BEGIN CONTAINER -->
+
+	<div class="page-container">
+
+		<!-- 引入左侧边栏开始 -->
+
+		<admintpl file="lefter" />
+
+		<!-- 引入左侧边栏结束 -->
+
+		<!-- BEGIN PAGE -->
+
+		<div class="page-content">
+
+			<!-- BEGIN PAGE CONTAINER-->
+
+			<div class="container-fluid">
+
+				<admintpl file="style_bn" />
+
+				<!-- END PAGE HEADER-->
+
+				<!-- 右边主页面开始 -->
+				<div class="wrap js-check-wrap">
+					<form method="post" class="form-horizontal js-ajax-form" action="{:U('User/edit_post')}">
+						<table>
+							<tr>
+							<input type="hidden" name="id" value="{$id}">
+								<td width="500" height="40">
+									<div class="control-group">
+										<label class="control-label">*分校:</label>
+										<div class="controls">
+											{$res.zone_name}
+										</div>
+									</div>
+								</td>
+								<td width="500" height="40">
+									<div class="control-group">
+										<label class="control-label">*校区:</label>
+										<div class="controls">
+											{$res.sub_zone_name}
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td width="500" height="40">
+									<div class="control-group">
+										<label class="control-label">*手机号（账号）:</label>
+										<div class="controls">
+											{$res.user_phone}"
+										</div>
+									</div>
+								</td>
+								<td width="500" height="40">
+									<div class="control-group">
+										<label class="control-label">*姓名:</label>
+										<div class="controls">
+											{$res.user_name}
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td width="500" height="40">
+									<div class="control-group">
+										<label class="control-label">客户来源:</label>
+										<div class="controls">
+											<if condition="$res[channel] eq 1">线上提交表单咨询
+											<elseif condition="$res[channel] eq 2"/>线上及时通讯咨询
+											<elseif condition="$res[channel] eq 3"/>电话咨询
+											<elseif condition="$res[channel] eq 4"/>宣讲会咨询
+											<elseif condition="$res[channel] eq 5"/>店面咨询
+											<elseif condition="$res[channel] eq 6"/>其它
+											</if>
+										</div>
+									</div>
+								</td>
+								<td width="500" height="40">
+									<div class="control-group">
+										<label class="control-label">来源学校:</label>
+										<div class="controls">
+											{$res.from}
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td width="500" height="40">
+									<div class="control-group">
+										<label class="control-label">所学专业:</label>
+										<div class="controls">
+											{$res.study_major}
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<label class="control-label">目标院校:</label>
+									<div class="dropdown2" id="dropdown_sel">  <!-- 模拟 select 的标记， -->
+										{$res.dst_school}
+									</div>
+								</td>
+								<td>
+									<label class="control-label">目标院系:</label>
+									<div class="controls">
+										{$res.dst_dept}
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<label class="control-label">目标专业:</label>
+									<div class="controls">
+										{$res.dst_major}
+									</div>
+								</td>
+								<td>
+									<label class="control-label">目标方向:</label>
+									<div class="dropdown3" id="dropdown_sel">  <!-- 模拟 select 的标记， -->
+										{$res.dst_rch}
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td width="500" height="40">
+									<div class="control-group">
+										<label class="control-label">飞跃意向:</label>
+										<div class="controls">
+											{$res.purpose}
+										</div>
+									</div>
+								</td>
+								<td width="500" height="40">
+									<div class="control-group">
+										<label class="control-label">薄弱学科:</label>
+										<div class="controls">
+											{$res.weak_subject}
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td width="500" height="40">
+									<div class="control-group">
+										<label class="control-label">参与活动:</label>
+										<div class="controls" id="hd_com">
+											<foreach name="acts" item="vo">
+												{$vo.act_name}&nbsp;&nbsp;&nbsp;&nbsp;
+											</foreach>
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td width="500" height="40">
+									<div class="control-group">
+										<label class="control-label">最终流向:</label>
+										<div class="controls">
+											<if condition="$res[final_flow] eq 0">其他
+											<elseif condition="$res[final_flow] eq 1"/>已转为学员
+											<elseif condition="$res[final_flow] eq 2"/>流向其他培训机构
+											</if>
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td width="500" height="40">
+									<div class="control-group">
+										<label class="control-label">备注:</label>
+										<div class="controls">
+											{$res.remark}
+										</div>
+									</div>
+								</td>
+								<td width="500" height="40"></td>
+							</tr>
+						</table>
+						<div class="form-actions">
+							<a class="btn" href="javascript:history.back(-1);">{:L('BACK')}</a>
+						</div>
+					</form>
+				</div>
+				<!-- 右边主页面结束 -->
+				
+			</div>
+			<!-- END PAGE CONTAINER-->    
+			
+		</div>
+
+		<!-- END PAGE -->
+
+	</div>
+<!-- 加载的右边框架 -->
+
+
+	<!-- END CONTAINER -->
+			
+	<!-- 引入底部开始 -->
+
+	<admintpl file="footer" />
+
+	<!-- 引入底部结束 -->
+
+	<admintpl file="footer_js" />
+
+</body>
+
+<!-- END BODY -->
+
+</html>

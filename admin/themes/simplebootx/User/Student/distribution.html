@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+
+<!--[if !IE]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+
+<!-- BEGIN HEAD -->
+
+<head>
+
+	<meta charset="utf-8" />
+
+	<title>Metronic | Admin Dashboard Template</title>
+
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+	<meta content="" name="description" />
+
+	<meta content="" name="author" />
+
+	<!-- 引入顶部样式文件 -->
+
+	<admintpl file="head_css" />
+	<style>
+		.expander{margin-left: -20px;}
+		.controls input[type="radio"] {margin-left:0px;}
+	</style>
+
+</head>
+
+<!-- END HEAD -->
+
+<!-- BEGIN BODY -->
+
+<body class="page-header-fixed">
+
+	<!-- 引入顶部开始 -->
+
+	<admintpl file="head" />
+
+	<!-- 引入顶部结束 -->
+
+	<!-- BEGIN CONTAINER -->
+
+	<div class="page-container">
+
+		<!-- 引入左侧边栏开始 -->
+
+		<admintpl file="lefter" />
+
+		<!-- 引入左侧边栏结束 -->
+
+		<!-- BEGIN PAGE -->
+
+		<div class="page-content">
+
+			<!-- BEGIN PAGE CONTAINER-->
+
+			<div class="container-fluid">
+
+				<admintpl file="style_bn" />
+
+				<!-- END PAGE HEADER-->
+
+				<!-- 右边主页面开始 -->
+				<div class="wrap js-check-wrap">
+				用户手机号：{$user.user_login}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;用户姓名：{$user.user_name}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;学员编号：{$user.user_no}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;上课校区：{$user.zone_name}-{$user.sub_zone_name}<br/><br/>
+					配置班级:
+					<table class="table table-hover table-bordered table-list">
+						<thead>
+							<tr>
+								<th width="40">班级编号</th>
+								<th width="50">班级名称</th>
+								<th width="40">所属课程</th>
+								<th width="50">班主任</th>
+								<th width="50">上课老师</th>
+								<th width="30">操作</th>
+							</tr>
+						</thead>
+						<foreach name="data" item="vo">
+						<tr>
+		                    <td>{$vo.class_no}</td>
+							<td>{$vo.class_name}</td>
+							<td>{$vo.course_name}</td>
+							<td>{$vo.class_master}</td>
+							<td>{$vo.tch_name}</td>
+						    <td><span id="id{$vo.id}"><if condition="$vo.choice eq 0"><a href="javascript:void(0);" atype="0" class-id="{$vo.id}" user-id="{$id}" class="status" value="选择">选择</a><elseif condition="$vo.choice eq 1"/><a href="javascript:void(0);" atype="1" class-id="{$vo.id}" user-id="{$id}" class="status" value="取消选择">取消选择</a></if></span></td>
+						</tr>
+						</foreach>
+					</table>
+					<br/>
+					设置服务：
+					<form method="post" class="form-horizontal js-ajax-form" action="{:U('Student/service_post')}">
+						<table>
+							<tr>
+								<td width="900" height="40">
+									<div class="control-group">
+										<div class="controls">
+										<input type="hidden" name="user_id" value="{$id}">
+											<foreach name="service" item="vo">
+											<input name="service[]" type="checkbox" value="{$vo.id}" <if condition="$vo.choice eq 1">checked</if>/>{$vo.srv_name}&nbsp;&nbsp;&nbsp;&nbsp;
+											</foreach>
+										</div>
+									</div>
+								</td>
+							</tr>
+						</table>
+						<div class="form-actions">
+							<button type="submit" class="btn btn-primary js-ajax-submit">{:L('ADD')}</button>
+							<a class="btn" href="javascript:history.back(-1);">{:L('BACK')}</a>
+						</div>
+					</form>
+					<div class="pagination">{$page}</div>
+				</div>
+				<!-- 右边主页面结束 -->
+				<script src="__PUBLIC__/js/common.js"></script>
+				<script type="text/javascript" src="__PUBLIC__/js/datePicker/datePicker.js?v="></script>
+				<script src="__PUBLIC__/js/jquery.validate.min.js"></script>
+				<script src="__PUBLIC__/js/datePicker/datePicker.js"></script>
+				<script type="text/javascript">
+					// 操作单条数据屏蔽恢复的效果
+					$(function(){
+						$('td').on('click', 'span a', function(){
+							var value  = $(this).attr('value');
+							var status = confirm("确认要"+value+"吗?");
+							if(!status){
+								return false;
+							}
+
+							var class_id = $(this).attr('class-id');  // 班级id
+							var user_id  = $(this).attr('user-id');  // 学员id
+							var atype    = $(this).attr('atype');  // 标签显示的类型,0是选择，1是取消选择
+							var url      = "index.php?g=User&m=Student&a=choice";
+
+							$.ajax({
+								type:'POST',
+								url:url,
+								data:{class_id:class_id, user_id:user_id},
+								success:function(msg){
+									if(msg.code == 1){
+										alert(msg.msg);
+										if(atype == 0){
+											var str = '<a href="javascript:void(0);" atype="1" class-id="'+class_id+'" user-id="'+user_id+'" class="status" value="取消选择">取消选择</a>';
+										}
+										if(atype == 1){
+											var str = '<a href="javascript:void(0);" atype="0" class-id="'+class_id+'" user-id="'+user_id+'" class="status" value="选择">选择</a>';
+										}
+										$("#id"+class_id).html(str);
+									}else if(msg.code == 2){
+										alert(msg.msg);
+									}else if(msg.code == 0){
+                                        alert(msg.msg);
+                                    }
+								},
+								error:function(){
+									alert('请求失败');
+								}
+							});
+						});
+
+					});
+				</script>
+			</div>
+			<!-- END PAGE CONTAINER-->    
+			
+		</div>
+
+		<!-- END PAGE -->
+
+	</div>
+<!-- 加载的右边框架 -->
+
+
+	<!-- END CONTAINER -->
+			
+	<!-- 引入底部开始 -->
+
+	<admintpl file="footer" />
+
+	<!-- 引入底部结束 -->
+
+	<admintpl file="footer_js" />
+
+</body>
+
+<!-- END BODY -->
+
+</html>

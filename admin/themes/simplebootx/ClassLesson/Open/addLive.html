@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+
+<!--[if IE 8]>
+<html lang="en" class="ie8 no-js"> <![endif]-->
+
+<!--[if IE 9]>
+<html lang="en" class="ie9 no-js"> <![endif]-->
+
+<!--[if !IE]><!-->
+<html lang="en" class="no-js"> <!--<![endif]-->
+
+<!-- BEGIN HEAD -->
+
+<head>
+
+    <meta charset="utf-8"/>
+
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+
+    <link href="__PUBLIC__/media/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+
+    <link href="__PUBLIC__/media/css/daterangepicker.css" rel="stylesheet" type="text/css"/>
+
+    <script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+
+    <!--ajaxForm begin-->
+    <script>
+        //全局变量
+        var GV = {
+            HOST: "{$_SERVER['HTTP_HOST']}",
+            ROOT: "__ROOT__/",
+            WEB_ROOT: "__WEB_ROOT__/",
+            JS_ROOT: "public/js/"
+        };
+    </script>
+
+    <script src="__PUBLIC__/js/jquery.js"></script>
+    <script src="__PUBLIC__/js/wind.js"></script>
+    <!-- <script src="__PUBLIC__/simpleboot/bootstrap/js/bootstrap.min.js"></script> -->
+    <script>
+        $(function () {
+            $("[data-toggle='tooltip']").tooltip();
+        });
+    </script>
+    <!--ajaxForm end-->
+
+
+</head>
+
+<!-- END HEAD -->
+
+<!-- BEGIN BODY -->
+
+<body>
+<form action="{:U('Open/addLive')}" method="post">
+    <span>直播名称：</span>
+    <input type="text" name="channel_title" id="channel_title" value="{$req.channel_title}">
+    <span>直播人：</span>
+    <input type="text" name="live_teacher" id="live_teacher" value="{$req.live_teacher}">
+    <span>开始时间：</span>
+    <input type="text" name="begin_time" class="js-date" value="{$req.begin_time}">-
+    <input type="text" name="end_time" class="js-date" value="{$req.end_time}">
+    <input type="submit" value="确定">
+</form>
+<form action="{:U('Open/createLiveOnline')}" method="post">
+    <input name="class_id" value='{$class_id}' type="hidden">
+    <table class="table table-hover table-bordered table-list">
+        <tr>
+            <td>选择</td>
+            <td>直播名称</td>
+            <td>直播分校</td>
+            <td>直播校区</td>
+            <td>计划时间</td>
+            <td>课时数</td>
+            <td>直播人</td>
+        </tr>
+
+        <foreach name="data" item="vo">
+            <tr>
+                <td><input type="checkbox" name="live_id[]" value="{$vo.id}"></td>
+                <td>{$vo.channel_title}</td>
+                <td>{$vo.zone_name}</td>
+                <td>{$vo.sub_zone_name}</td>
+                <td>{$vo.begin_time} - {$vo.end_time}</td>
+                <td> {$vo.hour_num}</td>
+                <td>{$vo.live_teacher}</td>
+            </tr>
+        </foreach>
+    </table>
+    <input type="submit" class="btn btn-primary" value="确定">
+</form>
+
+
+</body>
+<script src="__PUBLIC__/js/common.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/datePicker/datePicker.js?v="></script>
+<script>
+    //    function add_post() {<a href="javascript:;" onclick="add_post()"></a>
+    //        var url = '/index.php?g=Open&m=Open&a=getLiveJson';
+    //        var channel_live = $("#channel_live").val();
+    //        var live_teacher = $("#live_teacher").val();
+    //        var begin_time 	 = $("#begin_time").val();
+    //        var end_time     = $("#end_time").val();
+    //        $.ajax({
+    //            url:url,
+    //            type:'POST',
+    //            dataType:'json',
+    //            data:{
+    //                channel_live:channel_live,
+    //                live_teacher:live_teacher,
+    //                begin_time:begin_time,
+    //                end_time:end_time
+    //            },
+    //            success:function(msg){
+    //                var str = "<option value=''>--全部--</option>";
+    //                $(msg).each(function(i){
+    //                    var item = msg[i];
+    //                    str += '<option value="'+item['id']+'" name-value="'+item['sz_name']+'">'+item['sz_name']+'</option>';
+    //                });
+    //                $("#zone_sub_id").html(str);
+    //            }
+    //        });
+    //    }
+</script>
+</html>

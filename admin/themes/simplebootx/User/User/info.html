@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+
+<!--[if !IE]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+
+<!-- BEGIN HEAD -->
+
+<head>
+
+	<meta charset="utf-8" />
+
+	<title>Metronic | Admin Dashboard Template</title>
+
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+	<meta content="" name="description" />
+
+	<meta content="" name="author" />
+
+	<!-- 引入顶部样式文件 -->
+
+	<admintpl file="head_css" />
+	<script src="__PUBLIC__/js/jquery.js"></script>
+    <script src="__PUBLIC__/js/wind.js"></script>
+    <!-- <script src="__PUBLIC__/simpleboot/bootstrap/js/bootstrap.min.js"></script> -->
+    <script>
+    	$(function(){
+    		$("[data-toggle='tooltip']").tooltip();
+    	});
+    </script>
+	<style>.expander{margin-left: -20px;}</style>
+
+</head>
+
+<!-- END HEAD -->
+
+<!-- BEGIN BODY -->
+
+<body class="page-header-fixed">
+
+	<!-- 引入顶部开始 -->
+
+	<admintpl file="head" />
+
+	<!-- 引入顶部结束 -->
+
+	<!-- BEGIN CONTAINER -->
+
+	<div class="page-container">
+
+		<!-- 引入左侧边栏开始 -->
+
+		<admintpl file="lefter" />
+
+		<!-- 引入左侧边栏结束 -->
+
+		<!-- BEGIN PAGE -->
+
+		<div class="page-content">
+
+			<!-- BEGIN PAGE CONTAINER-->
+
+			<div class="container-fluid">
+
+				<admintpl file="style_bn" />
+
+				<!-- END PAGE HEADER-->
+
+				<!-- 右边主页面开始 -->
+				<div class="wrap js-check-wrap">
+					<table class="table table-hover table-bordered table-list">
+						<tr>
+							<td width="200">用户账号：{$user.user_login}<br/><br/>
+							用户姓名：{$user.user_name}<br/><br/>
+							用户昵称：{$user.user_nicename}</td>
+							<td width="200">用户头像：<if condition="$user.avatar eq ''">该用户暂无头像<else/><img src="{$user.avatar}" width="90" height="90"/></if></td>
+						</tr>
+						<tr>
+							<td width="200">注册来源：<if condition="$user.source eq 1">后台创建<elseif condition="$user.source eq 2" />手机端注册<elseif condition="$user.source eq 3" />web端注册</if></td>
+							<td width="200">是否为学员：<if condition="($user.user_type eq 1) or ($user.user_type eq 3)">是<else/>否</if></td>
+						</tr>
+						<tr>
+							<td width="200">是否为教师：<if condition="($user.user_type eq 2) or ($user.user_type eq 3)">是<else/>否</if></td>
+							<td width="200"></td>
+						</tr>
+						<tr>
+							<td width="200">归属分校校区：{$stu.zone_name}--{$stu.sub_zone_name}</td>
+							<td width="200"></td>
+						</tr>
+						<tr>
+							<td width="200">客户类型：<if condition="$user.user_type eq 0">注册用户<elseif condition="$user.user_type eq 1"/>学员<elseif condition="$user.user_type eq 2"/>老师<elseif condition="$user.user_type eq 3"/>学员和老师</if>&nbsp;&nbsp;&nbsp;&nbsp;<a href="">解绑</a></td>
+							<td width="200"></td>
+						</tr>
+						<tr>
+							<td width="200">账号状态：<if condition="$user.user_status eq 0">禁用<elseif condition="$user.user_status eq 1"/>正常</if>&nbsp;&nbsp;&nbsp;&nbsp;<if condition="$user.user_status eq 0"><a class="status" href="javascript:void(0);" status-value="1">恢复</a><elseif condition="$user.user_status eq 1"/><a class="status" href="javascript:void(0);" status-value="0">禁用</a></if></td>
+							<td width="200"></td>
+						</tr>
+						<input type="hidden" value="{$user.id}" id="user_id">
+					</table>
+					<a class="btn" href="javascript:history.back(-1);">{:L('BACK')}</a>
+				</div>
+				<!-- 右边主页面结束 -->
+				<script src="__PUBLIC__/js/common.js"></script>
+				<script type="text/javascript" src="__PUBLIC__/js/datePicker/datePicker.js?v="></script>
+			</div>
+			<!-- END PAGE CONTAINER-->
+			<script>
+                $(function(){
+                    $('td').on('click', 'a.status', function(){
+                        var value  = $(this).attr('status-value');
+                        var id     = $('#user_id').val();
+                        var index  = layer.confirm("确认要操作吗?请慎重操作",function(){
+                            var url    = "index.php?g=User&m=User&a=status";
+                            $.ajax({
+                                type:'POST',
+                                url:url,
+                                data:{id:id, value:value},
+                                success:function(msg){
+                                    if(msg.code == '1'){
+                                        alert(msg.msg);
+                                        location.reload();
+                                    }else{
+                                        layer.msg(msg.msg)
+                                    }
+                                },
+                                error:function(){
+                                    layer.msg('请求失败')
+                                }
+                            });
+                            layer.close(index);
+                        })
+                    });
+
+                });
+			</script>
+		</div>
+
+		<!-- END PAGE -->
+
+	</div>
+<!-- 加载的右边框架 -->
+
+
+	<!-- END CONTAINER -->
+			
+	<!-- 引入底部开始 -->
+
+	<admintpl file="footer" />
+
+	<!-- 引入底部结束 -->
+
+	<admintpl file="footer_js" />
+
+</body>
+
+<!-- END BODY -->
+
+</html>

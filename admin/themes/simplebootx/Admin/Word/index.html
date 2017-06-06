@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>上传word文件</title>
+</head>
+<body>
+<form action="/index.php?g=Admin&m=Word&a=getContent" method="post"  enctype="multipart/form-data">
+    <label for="file">Filename:</label>
+    <input type="file" name="file" id="file" />
+    <input type="hidden" name="course_id" value="{$course_id}">
+    <input type="submit" name="submit" value="Submit" />
+</form>
+</body>
+</html>

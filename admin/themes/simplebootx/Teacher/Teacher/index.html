@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+
+<!--[if !IE]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+
+<!-- BEGIN HEAD -->
+
+<head>
+
+	<meta charset="utf-8" />
+
+	<title>星空海天教育</title>
+
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+	<meta content="" name="description" />
+
+	<meta content="" name="author" />
+
+	<!-- 引入顶部样式文件 -->
+	<admintpl file="head_css" />
+	<script src="__PUBLIC__/js/jquery.js"></script>
+    <script src="__PUBLIC__/js/wind.js"></script>
+    <!-- <script src="__PUBLIC__/simpleboot/bootstrap/js/bootstrap.min.js"></script> -->
+    <script>
+    	$(function(){
+    		$("[data-toggle='tooltip']").tooltip();
+    	});
+    </script>
+
+</head>
+
+<!-- END HEAD -->
+
+<!-- BEGIN BODY -->
+
+<body class="page-header-fixed" >
+
+	<!-- 引入顶部开始 -->
+
+	<admintpl file="head" />
+
+	<!-- 引入顶部结束 -->
+
+	<!-- BEGIN CONTAINER -->
+
+	<div class="page-container">
+
+		<!-- 引入左侧边栏开始 -->
+
+		<admintpl file="lefter" />
+
+		<!-- 引入左侧边栏结束 -->
+
+		<!-- BEGIN PAGE -->
+
+		<div class="page-content"style="overflow:hidden;">
+
+			<!-- BEGIN PAGE CONTAINER-->
+
+			<div class="container-fluid">
+
+				<admintpl file="style_bn" />
+
+				<!-- END PAGE HEADER-->
+
+				<!-- 右边主页面开始 -->
+
+				<div class="wrap js-check-wrap">
+					<form class="well form-search"  action="{:U('Teacher/index')}"  method="post">
+						<ul class="fromUl clearfix">
+							<li>
+								<select name="s1">
+									<option value="">--请选择--</option>
+									<option value="user_login"  <if condition="$param[s1] eq 'user_login'">selected</if> >手机号</option>
+									<option value="tch_no"      <if condition="$param[s1] eq 'tch_no'">selected</if> >编号</option>
+									<option value="user_name"   <if condition="$param[s1] eq 'user_name'">selected</if>  >姓名</option>
+								</select>
+							</li>
+							<li>
+								<input type="text" name="sc1" class="s1" value="{$param[sc1]}">
+								<br>
+							</li>
+							<li>
+								<select name="s2">
+									<option value="">--请选择--</option>
+									<option value="school_code"  <if condition="$param[s2] eq 'school_code'">selected</if> >读研院校编号</option>
+									<option value="school"       <if condition="$param[s2] eq 'school'">selected</if> >读研院校名称</option>
+								</select>
+							</li>
+							<li>
+								<input type="text" name="sc2" class="s2" value="{$param[sc2]}">
+								<br>
+							</li>
+							<li>
+								<select name="s3">
+									<option value="">--请选择--</option>
+									<option value="school_major_code" <if condition="$param[s3] eq 'school_major_code'">selected</if>   >读研专业编号</option>
+									<option value="school_major"      <if condition="$param[s3] eq 'school_major'">selected</if>  >读研专业名称</option>
+								</select>
+							</li>
+							<li>
+								<input type="text" name="sc3" class="s3" value="{$param[sc3]}">
+								<br>
+							</li>
+							<li>
+								状态：<select name="sign_status">
+										<option value="">全部</option>
+										<option value="2"  <if condition="$param[sign_status] eq 2">selected</if> >解约</option>
+										<option value="1"  <if condition="$param[sign_status] eq 1">selected</if> >签约</option>
+									</select>
+							</li>
+						</ul>
+						<div class="frombtn">
+							<input type="submit" class="btn btn-primary" value="搜索" />
+						</div>
+				</form>
+			</div>
+				<table border="1"  class="table table-hover table-bordered table-list">
+					<tr>
+						<th>手机号</th>
+						<th>姓名</th>
+						<th>头像</th>
+						<th>教师编号</th>
+						<th>读研时间</th>
+						<th>读研学校</th>
+						<th>读研专业</th>
+						<th>签约日期</th>
+						<th>状态</th>
+						<th>操作</th>
+					</tr>
+					<foreach name="data" item="vo">
+						<tr>
+							<td>{$vo.user_login}</td>
+							<td>{$vo.user_name}</td>
+							<td>{$vo.avatar}</td>
+							<td>{$vo.tch_no}</td>
+							<td>{$vo.graduate_time}</td>
+							<td>{$vo.school}</td>
+							<td>{$vo.school_major}</td>
+							<td>{$vo.sign_date}</td>
+							<td>
+								<if condition="$vo[sign_status] eq 1 ">签约</if>
+								<if condition="$vo[sign_status] eq 2 ">解约</if>
+							</td>
+							<td>
+								<a href="{:U('Teacher/show',array('id'=>$vo['id']))}">详情</a> |
+								<a href="{:U('Teacher/edit',array('id'=>$vo['id']))}">{:L('EDIT')}</a>
+							</td>
+						</tr>
+					</foreach>
+				</table>
+
+				<div class="page clearfix">{$page}</div>
+
+				<!-- 右边主页面结束 -->
+
+			</div>
+			<!-- END PAGE CONTAINER-->
+
+		</div>
+
+		<!-- END PAGE -->
+
+	</div>
+<!-- 加载的右边框架 -->
+
+
+	<!-- END CONTAINER -->
+
+	<!-- 引入底部开始 -->
+
+	<admintpl file="footer" />
+
+	<!-- 引入底部结束 -->
+
+	<admintpl file="footer_js" />
+
+</body>
+
+<!-- END BODY -->
+
+</html>

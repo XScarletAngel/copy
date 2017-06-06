@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+
+<!--[if !IE]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+
+<!-- BEGIN HEAD -->
+
+<head>
+
+	<meta charset="utf-8" />
+
+	<title>星空海天教育</title>
+
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+	<meta content="" name="description" />
+
+	<meta content="" name="author" />
+
+	<!-- 引入顶部样式文件 -->
+
+	<admintpl file="head_css" />
+	<script src="__PUBLIC__/js/jquery.js"></script>
+    <script src="__PUBLIC__/js/wind.js"></script>
+    <!-- <script src="__PUBLIC__/simpleboot/bootstrap/js/bootstrap.min.js"></script> -->
+    <script>
+    	$(function(){
+    		$("[data-toggle='tooltip']").tooltip();
+    	});
+    </script>
+	<style>.expander{margin-left: -20px;}</style>
+
+</head>
+
+<!-- END HEAD -->
+
+<!-- BEGIN BODY -->
+
+<body class="page-header-fixed">
+
+	<!-- 引入顶部开始 -->
+
+	<admintpl file="head" />
+
+	<!-- 引入顶部结束 -->
+
+	<!-- BEGIN CONTAINER -->
+
+	<div class="page-container">
+
+		<!-- 引入左侧边栏开始 -->
+
+		<admintpl file="lefter" />
+
+		<!-- 引入左侧边栏结束 -->
+
+		<!-- BEGIN PAGE -->
+
+		<div class="page-content">
+
+			<!-- BEGIN PAGE CONTAINER-->
+
+			<div class="container-fluid">
+
+				<admintpl file="style_bn" />
+
+				<!-- END PAGE HEADER-->
+
+				<!-- 右边主页面开始 -->
+				<div class="wrap">
+					<ul class="nav nav-tabs">
+						<li><a href="{:U('menu/index')}">{:L('ADMIN_MENU_INDEX')}</a></li>
+						<li class="active"><a href="{:U('menu/add')}">{:L('ADMIN_MENU_ADD')}</a></li>
+					</ul>
+					<form method="post" class="form-horizontal js-ajax-form" action="{:U('Menu/add_post')}">
+						<fieldset>
+							<div class="control-group">
+								<label class="control-label">上级:</label>
+								<div class="controls">
+									<select name="parentid">
+										<option value="0">作为一级菜单</option>
+										{$select_categorys}
+									</select>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">名称:</label>
+								<div class="controls">
+									<input type="text" name="name">
+									<span class="form-required">*</span>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">应用:</label>
+								<div class="controls">
+									<input type="text" name="app" id="app">
+									<span class="form-required">*</span>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">控制器:</label>
+								<div class="controls">
+									<input type="text" name="model" id="model">
+									<span class="form-required">*</span>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">方法:</label>
+								<div class="controls">
+									<input type="text" name="action" id="action">
+									<span class="form-required">*</span>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">参数:</label>
+								<div class="controls">
+									<input type="text" name="data">
+									例:id=3&amp;p=3
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">图标:</label>
+								<div class="controls">
+									<input type="text" name="icon" id="action">
+									<a href="http://www.thinkcmf.com/font/icons" target="_blank">选择图标</a> 不带前缀fa-，如fa-user => user
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">备注:</label>
+								<div class="controls">
+									<textarea name="remark" rows="5" cols="57" style="width: 500px;"></textarea>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">状态:</label>
+								<div class="controls">
+									<select name="status">
+										<option value="1">显示</option>
+										<option value="0">隐藏</option>
+									</select>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">类型:</label>
+								<div class="controls">
+									<select name="type">
+										<option value="1" selected>权限认证+菜单</option>
+										<option value="0">只作为菜单</option>
+									</select>
+									注意：“权限认证+菜单”表示加入后台权限管理，纯碎是菜单项请不要选择此项。
+								</div>
+							</div>
+						</fieldset>
+						<div class="form-actions">
+							<button type="submit" class="btn btn-primary js-ajax-submit">{:L('ADD')}</button>
+							<a class="btn" href="javascript:history.back(-1);">{:L('BACK')}</a>
+						</div>
+					</form>
+				</div>
+				<script src="__PUBLIC__/js/common.js"></script>
+			<!-- 右边主页面结束 -->
+			
+			</div>
+			<!-- END PAGE CONTAINER-->    
+			
+		</div>
+
+		<!-- END PAGE -->
+
+	</div>
+<!-- 加载的右边框架 -->
+
+	<!-- END CONTAINER -->
+			
+	<!-- 引入底部开始 -->
+
+	<admintpl file="footer" />
+
+	<!-- 引入底部结束 -->
+
+	<admintpl file="footer_js" />
+
+</body>
+
+<!-- END BODY -->
+
+</html>

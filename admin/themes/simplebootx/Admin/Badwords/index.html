@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+
+<!--[if !IE]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+
+<!-- BEGIN HEAD -->
+
+<head>
+
+	<meta charset="utf-8" />
+
+	<title>星空海天教育</title>
+
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+	<meta content="" name="description" />
+
+	<meta content="" name="author" />
+
+	<!-- 引入顶部样式文件 -->
+
+	<admintpl file="head_css" />
+	<script src="__PUBLIC__/js/jquery.js"></script>
+    <script src="__PUBLIC__/js/wind.js"></script>
+    <!-- <script src="__PUBLIC__/simpleboot/bootstrap/js/bootstrap.min.js"></script> -->
+    <script>
+    	$(function(){
+    		$("[data-toggle='tooltip']").tooltip();
+    	});
+    </script>
+	<style>.expander{margin-left: -20px;}</style>
+
+</head>
+
+<!-- END HEAD -->
+
+<!-- BEGIN BODY -->
+
+<body class="page-header-fixed">
+
+	<!-- 引入顶部开始 -->
+
+	<admintpl file="head" />
+
+	<!-- 引入顶部结束 -->
+
+	<!-- BEGIN CONTAINER -->
+
+	<div class="page-container">
+
+		<!-- 引入左侧边栏开始 -->
+
+		<admintpl file="lefter" />
+
+		<!-- 引入左侧边栏结束 -->
+
+		<!-- BEGIN PAGE -->
+
+		<div class="page-content">
+
+			<!-- BEGIN PAGE CONTAINER-->
+
+			<div class="container-fluid">
+
+				<admintpl file="style_bn" />
+
+				<!-- END PAGE HEADER-->
+
+				<!-- 右边主页面开始 -->
+				<div class="wrap js-check-wrap">
+					<form class="well form-search" method="post" action="{:U('Badwords/index')}">
+						关键词：
+						<input type="text" name="word" style="width: 200px;" value="{$Think.request.word}" placeholder="请输入关键词...">
+						<input type="submit" class="btn btn-primary" value="搜索" />
+						<input type="reset" class="btn btn-primary" value="清空" />
+					</form>
+						<a href="{:U('Badwords/add')}"><input type="button" class="btn btn-primary" value="添加关键词" /></a>
+						<table class="table table-hover table-bordered table-list">
+							<thead>
+								<tr>
+									<th width="10%">ID</th>
+									<th width="70%">黑名单词</th>
+									<th width="20%">{:L('ACTIONS')}</th>
+								</tr>
+							</thead>
+							<foreach name="lists" item="vo">
+							<tr>
+			                    <td>{$vo.id}</td>
+								<td>{$vo.word}</td>
+								<td>
+									<a href="javascript:void();" id-value="{$vo.id}" class="delete">{:L('DELETE')}</a>
+								</td>
+							</tr>
+							</foreach>
+						</table>
+						<div class="pagination">{$page}</div>
+				</div>
+				<!-- 右边主页面结束 {:U('Badwords/delete',array('id'=>$vo['id']))}-->
+
+			</div>
+			<!-- END PAGE CONTAINER-->
+
+		</div>
+
+		<!-- END PAGE -->
+
+	</div>
+<!-- 加载的右边框架 -->
+	<script type="text/javascript">
+		$(function(){
+			$(".delete").click(function(){
+				var id = $(this).attr('id-value');
+			  var url = "index.php?g=Admin&m=Badwords&a=delete";
+				deleteFun(id,url);
+			});
+		});
+	</script>
+
+	<!-- END CONTAINER -->
+
+	<!-- 引入底部开始 -->
+
+	<admintpl file="footer" />
+
+	<!-- 引入底部结束 -->
+
+	<admintpl file="footer_js" />
+
+</body>
+
+<!-- END BODY -->
+
+</html>

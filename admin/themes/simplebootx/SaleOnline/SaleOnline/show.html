@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+
+<!--[if !IE]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+
+<!-- BEGIN HEAD -->
+
+<head>
+
+	<meta charset="utf-8" />
+
+	<title>星空海天教育</title>
+
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+	<meta content="" name="description" />
+
+	<meta content="" name="author" />
+
+	<!-- 引入顶部样式文件 -->
+	<admintpl file="head_css" />
+	<script src="__PUBLIC__/js/jquery.js"></script>
+    <script src="__PUBLIC__/js/wind.js"></script>
+    <!-- <script src="__PUBLIC__/simpleboot/bootstrap/js/bootstrap.min.js"></script> -->
+    <script>
+    	$(function(){
+    		$("[data-toggle='tooltip']").tooltip();
+    	});
+    </script>
+	<style>
+		.expander{margin-left: -20px;}
+		.head-open{
+			display: inline-block;
+			width:25%;
+			height:50px;
+			line-height: 50px;
+			border: 1px solid green;
+			text-align: center;
+			border-radius: 5px;
+		}
+
+		.controls input[type="radio"] {margin-left:0px;}
+		* {margin:0;padding:0;}
+
+		.dropdown2 {display:inline-block;width:220px;height:20px;
+			position:relative;margin-left:20px;}
+		.dropdown2 .editor {display:block;border:0;padding:0;width:100%;box-shadow: inset 1px 2px 3px #ddd;height:inherit;}
+		.dropdown2 .trigger {position:absolute;top:0;right:0;padding:3px;}
+		.dropdown2 ul {display:none;width:98%;height:140px;padding:2px;position:absolute;top:100%;background-color:#FFF;border:1px solid #DDD;border-radius: 0 0 5px 5px;overflow-y:auto;overflow-x:hidden;margin:0px;z-index: 10;margin-top:8px;}
+		.dropdown2 ul li {height:20px;display:block;font-size:12px;overflow:hidden;cursor:pointer;}
+		.dropdown2 ul li .hot {color: red;}
+		.dropdown2 ul li:hover {background-color: #EEE;}
+		.dropdown2 ul .search {display:block;backgound: url(imgs/search.gif) no-repeat scroll center right;border-bottom: 1px solid #808080;}
+		.dropdown2 ul .search:hover{background-color:#FFF;}
+		.dropdown2 ul .search input {padding:2px;width:100%;border:0;font-size:14px;background:none;}
+
+		input{
+			width:200px;
+		}
+		.control-group{
+			display: inline-block;
+		}
+	</style>
+
+</head>
+
+<!-- END HEAD -->
+
+<!-- BEGIN BODY -->
+
+<body class="page-header-fixed">
+
+	<!-- 引入顶部开始 -->
+
+	<admintpl file="head" />
+
+	<!-- 引入顶部结束 -->
+
+	<!-- BEGIN CONTAINER -->
+
+	<div class="page-container">
+
+		<!-- 引入左侧边栏开始 -->
+
+		<admintpl file="lefter" />
+
+		<!-- 引入左侧边栏结束 -->
+
+		<!-- BEGIN PAGE -->
+
+		<div class="page-content">
+
+			<!-- BEGIN PAGE CONTAINER-->
+
+			<div class="container-fluid">
+
+				<admintpl file="style_bn" />
+
+				<!-- END PAGE HEADER-->
+
+				<table class="table table-hover table-bordered table-list">
+					<tr>
+						<td colspan="2" style="text-align: center">商品详情</td>
+					</tr>
+					<tr>
+						<td>商品名称</td>    <td>{$data.goods_name}</td>
+					</tr>
+					<tr>
+						<td>商品详情</td>    <td>{$data.goods_info}</td>
+					</tr>
+					<tr>
+						<td>商品图片</td>    <td><img src="http://ooylo9ron.bkt.clouddn.com/{$data.goods_cover}" width="100px" height="100px"></td>
+					</tr>
+					<tr>
+						<td>商品售价</td>    <td>{$data.sale_price}</td>
+					</tr>
+					<tr>
+						<td>优惠价格</td>     <td>{$data.dct_price}</td>
+					</tr>
+					<tr>
+						<td>班级编号</td>		<td>{$data.class_no}</td>
+					</tr>
+					<tr>
+						<td>班级名称</td>		<td>{$data.class_name}</td>
+					</tr>
+					<tr>
+						<td>上架状态</td>
+						<td>
+							<if condition="$data.try_look eq 1 "> 上架 </if>
+							<if condition="$data.try_look eq 2 "> 下架 </if>
+						</td>
+					</tr>
+					<tr>
+						<td>限招人数</td>			<td>{$data.limit_num}</td>
+					</tr>
+					<tr>
+						<td>创建时间</td>    <td>{$data.add_time}</td>
+
+					</tr>
+				</table>
+
+		</div>
+
+		<!-- END PAGE -->
+
+	</div>
+<!-- 加载的右边框架 -->
+
+
+	<!-- END CONTAINER -->
+			
+	<!-- 引入底部开始 -->
+
+	<admintpl file="footer" />
+
+	<!-- 引入底部结束 -->
+
+	<admintpl file="footer_js" />
+
+</body>
+
+<!-- END BODY -->
+
+</html>

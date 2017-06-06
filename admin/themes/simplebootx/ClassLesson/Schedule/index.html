@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+
+<!--[if IE 8]>
+<html lang="en" class="ie8 no-js"> <![endif]-->
+
+<!--[if IE 9]>
+<html lang="en" class="ie9 no-js"> <![endif]-->
+
+<!--[if !IE]><!-->
+<html lang="en" class="no-js"> <!--<![endif]-->
+
+<!-- BEGIN HEAD -->
+
+<head>
+
+    <meta charset="utf-8"/>
+
+    <title>星空海天教育</title>
+
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+
+    <meta content="" name="description"/>
+
+    <meta content="" name="author"/>
+
+    <!-- 引入顶部样式文件 -->
+    <admintpl file="head_css"/>
+    <script src="__PUBLIC__/js/jquery.js"></script>
+    <script src="__PUBLIC__/js/wind.js"></script>
+    <!-- <script src="__PUBLIC__/simpleboot/bootstrap/js/bootstrap.min.js"></script> -->
+    <script>
+        $(function () {
+            $("[data-toggle='tooltip']").tooltip();
+        });
+    </script>
+
+    <style>
+        .controls input[type="radio"] {
+            margin-left: 0px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .dropdown2 {
+            display: inline-block;
+            width: 220px;
+            height: 20px;
+            position: relative;
+            margin-left: 0px;
+        }
+
+        .dropdown2 .editor {
+            display: block;
+            border: 0;
+            padding: 0;
+            width: 100%;
+            box-shadow: inset 1px 2px 3px #ddd;
+            height: inherit;
+        }
+
+        .dropdown2 .trigger {
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding: 3px;
+        }
+
+        .dropdown2 ul {
+            display: none;
+            width: 98%;
+            height: 140px;
+            padding: 2px;
+            position: absolute;
+            top: 100%;
+            background-color: #FFF;
+            border: 1px solid #DDD;
+            border-radius: 0 0 5px 5px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            margin: 0px;
+            z-index: 10;
+            margin-top: 8px;
+        }
+
+        .dropdown2 ul li {
+            height: 20px;
+            display: block;
+            font-size: 12px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .dropdown2 ul li .hot {
+            color: red;
+        }
+
+        .dropdown2 ul li:hover {
+            background-color: #EEE;
+        }
+
+        .dropdown2 ul .search {
+            display: block;
+            backgound: url(imgs/search.gif) no-repeat scroll center right;
+            border-bottom: 1px solid #808080;
+        }
+
+        .dropdown2 ul .search:hover {
+            background-color: #FFF;
+        }
+
+        .dropdown2 ul .search input {
+            padding: 2px;
+            width: 100%;
+            border: 0;
+            font-size: 14px;
+            background: none;
+        }
+
+        tr {
+            text-align: center;
+            border: solid 1px #CCCCCC;
+        }
+
+        td {
+            text-align: center;
+            border: solid 1px #CCCCCC;
+        }
+
+        #next {
+            float: right;
+            margin-top: 100px;
+        }
+
+        .area-lesson {
+            font-family: Arial;
+            border: 2px solid #379082;
+            border-radius: 30px;
+            margin: 10px;
+            border-color: #00a2d4;
+            text-align: center;
+        }
+    </style>
+
+</head>
+
+<!-- END HEAD -->
+
+<!-- BEGIN BODY -->
+
+<body class="page-header-fixed">
+
+<!-- 引入顶部开始 -->
+
+<admintpl file="head"/>
+
+<!-- 引入顶部结束 -->
+
+<!-- BEGIN CONTAINER -->
+
+<div class="page-container">
+
+    <!-- 引入左侧边栏开始 -->
+
+    <admintpl file="lefter"/>
+
+    <!-- 引入左侧边栏结束 -->
+
+    <!-- BEGIN PAGE -->
+
+    <div class="page-content">
+
+        <!-- BEGIN PAGE CONTAINER-->
+
+        <div class="container-fluid">
+
+            <admintpl file="style_bn"/>
+
+            <!-- END PAGE HEADER-->
+
+            <!-- 右边主页面开始 -->
+
+            <div class="wrap js-check-wrap">
+                <form class="well form-search" action="{:U('Schedule/index')}" method="post">
+
+                    <div class="control-group">
+                        <span>分校：</span>
+                        <select name="zone_id" id="zone_id" style="width: 120px;" required >
+                            <option value=''>全部</option>
+                            <foreach name="school" item="vo">
+                                <option value='{$vo.id}' name-value="{$vo.sz_name}"
+                                <?php if($vo['id'] == $param['zone_id']){ ?> selected="selected"<?php } ?>
+                                >{$vo.sz_name}</option>
+                            </foreach>
+                        </select> &nbsp;
+                    </div>
+                            校区：<select name="sub_zone_id" id="sub_zone_id">
+                            <option value="{$param.sub_zone_id}" selected="">{$param.sub_zone_name}</option>
+                        </select>
+
+                    <input name="zone_name" type="hidden" id="zone_name" value="{$param.zone_name}">
+                    <input name="sub_zone_name" type="hidden" id="sub_zone_name" value="{$param.sub_zone_name}">
+
+                    教室：<select name="room_id" style="width: 120px;">
+                    <option value="">全部教室</option>
+                    <foreach name="allRooms" item="ar">
+                        <option value='{$ar.id}'
+                        <if condition="$param['room_id'] eq $ar.id ">selected='selected'</if>
+                        >{$ar.room_name}</option>
+                    </foreach>
+                </select>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    日期：<input type="date" name="firstDay" class="js-date" id='firstDay' value="{$param.firstDay}">
+                    &nbsp;&nbsp;
+                    <a class="btn btn-primary" href="javascript:;" onclick="LastWeek()"> < </a>&nbsp;&nbsp;
+                    <a class="btn btn-primary" href="javascript:;" onclick="NextWeek()"> > </a>&nbsp;&nbsp;
+                    &nbsp;&nbsp;
+                    <input type="submit" class="btn btn-primary" id="subBtn" value="搜索"/>
+                    <br>
+                </form>
+                <a class="btn btn-primary" id="getExcel">导出</a><br><br>
+                <table class="table table-hover table-bordered table-list">
+                    <tr>
+                        <td>校区</td>
+                        <td>教室</td>
+                        <td>{$headDate['first']}</td>
+                        <td>{$headDate['second']}</td>
+                        <td>{$headDate['third']}</td>
+                        <td>{$headDate['fourth']}</td>
+                        <td>{$headDate['fifth']}</td>
+                        <td>{$headDate['sixth']}</td>
+                        <td>{$headDate['seventh']}</td>
+                    </tr>
+
+                    <foreach name="data" item="items">
+                        <tr>
+                            <td width="15px">{$items.sub_zone_name}</td>
+                            <td width="15px">{$items.room_name}</td>
+                            <foreach name="items['data']" item="item">
+                                <td>
+                                    <foreach name="item" item="vo">
+                                        <div class="area-lesson">
+                                            {$vo.course_title}
+                                            <br>
+                                            {$vo.start_time}-{$vo.end_time}
+                                            <br>
+                                            {$vo.tch_name}
+                                            <br>
+                                            共{$vo.hour_num}节
+                                            <br><br>
+                                        </div>
+                                    </foreach>
+                                </td>
+                            </foreach>
+                        </tr>
+                    </foreach>
+
+                    <tr>
+                        <td colspan="2">直播</td>
+
+                        <foreach name="lives" item="li">
+                            <td>
+                                <foreach name="li" item="l">
+                                    <div class="area-lesson">
+                                        <br>
+                                        {$l.course_title}
+                                        <br>
+                                        {$l.start_time}-{$l.end_time}
+                                        <br>
+                                        {$l.tch_name}
+                                        <br>
+                                        {$l.class_name}
+                                        <br><br>
+                                    </div>
+                                </foreach>
+                            </td>
+                        </foreach>
+                    </tr>
+                </table>
+                <div class="page clearfix">{$page}</div>
+                <!-- 右边主页面结束 -->
+                <script src="__PUBLIC__/js/common.js"></script>
+                <script type="text/javascript" src="__PUBLIC__/js/datePicker/datePicker.js?v="></script>
+                <script src="__PUBLIC__/js/layer/layer.js"></script>
+                <script>
+                    $("#getExcel").on('click', function () {
+//                        var html = "{:U('ClassLesson/Schedule/excel')}";
+                        var html = "/index.php?g=ClassLesson&m=Schedule&a=excel";
+                        layer.open({
+                            type: 2,
+                            title: '导出EXCEL',
+                            skin: 'layui-layer-rim', //加上边框
+                            area: ['400px', '500px'], //宽高
+                            content: html
+                        });
+                    });
+                </script>
+                <script>
+                    function LastWeek() {
+                        var fd = $("#firstDay").val();
+                        var date1 = new Date(fd);
+                        var date2 = new Date(date1);
+                        date2.setDate(date1.getDate() - 7);
+                        var times = date2.getFullYear() + "-" + (date2.getMonth() + 1) + "-" + date2.getDate();
+                        $("#firstDay").val(times);
+                        $("#subBtn").click();
+                    }
+
+                    function NextWeek() {
+                        var fd = $("#firstDay").val();
+                        var date1 = new Date(fd);
+                        var date2 = new Date(date1);
+                        date2.setDate(date1.getDate() + 7);
+                        var times = date2.getFullYear() + "-" + (date2.getMonth() + 1) + "-" + date2.getDate();
+                        $("#firstDay").val(times);
+                        $("#subBtn").click();
+                    }
+
+
+                    $(function () {
+                        $("#zone_id").delegate("option", "click", function(e){  // 点击校区
+                            var zone_id = $(this).attr('value'); // 获取校区的id值
+                            var zone_name = $(this).attr('name-value'); // 获取校区的name值
+                            $('#zone_name').val(zone_name);
+                            $("#sub_zone_id").find("option").remove();
+
+                            var url = '/index.php?g=Admin&m=Classnotice&a=getZone&zone_id='+zone_id;
+                            $.ajax({
+                                url:url,
+                                type:'GET',
+                                dataType:'json',
+                                data:{},
+                                success:function(msg){
+                                    var str = "<option value=''>--全部--</option>";
+                                    $(msg).each(function(i){
+                                        var item = msg[i];
+                                        str += '<option value="'+item['id']+'" name-value="'+item['sz_name']+'">'+item['sz_name']+'</option>';
+                                    });
+                                    $("#sub_zone_id").html(str).val('');
+                                    $('#sub_zone_name').val('');
+                                }
+                            });
+                        });
+
+                        $(this).click(function () {   //当数据列表在显示时，如果点击了页面其它区域，则隐藏列表
+                            $(".dropdown2 ul:visible").hide();
+                        });
+
+
+                        $("#sub_zone_id").delegate("option", "click", function (e) {
+                            var sub_v = $(this).attr('name-value');
+                            $('#sub_zone_name').val(sub_v);
+                        });
+                    });
+                </script>
+            </div>
+        </div>
+    </div>
+    <admintpl file="footer"/>
+    <admintpl file="footer_js"/>
+</div>
+</body>
+</html>

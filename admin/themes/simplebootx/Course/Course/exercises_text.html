@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+
+<!--[if !IE]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+
+<!-- BEGIN HEAD -->
+
+<head>
+
+	<meta charset="utf-8" />
+
+	<title>Metronic | Admin Dashboard Template</title>
+
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+	<meta content="" name="description" />
+
+	<meta content="" name="author" />
+
+	<!-- 引入顶部样式文件 -->
+
+	<admintpl file="head_css" />
+	<script src="__PUBLIC__/js/jquery.js"></script>
+    <script src="__PUBLIC__/js/wind.js"></script>
+    <!-- <script src="__PUBLIC__/simpleboot/bootstrap/js/bootstrap.min.js"></script> -->
+    <script>
+    	$(function(){
+    		$("[data-toggle='tooltip']").tooltip();
+    	});
+    </script>
+	<style>
+		.expander{margin-left: -20px;}
+		.controls input[type="radio"] {margin-left:-20px;}
+	</style>
+
+</head>
+
+<!-- END HEAD -->
+
+<!-- BEGIN BODY -->
+
+<body class="page-header-fixed">
+
+	<!-- 引入顶部开始 -->
+
+	<admintpl file="head" />
+
+	<!-- 引入顶部结束 -->
+
+	<!-- BEGIN CONTAINER -->
+
+	<div class="page-container">
+
+		<!-- 引入左侧边栏开始 -->
+
+		<admintpl file="lefter" />
+
+		<!-- 引入左侧边栏结束 -->
+
+		<!-- BEGIN PAGE -->
+
+		<div class="page-content">
+
+			<!-- BEGIN PAGE CONTAINER-->
+
+			<div class="container-fluid">
+
+				<admintpl file="style_bn" />
+
+				<!-- END PAGE HEADER-->
+
+				<!-- 右边主页面开始 -->
+					<div class="tabbable tabbable-custom tabbable-full-width">
+						<ul class="nav nav-tabs">
+							<li><a href="{:U('Course/courseinfo?id='.$id)}">基本信息</a></li>
+							<li><a href="{:U('Course/outline_text?id='.$id)}">知识点大纲</a></li>
+							<li><a href="{:U('Course/teachplan_text?id='.$id)}">教案</a></li>
+							<li><a href="{:U('Course/ware_text?id='.$id)}">图文课件</a></li>
+							<li><a href="{:U('Course/video_text?id='.$id)}">视频课件</a></li>
+							<li class="active"><a href="{:U('Course/exercises_text?id='.$id)}">习题库</a></li>
+							<li><a href="{:U('Course/paper_text?id='.$id)}">设计试卷</a></li>
+							<li><a href="{:U('Course/distribution_text?id='.$id)}">试卷分配</a></li>
+						</ul>
+						<div class="tab-content">
+							<div class="tab-pane row-fluid active" id="tab_1_1">
+								<foreach name="data" item="vo">
+									[<if condition="$vo.ce_type eq 1">单选<elseif condition="$vo.ce_type eq 2"/>多选<elseif condition="$vo.ce_type eq 3"/>不定项选择题<elseif condition="$vo.ce_type eq 4"/>判断题</if>]
+									[<if condition="$vo.ce_skill eq 0">常识<else />应用</if>]
+									<b>{$vo.ce_title}</b><br/>
+										<foreach name="vo.options" item="voo">
+											{$voo}<br/>
+										</foreach>
+									答案：{$vo.answer}<br/>
+									难度：<if condition="$vo.ce_level eq 1">难<elseif condition="$vo.ce_level eq 2"/>中<elseif condition="$vo.ce_level eq 3"/>易</if><br/>
+									知识点：{$vo.point_info}<br/>
+									解析：{$vo.ce_analyze}<br/><br/><br/>
+								</foreach>
+							</div>
+
+						</div>
+
+					</div>
+				<!-- 右边主页面结束 -->
+				<script src="__PUBLIC__/js/common.js"></script>
+				<script type="text/javascript" src="__PUBLIC__/js/datePicker/datePicker.js?v="></script>
+				<script src="__PUBLIC__/js/layer/layer.js"></script>
+			</div>
+			<!-- END PAGE CONTAINER-->    
+			
+		</div>
+
+		<!-- END PAGE -->
+
+	</div>
+<!-- 加载的右边框架 -->
+
+
+	<!-- END CONTAINER -->
+			
+	<!-- 引入底部开始 -->
+
+	<admintpl file="footer" />
+
+	<!-- 引入底部结束 -->
+
+	<admintpl file="footer_js" />
+
+</body>
+
+<!-- END BODY -->
+
+</html>

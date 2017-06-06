@@ -1,0 +1,49 @@
+/*右侧悬浮按钮*/
+.page-content{position: relative;}
+.fixed_nav{list-style: none;position:fixed;right: 60px;top: 350px;margin: 0;border-left: 1px solid #ccc;border-right: 1px solid #ccc;border-top: 1px solid #ccc}
+.fixed_nav li{padding: 5px 20px;border-bottom: 1px solid #ccc;cursor: pointer;color: #737373;}
+.fixed_nav li:hover{background-color: #848484;color: #fff}
+/*EDN*/
+
+/*底部固定试卷信息*/
+.fixed_footer{margin: 0;z-index: 999;width: 100%;border: 1px solid #ccc}
+.fixed_footer ul{background-color: #fff;padding: 20px 0 20px 20px;margin: 0}
+.fixed_footer li{float: left;list-style: none;line-height: 30px;height: 30px;margin-right:30px}
+.fixed_footer li .checker{margin: 0}
+.fixed_footer li input{margin: 0;width: 50px;display: inline-block;}
+.fixed_footer li select{margin: 0;line-height: 30px !important;height: 30px !important;padding: 0}
+.fixed_footer li input{margin: 0}
+.fixed_footer li.fixed_last{float: right;}
+.fixed_footer li button{background-color:rgba(141, 214, 109, 1);border-radius: 3px;border: none;color: #fff;padding: 5px 15px;font-size: 12px;outline: none}
+/*END*/
+
+
+.design_pape{padding:20px 200px 20px 100px;}
+.design_pape input{display: block;margin-bottom:20px}
+
+/*试卷名称*/
+.design_header input{padding: 15px 0;font-size: 20px;width: 100%;text-align: center}
+.design_header input.student_test{font-size:12px}
+/*END*/
+
+/*试卷选题*/
+.design_content{border: 1px solid #ccc;border-radius: 10px;position: relative;padding:60px 30px 0px  30px;margin-bottom: 20px}
+.design_content h5{position: absolute;left: 0;top: 0;background-color: #ccc;margin:0;color: #fff;border-radius:10px 0 0 0;padding: 5px 20px}
+.design_content .btnmenu{position: absolute;right:10px;top:10px}
+.design_content .btnmenu span{width:20px;height: 20px;margin-right: 5px;padding:0;line-height: 20px;cursor: pointer}
+.design_content .btnmenu span i:before{line-height: 20px!important;color: #969696}
+.design_content ul{margin:0}
+.design_content ul li{list-style: none;float: left;margin-left: 30px}
+.design_content ul li.li_last{float: right}
+.design_content ul li p{float: left;line-height: 27px;margin:0 10px 0 0}
+.design_content ul li button{border: 1px solid #ccc;color: #333;border-radius: 3px;background-color: #fff;outline: none;margin-right: 5px;padding: 3px 20px}
+.design_content ul li span{line-height: 27px;margin-left: 10px}
+.design_content ul li .add_test{padding: 5px 10px;background-color: #8a8989;color: #fff;border-radius: 3px;margin:0 20px}
+.design_content ul li .add_test:hover,.design_content ul li .add_test:focus{text-decoration:none;}
+.design_content table{margin-top: 30px}
+.design_content table td{text-align: center}
+.design_content table td input,.design_content table th input{width: 50%;margin:0 auto}
+.design_content table td a{line-height: 30px;color:#737373}
+.design_content table td a:hover,.design_content table td a:focus{text-decoration: none}
+.design_content .titletext input{width: 100%;padding:15px 0;text-align: center}
+/*END*/

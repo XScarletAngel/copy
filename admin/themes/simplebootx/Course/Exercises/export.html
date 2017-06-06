@@ -1,0 +1,31 @@
+<style>
+    h1{
+        text-align: center;
+        margin: 10px auto;
+    }
+    h5{
+        text-align: center;
+        margin: 10px auto;
+    }
+    .word-content{
+        margin: 10px 20px;
+    }
+</style>
+<div class="word-content">
+
+
+<h1>{$data.title}</h1>
+<h5>总分：{$data.total_score}分&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;限时：{$data.total_time}分钟</h5>
+
+    <foreach name="data.stems" item="stem">
+        <h4>{$stem}</h4>
+    </foreach>
+
+</div>
+
+<foreach name="data.questions" item="vo">
+    <h3> {$vo.ce_title} </h3>
+    <foreach name="vo.options" item="os">
+        <h4> {$os} </h4>
+    </foreach>
+</foreach>

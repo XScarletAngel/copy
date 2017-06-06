@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+
+<!--[if !IE]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+
+<!-- BEGIN HEAD -->
+
+<head>
+
+	<meta charset="utf-8" />
+
+	<title>Metronic | Admin Dashboard Template</title>
+
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+	<meta content="" name="description" />
+
+	<meta content="" name="author" />
+
+	<!-- 引入顶部样式文件 -->
+
+	<admintpl file="head_css" />
+	<script src="__PUBLIC__/js/jquery.js"></script>
+    <script src="__PUBLIC__/js/wind.js"></script>
+    <!-- <script src="__PUBLIC__/simpleboot/bootstrap/js/bootstrap.min.js"></script> -->
+    <script>
+    	$(function(){
+    		$("[data-toggle='tooltip']").tooltip();
+    	});
+    </script>
+	<style>
+		.expander{margin-left: -20px;}
+		.controls input[type="radio"] {margin-left:0px;}
+	</style>
+
+</head>
+
+<!-- END HEAD -->
+
+<!-- BEGIN BODY -->
+
+<body class="page-header-fixed">
+
+	<!-- 引入顶部开始 -->
+
+	<admintpl file="head" />
+
+	<!-- 引入顶部结束 -->
+
+	<!-- BEGIN CONTAINER -->
+
+	<div class="page-container">
+
+		<!-- 引入左侧边栏开始 -->
+
+		<admintpl file="lefter" />
+
+		<!-- 引入左侧边栏结束 -->
+
+		<!-- BEGIN PAGE -->
+
+		<div class="page-content">
+
+			<!-- BEGIN PAGE CONTAINER-->
+
+			<div class="container-fluid">
+
+				<admintpl file="style_bn" />
+
+				<!-- END PAGE HEADER-->
+
+				<!-- 右边主页面开始 -->
+					<div class="tabbable tabbable-custom tabbable-full-width">
+						<ul class="nav nav-tabs">
+							<if condition="$editid eq ''">
+								<li><a href="#tab_1_1">基本信息</a></li>
+								<li class="active"><a href="#tab_1_2">知识点大纲</a></li>
+								<li><a href="#tab_1_3">教案</a></li>
+								<li><a href="#tab_1_4">图文课件</a></li>
+								<li><a href="#tab_1_5">视频课件</a></li>
+								<li><a href="#tab_1_6">习题库</a></li>
+								<li><a href="#tab_1_7">设计试卷</a></li>
+								<li><a href="#tab_1_8">试卷分配</a></li>
+							<elseif condition="$editid neq ''" />
+								<li><a href="{:U('Course/addcourse?id='.$id.'&editid=1')}">基本信息</a></li>
+								<li class="active"><a href="{:U('Course/outline?id='.$id.'&editid=1')}">知识点大纲</a></li>
+								<li><a href="{:U('Course/teachplan?id='.$id.'&editid=1')}">教案</a></li>
+								<li><a href="{:U('Course/ware?id='.$id.'&editid=1')}">图文课件</a></li>
+								<li><a href="{:U('Course/video?id='.$id.'&editid=1')}">视频课件</a></li>
+								<li><a href="{:U('Course/exercises?id='.$id.'&editid=1')}">习题库</a></li>
+								<li><a href="{:U('Course/paper?id='.$id.'&editid=1')}">设计试卷</a></li>
+								<li><a href="{:U('Course/distribution?id='.$id.'&editid=1')}">试卷分配</a></li>
+							</if>
+						</ul>
+						<div class="tab-content">
+							<div class="tab-pane row-fluid active" id="tab_1_1">
+								<form method="post" class="form-horizontal js-ajax-form" action="{:U('Course/outline_post')}" enctype="multipart/form-data">
+									<a href="javascript:void(0);" onclick="imports()">导入</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									<a href="javascript: void(0)" onclick="wnload()">下载模板</a>
+									<input type="hidden" name="id" value="{$id}" id="courseid">
+										<table style="height:80%;width:80%;margin:10px auto;">
+											<foreach name="res" item="vo">
+												<tr>
+													<td>
+														{$vo.catalog_name}&nbsp;&nbsp;&nbsp;&nbsp;
+														<if condition="$vo.tag neq ''">【{$vo.tag}】</if>
+														<a href="javascript:void(0);" onclick="node({$vo.id})">＋</a>&nbsp;&nbsp;&nbsp;&nbsp;
+														<a href="javascript:void(0);" onclick="edit({$vo.id})">编辑</a>&nbsp;&nbsp;&nbsp;&nbsp;
+														<if condition="$vo.parentid neq 0"><if condition="$vo.is_look eq 0"><a href="javascript:void(0);" onclick="look({$vo.id}, 1)">试看</a></if><if condition="$vo.is_look eq 1"><a href="javascript:void(0);" onclick="look({$vo.id}, 0)">取消试看</a></if></if>
+													</td>
+												</tr>
+											</foreach>
+										</table>
+									<div class="form-actions">
+										<button type="submit" class="btn btn-primary js-ajax-submit">保存并下一步</button>
+										<a class="btn" href="{:U('Course/addcourse', ['edid' => $id])}">{:L('BACK')}</a>
+									</div>
+								</form>
+
+							</div>
+
+						</div>
+
+					</div>
+				<!-- 右边主页面结束 -->
+				<script src="__PUBLIC__/js/common.js"></script>
+				<script type="text/javascript" src="__PUBLIC__/js/datePicker/datePicker.js?v="></script>
+				<script src="__PUBLIC__/js/layer/layer.js"></script>
+				<script>
+					function wnload(){
+						host = window.location.host;
+			            window.open("http://"+host+"/public/file/model.xlsx");//路径--string
+			        };
+
+			        function look(id, val) {
+						var status = confirm("确认要试看吗?");
+							if(!status){
+						   	return false;
+						}
+
+						// var val = $(this).attr('val');
+						// alert(val)
+						var url = "index.php?g=Course&m=Course&a=look";
+
+						$.ajax({
+						    type:'POST',
+						    url:url,
+						    data:{id:id, val:val},
+						    success:function(msg){
+						    	if(msg.code == '1'){
+						       		alert(msg.msg);
+						       		location.reload();
+						      	}else{
+						       		alert(msg.msg);
+						      	}      
+						    },
+						    error:function(){
+						      alert('请求失败');
+						    }
+						});
+					};
+
+			        function edit(cid) {
+					    var html = "/index.php?g=Course&m=Course&a=edit_layer&cid="+cid;
+
+				        layer.open({
+				            type: 2,
+				            title: '编辑节点',
+				            skin: 'layui-layer-rim', //加上边框
+				            area: ['38%', '50%'], //宽高
+				            content: html
+				        });
+				    }
+
+			        function node(cid) {
+						id = $('#courseid').val();
+					    var html = "/index.php?g=Course&m=Course&a=node_layer&id="+id+"&cid="+cid;
+
+				        layer.open({
+				            type: 2,
+				            title: '添加子节点',
+				            skin: 'layui-layer-rim', //加上边框
+				            area: ['38%', '50%'], //宽高
+				            content: html
+				        });
+				    }
+
+					function imports() {
+						id = $('#courseid').val();
+					    var html = "/index.php?g=Course&m=Course&a=outline_layer&id="+id;
+
+				        layer.open({
+				            type: 2,
+				            title: '导入大纲',
+				            skin: 'layui-layer-rim', //加上边框
+				            area: ['30%', '30%'], //宽高
+				            content: html
+				        });
+				    }
+				</script>
+			</div>
+			<!-- END PAGE CONTAINER-->    
+			
+		</div>
+
+		<!-- END PAGE -->
+
+	</div>
+<!-- 加载的右边框架 -->
+
+
+	<!-- END CONTAINER -->
+			
+	<!-- 引入底部开始 -->
+
+	<admintpl file="footer" />
+
+	<!-- 引入底部结束 -->
+
+	<admintpl file="footer_js" />
+
+</body>
+
+<!-- END BODY -->
+
+</html>

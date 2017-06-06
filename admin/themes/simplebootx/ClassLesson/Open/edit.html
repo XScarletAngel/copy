@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+
+<!--[if IE 8]>
+<html lang="en" class="ie8 no-js"> <![endif]-->
+
+<!--[if IE 9]>
+<html lang="en" class="ie9 no-js"> <![endif]-->
+
+<!--[if !IE]><!-->
+<html lang="en" class="no-js"> <!--<![endif]-->
+
+<!-- BEGIN HEAD -->
+
+<head>
+
+    <meta charset="utf-8"/>
+
+    <title>星空海天教育</title>
+
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+
+    <meta content="" name="description"/>
+
+    <meta content="" name="author"/>
+
+    <!-- 引入顶部样式文件 -->
+    <admintpl file="head_css"/>
+    <script src="__PUBLIC__/js/jquery.js"></script>
+    <script src="__PUBLIC__/js/wind.js"></script>
+    <!-- <script src="__PUBLIC__/simpleboot/bootstrap/js/bootstrap.min.js"></script> -->
+    <script>
+        $(function () {
+            $("[data-toggle='tooltip']").tooltip();
+        });
+    </script>
+    <style>
+        label {
+            display: inline-block;
+        }
+
+        .controls input[type="radio"] {
+            margin-left: 0px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .dropdown2 {
+            display: inline-block;
+            width: 220px;
+            height: 20px;
+            position: relative;
+            margin-left: 20px;
+        }
+
+        .dropdown2 .editor {
+            display: block;
+            border: 0;
+            padding: 0;
+            width: 100%;
+            box-shadow: inset 1px 2px 3px #ddd;
+            height: inherit;
+        }
+
+        .dropdown2 .trigger {
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding: 3px;
+        }
+
+        .dropdown2 ul {
+            display: none;
+            width: 98%;
+            height: 140px;
+            padding: 2px;
+            position: absolute;
+            top: 100%;
+            background-color: #FFF;
+            border: 1px solid #DDD;
+            border-radius: 0 0 5px 5px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            margin: 0px;
+            z-index: 10;
+            margin-top: 8px;
+        }
+
+        .dropdown2 ul li {
+            height: 20px;
+            display: block;
+            font-size: 12px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .dropdown2 ul li .hot {
+            color: red;
+        }
+
+        .dropdown2 ul li:hover {
+            background-color: #EEE;
+        }
+
+        .dropdown2 ul .search {
+            display: block;
+            border-bottom: 1px solid #808080;
+        }
+
+        .dropdown2 ul .search:hover {
+            background-color: #FFF;
+        }
+
+        .dropdown2 ul .search input {
+            padding: 2px;
+            width: 100%;
+            border: 0;
+            font-size: 14px;
+            background: none;
+        }
+    </style>
+
+</head>
+
+<!-- END HEAD -->
+
+<!-- BEGIN BODY -->
+
+<body class="page-header-fixed">
+
+<!-- 引入顶部开始 -->
+
+<admintpl file="head"/>
+
+<!-- 引入顶部结束 -->
+
+<!-- BEGIN CONTAINER -->
+
+<div class="page-container">
+
+    <!-- 引入左侧边栏开始 -->
+
+    <admintpl file="lefter"/>
+
+    <!-- 引入左侧边栏结束 -->
+
+    <!-- BEGIN PAGE -->
+
+    <div class="page-content">
+
+        <!-- BEGIN PAGE CONTAINER-->
+
+        <div class="container-fluid">
+
+            <admintpl file="style_bn"/>
+
+            <!-- END PAGE HEADER-->
+
+            <!-- 右边主页面开始 -->
+
+            <form action="{:U('Open/update')}" method="post" enctype="multipart/form-data">
+                <input class="id" type="hidden" name="id" value="{$classInfo.id}"/>
+
+                <table class="table table-hover table-bordered table-list">
+                    <tr>
+                        <td>*班级封面:</td>
+                        <td>
+                            <input type="hidden" name="class_cover" class="class_cover" value="{$classInfo.class_cover}">
+                            <img src="http://ooylo9ron.bkt.clouddn.com/{$classInfo.class_cover}" width="100px" height="100px"/>
+                            <input type="file" name="filess" id="filess" autocomplete="off"/>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>*班级编号:</td>
+                        <td>
+                            <input type="text" name="class_no" value="{$classInfo.class_no}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td> *班级名称:</td>
+                        <td>
+                            <input type="text" name="class_name" value="{$classInfo.class_name}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>*班级简称:</td>
+                        <td>
+                            <input type="text" name="class_simple_name" value="{$classInfo.class_simple_name}">（显示给学生）
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>*班级类型:</td>
+                        <td>
+                            <if condition="$classInfo.class_type eq 1 ">
+                                线下班级
+                            </if>
+                            <if condition="$classInfo.class_type eq 2 ">
+                                直播课
+                            </if>
+                            <if condition="$classInfo.class_type eq 3 ">
+                                录播课
+                            </if>
+
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>*所属课程:</td>
+                        <td>
+                            <foreach name="courses" item="co">
+                                <?php if($co['id'] == $classInfo['course_id']){ ?>
+                                {$co.course_name}
+                                <?php } ?>
+                            </foreach>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>*所属分校：</td>
+                        <td>
+                            {$classInfo.zone_name}
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>*所属校区：</td>
+                        <td>
+                            {$classInfo.sub_zone_name}
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>默认上课老师：</td>
+                        <td>
+                            <select name="tch_id" id="tch_id" style="width: 120px;">
+                                <option value=''>--请选择--</option>
+                                <foreach name="teachers" item="to">
+                                    <option
+                                    <?php if($to['user_id'] == $classInfo['tch_id']){ ?> selected="selected" <?php } ?> value="{$to.user_id}"
+                                    name-value="{$to.user_name}">{$to.user_name}</option>
+                                </foreach>
+                            </select> &nbsp;
+                            <input class="tch_name" type="hidden" name="tch_name" id="tch_name" value="{$classInfo.tch_name}"/>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>默认上课教室：</td>
+                        <td>
+                            <select name="room_id" id="room_id" style="width: 120px;">
+                                <option value="{$classInfo.room_id}">{$classInfo.room_name}</option>
+                            </select> &nbsp;
+                            <input class="room_name" type="hidden" name="room_name" id="room_name" value="{$classInfo.room_name}"/>
+
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>*班主任:</td>
+                        <td>
+                            <input type="text" name="class_master" value="{$classInfo.class_master}">
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>老师编辑课表</td>
+                        <td>
+                            <select name="can_change">
+                                <option value=''>请选择</option>
+                                <if condition="$classInfo.can_change eq 0 ">
+                                    <option value='0' selected="selected">不能修改课表</option>
+                                    <option value='1'>可以修改</option>
+                                </if>
+                                <if condition="$classInfo.can_change eq 1 ">
+                                    <option value='0'>不能修改课表</option>
+                                    <option value='1' selected="selected">可以修改</option>
+                                </if>
+                            </select> &nbsp;
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>答疑组成员:</td>
+                        <td>
+                            <foreach name="teachers" item="to">
+                                <input type="checkbox" id="{$to.user_id}" value="{$to.user_id}" name="answer_group[]"
+                                <?php if(in_array($to['user_id'],$classInfo['answer_group'])){ ?> checked="true"  <?php } ?>
+                                > {$to.user_name}
+                            </foreach>
+
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>状态:</td>
+                        <td>
+                            <select name="class_status">
+
+                            <if condition="$classInfo.class_status eq 1 ">
+                                <option value='1' selected="selected">存盘</option>
+                                <option value='2'>启用</option>
+                                <option value='3'>停用</option>
+                            </if>
+
+                            <if condition="$classInfo.class_status eq 2 ">
+                                <option value='1'>存盘</option>
+                                <option value='2' selected="selected">启用</option>
+                                <option value='3'>停用</option>
+                            </if>
+
+                            <if condition="$classInfo.class_status eq 3 ">
+                                <option value='1'>存盘</option>
+                                <option value='2'>启用</option>
+                                <option value='3' selected="selected">停用</option>
+                            </if>
+                            </select> &nbsp;
+                        </td>
+                    </tr>
+                </table>
+                <div style="text-align: center"><input type="submit" value='提交' class="btn btn-primary"></div>
+            </form>
+
+
+            <!-- 右边主页面结束 -->
+            <script src="__PUBLIC__/js/common.js"></script>
+            <script type="text/javascript" src="__PUBLIC__/js/datePicker/datePicker.js?v="></script>
+            <script>
+                $(function () {
+                    //教师名字的值
+                    $("#tch_id").delegate("option", "click", function (e) {
+                        var sub_v = $(this).attr('name-value');
+                        $('#tch_name').val(sub_v);
+
+                    });
+
+                    //教室的值
+                    $("#room_id").delegate("option", "click", function (e) {
+                        var sub_v = $(this).attr('name-value');
+                        $('#room_name').val(sub_v);
+
+                    });
+                });
+            </script>
+
+        </div>
+
+    </div>
+</div>
+
+</div>
+
+<admintpl file="footer"/>
+
+<admintpl file="footer_js"/>
+
+</body>
+
+
+</html>

@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+
+<!--[if !IE]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+
+<!-- BEGIN HEAD -->
+
+<head>
+
+	<meta charset="utf-8" />
+
+	<title>星空海天教育</title>
+
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+	<meta content="" name="description" />
+
+	<meta content="" name="author" />
+
+	<!-- 引入顶部样式文件 -->
+
+	<admintpl file="head_css" />
+	<script src="__PUBLIC__/js/jquery.js"></script>
+    <script src="__PUBLIC__/js/wind.js"></script>
+    <!-- <script src="__PUBLIC__/simpleboot/bootstrap/js/bootstrap.min.js"></script> -->
+	<style>
+		.controls input[type="radio"] {margin-left:0px;}
+		.dropdown2 {display:inline-block;width:220px;height:20px;position:relative;}
+		.dropdown2 .editor {display:block;border:0;padding:0;width:100%;box-shadow: inset 1px 2px 3px #ddd;height:inherit;}
+		.dropdown2 .trigger {position:absolute;top:0;right:0;padding:3px;}
+		.dropdown2 ul {display:none;width:98%;height:140px;padding:2px;position:absolute;top:100%;background-color:#FFF;border:1px solid #DDD;border-radius: 0 0 5px 5px;overflow-y:auto;overflow-x:hidden;margin:0px;z-index: 10;margin-top:8px;}
+		.dropdown2 ul li {height:20px;display:block;font-size:12px;overflow:hidden;cursor:pointer;}
+		.dropdown2 ul li .hot {color: red;}
+		.dropdown2 ul li:hover {background-color: #EEE;}
+		.dropdown2 ul .search {display:block;backgound: url(imgs/search.gif) no-repeat scroll center right;border-bottom: 1px solid #808080;}
+		.dropdown2 ul .search:hover{background-color:#FFF;}
+		.dropdown2 ul .search input {padding:2px;width:100%;border:0;font-size:14px;background:none;}
+	</style>
+	<style>
+		.expander{margin-left: -20px;}
+		.controls input[type="radio"] {margin-left:0px;}
+	</style>
+
+</head>
+
+<!-- END HEAD -->
+
+<!-- BEGIN BODY -->
+
+<body class="page-header-fixed">
+
+	<!-- 引入顶部开始 -->
+
+
+	<!-- 引入顶部结束 -->
+
+	<!-- BEGIN CONTAINER -->
+
+	<div class="page-container">
+
+		<!-- 引入左侧边栏开始 -->
+		<!-- 引入左侧边栏结束 -->
+
+		<!-- BEGIN PAGE -->
+
+		<div class="page-content">
+
+			<!-- BEGIN PAGE CONTAINER-->
+
+			<div class="container-fluid">
+
+				<!-- END PAGE HEADER-->
+
+				<!-- 右边主页面开始 -->
+				<div class="wrap" style="margin-top:20px;">
+					<form method="post" class="form-horizontal js-ajax-forms" action="{:U('Live/addPost')}">
+						<fieldset>
+							<div class="control-group">
+								<label class="control-label">直播名称:</label>
+								<div class="controls">
+									<input type="text" name="channel_title">
+									<span class="form-required">*</span>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">直播描述:</label>
+								<div class="controls">
+									<textarea name="channel_desc" style="width: 400px;"></textarea>
+									<span class="form-required">*</span>
+								</div>
+							</div>
+
+							<div class="control-group">
+								<label class="control-label">计划时间:</label>
+								<div class="controls">
+									<input type="text" name="begin_time" class="js-datetime" value="{$param.begin_time}">-
+									<input type="text" name="end_time"   class="js-datetime" value="{$param.end_time}">
+									<span class="form-required">*</span>
+								</div>
+							</div>
+
+							<div class="control-group">
+								<label class="control-label">直播班级:</label>
+								<div class="controls">
+									<!--暂无班级<a id="addMoreClass" href="javascript:void(0);" style="margin-left: 10px;">添加班级</a>-->
+
+									<div class="box">
+										<ul class="clearfix">
+											<li class="inputText">
+												<input type="text" name="" value="" style="width:100px;" id="inputKw" placeholder="选填">
+											</li>
+										</ul>
+										<div class="list">
+											<volist name="not_open_class" id="vo">
+												<p data-class-id="{$vo.id}" data-class-name="{$vo.class_name}">{$vo.class_name}</p>
+											</volist>
+										</div>
+									</div>
+									<span class="form-required"></span>
+								</div>
+							</div>
+
+							<div class="control-group">
+								<label class="control-label">直播附件:</label>
+								<div class="controls">
+									<input type="file" id="attach_file" name="attach_file">
+									<span class="form-required">*</span>
+								</div>
+							</div>
+
+							<div class="control-group">
+								<label class="control-label">直播老师:</label>
+								<div class="controls">
+									<div class="dropdown2" id="dropdown_sel">  <!-- 模拟 select 的标记， -->
+										<input class="editor2" type="text" name="live_teacher" disabled="disabled"/> <!-- 显示当前值的输入框 -->
+										<input type="hidden" name="live_tch_id" id="live_tch_id"/>
+										<input type="hidden" name="live_teacher" id="live_teacher"/>
+										<input class="trigger"  type="button" value="↓" /> <!-- 用于显示下拉列表的按钮 -->
+										<ul>   <!-- 列表菜单 -->
+											<li class="search"><input type="text"/></li>   <!-- 过滤输入的列表， -->
+											<!-- 添加数据的时候，都添加在这个地方 -->
+											<foreach name="sch" item="vo">
+												<li data-value="{$vo.user_name}" id-value="{$vo.id}" >{$vo.user_name}</li>
+											</foreach>
+										</ul>
+									</div>
+									<span class="form-required">*</span>
+								</div>
+							</div>
+
+
+							<div class="control-group">
+								<div class="controls">
+									<button type="submit" class="btn btn-primary js-ajax-submit">{:L('ADD')}</button>
+									<a class="btn" href="javascript:history.back(-1);">{:L('BACK')}</a>
+								</div>
+							</div>
+						</fieldset>
+					</form>
+				</div>
+				<script src="__PUBLIC__/js/common.js"></script>
+				<script src="__PUBLIC__/js/layer/layer.js"></script>
+
+				<!--下拉select -->
+				<style>
+					ol,ul{list-style:none;margin-left:0px;}
+					.box{width: 400px;}
+					.box ul{border: 1px solid #ccc;background-color: #fff;padding:5px 5px;cursor: text;border-radius: 5px}
+					.box ul input{border: none;background-color: #fff;padding: 5px 5px;font-size: 14px}
+					.box ul li{float: left;margin-right: 10px}
+					.box ul li div{border: 1px solid #e5e5e5;padding:2px 5px 2px 20px;position: relative;}
+					.box ul li span{font-size: 14px}
+					.box ul li a{width: 12px;height: 13px;background: url(/public/images/img.png) no-repeat right top;display: block;background-size: 60px 40px;position: absolute;left: 5px;top:5px}
+					.list{border:1px solid #ccc;display: none}
+					.list p{padding: 5px;font-size: 14px;cursor: pointer;}
+					.list p:hover{background-color: #3d74b2;color: #fff}
+				</style>
+				<script>
+					$(function(){
+						$('.box ul').bind('click',function(event) {
+							$(this).find('input').focus();
+							$(this).next().show();
+						});
+
+//						$('.box ul').bind('input propertychange',function(){
+//							var kw = $("#inputKw").val();
+//							console.log(kw);
+//							alert(kw);
+//							var url = '{:U("Admin/Ajax/queryClassByKw")}';
+//							$.ajax({
+//								url:url,
+//								type:'POST',
+//								dataType:'json',
+//								data:{kw:kw},
+//								success:function(msg){
+//									alert(msg);
+//									var str = "<option value=''>--请选择--</option>";
+//									$(msg).each(function(i){
+//										var item = msg[i];
+//										str += '<option value="'+item['major_id']+'" code-value="'+item['major_code']+'" name-value="'+item['major_name']+'">'+item['major_name']+'</option>';
+//									});
+//									$("#major_id").html(str);
+//								}
+//							});
+//
+//						});
+
+						$('.list').on('click', 'p', function(event) {
+							var html='';
+							var class_id = $(this).data('class-id');
+							var class_name = $(this).data('class-name');
+							html+='<li><div><span data-class-id="'+class_id+'" data-class-name="'+class_name+'">'+class_name+'</span> ' +
+									'<input type="hidden" name="class_id[]" value="'+class_id+'"/> <input type="hidden" name="class_name[]" value="'+class_name+'"/><a href="javascript:;"></a></div></li>';
+							$('.inputText').before(html);
+							$('.list').hide()
+						});
+
+						$('.box ul').on('click', 'a', function(event) {
+							$(this).parents('li').remove()
+						});
+					});
+
+					$(function(){
+						//当列表项被点击时，把列表项的值放在输入框里面，
+						$(".dropdown2").delegate("li", "click", function(e){
+							var v  = $(this).attr("data-value"),
+									drop = $(this).closest(".dropdown2");
+							var id = $(this).attr('id-value');
+							var name = $(this).attr('data-value');
+
+							$('#live_tch_id').val(id);
+							$('#live_teacher').val(name);
+
+							drop.attr("data-value", v);
+							drop.find(".editor2").val(v);
+							$(this).parent().hide();
+							e.stopPropagation();
+							$("#dept_id").find("option").remove();
+						}).delegate(".trigger", "click", function(e){    //当下拉按钮被点击时，显示数据列表
+							$(this).closest(".dropdown2").find("ul").show();
+							e.stopPropagation();  //阻止冒泡，因为冒泡到 document 的时候，会隐藏列表
+						}).delegate(".search input", "click", function(e){
+							e.stopPropagation();
+						}).delegate(".search input", "keyup", function(e){    //当检测到列表中的输入框的时候，启动过滤，不满足的项隐藏
+							var v = $.trim(this.value), list = $(this).closest("ul").children("li");
+							if(v == "") {    //特殊情况，过滤输入框中没有值的时候迭代所有的列表项并显示它们
+								list.each(function(){
+									if(this.className.indexOf("search") != -1) {return;}//不考虑过滤输入框所在的列表项
+									$(this).text(this.innerText || this.textContent).show();
+								});
+							} else {
+								list.each(function(){   //迭代列表，
+									if(this.className.indexOf("search") != -1) {return;}  //不考虑过滤输入框所在的列表项
+									var lv = $(this).text();   //列表的文本
+									if(lv.indexOf(v) === -1) {   //不匹配过滤文本，就隐藏
+										$(this).hide();
+									} else {                 //匹配，把匹配的文本替换会含有标记的文本（红色）
+										$(this).html(lv.replace(v, '<span class="hot">'+v+'</span>')).show();
+									}
+								});
+							}
+
+						});
+
+						$(this).click(function(){   //当数据列表在显示时，如果点击了页面其它区域，则隐藏列表
+							$(".dropdown ul:visible").hide();
+						});
+					});
+				</script>
+				<!-- 右边主页面结束 -->
+				<script>
+					$(function () {
+
+						/////---------------------
+						Wind.use('validate','ajaxForm','artDialog',function() {
+							var form = $('form.js-ajax-forms');
+							//ie处理placeholder提交问题
+							if ($.browser && $.browser.msie) {
+								form.find('[placeholder]').each(function() {
+									var input = $(this);
+									if (input.val() == input.attr('placeholder')) {
+										input.val('');
+									}
+								});
+							}
+							//表单验证开始
+							form.validate({
+								//是否在获取焦点时验证
+								onfocusout : false,
+								//是否在敲击键盘时验证
+								onkeyup : false,
+								//当鼠标掉级时验证
+								onclick : false,
+								//验证错误
+								showErrors : function(errorMap,errorArr) {
+									//errorMap {'name':'错误信息'}
+									//errorArr [{'message':'错误信息',element:({})}]
+									try {
+										$(errorArr[0].element).focus();
+										art.dialog({
+											id : 'error',
+											icon : 'error',
+											lock : true,
+											fixed : true,
+											background : "#CCCCCC",
+											opacity : 0,
+											content : errorArr[0].message,
+											cancelVal : '确定',
+											cancel : function() {
+												$(errorArr[0].element).focus();
+											}
+										});
+									} catch (err) {}
+								},
+								//验证规则
+								rules : {
+									'channel_title' : {required : 1},
+									'channel_desc' : {required : 1},
+									'begin_time' : {required : 1},
+									'end_time' : {required : 1},
+								},
+								//验证未通过提示消息
+								messages : {
+									'channel_title' : {required : '直播名称必填'},
+									'channel_desc' : {required : '直播描述必填'},
+									'begin_time' : {required : '直播开始时间必填'},
+									'end_time' : {required : '直播结束时间必填'},
+								},
+								//给未通过验证的元素加效果,闪烁等
+								highlight : false,
+								//是否在获取焦点时验证
+								onfocusout : false,
+								//验证通过，提交表单
+								submitHandler : function(forms) {
+									$(forms).ajaxSubmit({
+										url : form.attr('action'), //按钮上是否自定义提交地址(多按钮情况)
+										dataType : 'json',
+										beforeSubmit : function(arr,$form,options) {
+
+										},
+										success : function(data,statusText,xhr,$form) {
+											if (data.status) {
+												setCookie("refersh_time",1);
+												//添加成功
+												Wind.use("artDialog",function() {
+													art.dialog({
+														id : "succeed",
+														icon : "succeed",
+														fixed : true,
+														lock : true,
+														background : "#CCCCCC",
+														opacity : 0,
+														content : data.info,
+														button : [
+															{
+																name : '继续添加？',
+																callback : function() {
+																	reloadPage(window);
+																	return true;
+																},
+																focus : true
+															},
+															{
+																name : '返回列表',
+																callback : function() {
+																	parent.location.reload();
+																	//location.href = "{:U('Srv/index')}";
+																	return true;
+																}
+															}
+														]
+													});
+												});
+											} else {
+												alert(data.info);
+											}
+										}
+									});
+								}
+							});
+						});
+						////-------------------------
+					});
+				</script>
+			</div>
+			<!-- END PAGE CONTAINER-->    
+			
+		</div>
+
+		<!-- END PAGE -->
+
+	</div>
+<!-- 加载的右边框架 -->
+
+
+</body>
+
+<!-- END BODY -->
+
+</html>

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+
+<!--[if !IE]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+
+<!-- BEGIN HEAD -->
+
+<head>
+
+	<meta charset="utf-8" />
+
+	<title>星空海天教育</title>
+
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+	<meta content="" name="description" />
+
+	<meta content="" name="author" />
+
+	<!-- 引入顶部样式文件 -->
+	<admintpl file="head_css" />
+	<script src="__PUBLIC__/js/jquery.js"></script>
+    <script src="__PUBLIC__/js/wind.js"></script>
+	<script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+    <script>
+    	$(function(){
+    		$("[data-toggle='tooltip']").tooltip();
+    	});
+    </script>
+
+
+</head>
+
+<!-- END HEAD -->
+
+<!-- BEGIN BODY -->
+
+<body class="page-header-fixed" style="overflow-x:hidden;">
+
+	<!-- 引入顶部开始 -->
+
+	<admintpl file="head" />
+
+	<!-- 引入顶部结束 -->
+
+	<!-- BEGIN CONTAINER -->
+
+	<div class="page-container">
+
+		<!-- 引入左侧边栏开始 -->
+
+		<admintpl file="lefter" />
+
+		<!-- 引入左侧边栏结束 -->
+
+		<!-- BEGIN PAGE -->
+
+		<div class="page-content">
+
+			<!-- BEGIN PAGE CONTAINER-->
+
+			<div class="container-fluid">
+
+				<admintpl file="style_bn" />
+
+				<!-- END PAGE HEADER-->
+
+				<!-- 右边主页面开始 -->
+				<div class="container">
+				</div>
+				<table class="table table-hover table-bordered table-list">
+
+					<tr>
+						<td>所属分校</td>
+						<td>{$classInfo.zone_name}</td>
+						<td>所属校区</td>
+						<td>{$classInfo.sub_zone_name}</td>
+					</tr>
+					<tr>
+						<td>班级类型</td>
+						<td><if condition="$classInfo.class_type eq 1 ">
+							线下班级
+						</if>
+							<if condition="$classInfo.class_type eq 2 ">
+								直播课
+							</if>
+							<if condition="$classInfo.class_type eq 3 ">
+								录播课
+							</if></td>
+						<td>所属课程</td>
+						<td><select name="course_id" >
+							<option value="">--请选择--</option>
+							<foreach name="courses" item="co">
+								<option value='{$co.id}'
+								<?php if($co['id'] == $classInfo['course_id']){ ?>selected="selected"<?php } ?>
+								>{$co.course_name}</option>
+
+							</foreach>
+						</select></td>
+					</tr>
+					<tr>
+						<td>班级名称</td>
+						<td>{$classInfo.class_name}</td>
+						<td>班级简称</td>
+						<td>{$classInfo.class_simple_name}（显示给学生）</td>
+					</tr>
+					<tr>
+						<td>班级封面</td>
+						<td>
+							<img src="http://ooylo9ron.bkt.clouddn.com/{$classInfo.class_cover}" width="100px" height="100px"/>
+						</td>
+						<td>班级编号</td>
+						<td>{$classInfo.class_no}</td>
+					</tr>
+
+					<tr>
+						<td>默认上课老师</td>
+						<td><select name="tch_id" id="tch_id" style="width: 120px;">
+							<option value=''>--请选择--</option>
+							<foreach name="teachers" item="to">
+								<option <?php if($to['user_id'] == $classInfo['tch_id']){ ?> selected="selected" <?php } ?> value="{$to.id}" name-value="{$to.user_name}">{$to.user_name}</option>
+							</foreach>
+						</select> &nbsp;
+							<input class="tch_name" type="hidden" name="tch_name" id="tch_name" value="{$classInfo.tch_name}"/>
+						</td>
+						<td>默认上课教室</td>
+						<td>{$classInfo.room_name}</td>
+					</tr>
+					<tr>
+						<td>班主任</td>
+						<td>{$classInfo.class_master}</td>
+						<td>老师编辑课表</td>
+						<td><select name="can_change" >
+							<option value=''>请选择</option>
+							<if condition="$classInfo.can_change eq 0 ">
+								<option value='0' selected="selected">不能修改课表</option>
+								<option value='1'>可以修改</option>
+							</if>
+							<if condition="$classInfo.can_change eq 1 ">
+								<option value='0'>不能修改课表</option>
+								<option value='1' selected="selected">可以修改</option>
+							</if>
+						</select> &nbsp;</td>
+					</tr>
+					<tr>
+						<td>答疑组成员</td>
+						<td><foreach name="teachers" item="to">
+							<input  type="checkbox" id="{$to.id}" value="{$to.id}" name="answer_group[]"
+							<?php if(in_array($to['user_id'],$classInfo['answer_group'])){ ?> checked="true"  <?php } ?>
+							> {$to.user_name}
+						</foreach></td>
+						<td>状态</td>
+						<td><if condition="$classInfo.class_status eq 1 ">存盘</if>
+							<if condition="$classInfo.class_status eq 2 ">启用</if>
+							<if condition="$classInfo.class_status eq 3 ">停用</if></td>
+					</tr>
+					<tr>
+						<td>班主任</td>
+						<td>{$classInfo.class_master}</td>
+						<td></td>
+						<td></td>
+					</tr>
+				</table>
+			<!-- END PAGE CONTAINER-->
+
+		</div>
+
+		<!-- END PAGE -->
+
+	</div>
+<!-- 加载的右边框架 -->
+
+
+	<!-- END CONTAINER -->
+
+	<!-- 引入底部开始 -->
+
+	<admintpl file="footer" />
+
+	<!-- 引入底部结束 -->
+
+	<admintpl file="footer_js" />
+
+</body>
+
+<!-- END BODY -->
+
+</html>

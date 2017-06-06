@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+
+<!--[if !IE]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+
+<!-- BEGIN HEAD -->
+
+<head>
+
+	<meta charset="utf-8" />
+
+	<title>星空海天教育</title>
+
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+	<meta content="" name="description" />
+
+	<meta content="" name="author" />
+
+	<!-- 引入顶部样式文件 -->
+
+	<admintpl file="head_css" />
+	<script src="__PUBLIC__/js/jquery.js"></script>
+    <script src="__PUBLIC__/js/wind.js"></script>
+    <!-- <script src="__PUBLIC__/simpleboot/bootstrap/js/bootstrap.min.js"></script> -->
+    <script>
+    	$(function(){
+    		$("[data-toggle='tooltip']").tooltip();
+    	});
+    </script>
+	<style>.expander{margin-left: -20px;}</style>
+
+</head>
+
+<!-- END HEAD -->
+
+<!-- BEGIN BODY -->
+
+<body class="page-header-fixed">
+
+	<!-- 引入顶部开始 -->
+
+	<admintpl file="head" />
+
+	<!-- 引入顶部结束 -->
+
+	<!-- BEGIN CONTAINER -->
+
+	<div class="page-container">
+
+		<!-- 引入左侧边栏开始 -->
+
+		<admintpl file="lefter" />
+
+		<!-- 引入左侧边栏结束 -->
+
+		<!-- BEGIN PAGE -->
+
+		<div class="page-content">
+
+			<!-- BEGIN PAGE CONTAINER-->
+
+			<div class="container-fluid">
+
+				<admintpl file="style_bn" />
+
+				<!-- END PAGE HEADER-->
+
+				<!-- 右边主页面开始 -->
+				<div class="wrap js-check-wrap">
+					<form class="well form-search" method="post" action="{:U('Stusign/index')}">
+						<ul class="fromUl clearfix">
+							<li>
+								分校：
+								<select name="zone_id" id="zone_id" style="width: 120px;">
+									<option value=''>全部</option>
+									<foreach name="school" item="vo">
+									<option value='{$vo.id}' name-value="{$vo.sz_name}">{$vo.sz_name}</option>
+									</foreach>
+								</select> &nbsp;&nbsp;
+							</li>
+							<li>
+								<!-- <input type="hidden" id="zone_name"/> -->
+								分区：
+								<select name="sub_zone_id" id="zone_sub_id" style="width: 120px;">
+									<option value=''>全部</option>
+								</select> &nbsp;&nbsp;
+							</li>
+							<li>
+								<!-- <input type="hidden" id="zone_sub_name"/> -->
+								<select name="class_type" style="width: 120px;">
+									<option value=''>--全部--</option>
+									<option value='class_no' <if condition="$Think.request.class_type eq 'class_no'">selected</if>>班级编号</option>
+									<option value='class_name' <if condition="$Think.request.class_type eq 'class_name'">selected</if>>班级名称</option>
+								</select> &nbsp;&nbsp;
+							</li>
+							<li>
+								<input type="text" name="class_con" style="width: 200px;" value="{$Think.request.class_con}" placeholder="请输入查询内容...">
+							</li>
+							<li>
+								<select name="user_type" style="width: 120px;">
+									<option value=''>--全部--</option>
+									<option value='user_no' <if condition="$Think.request.user_type eq 'user_no'">selected</if>>学员编号</option>
+									<option value='user_name' <if condition="$Think.request.user_type eq 'user_name'">selected</if>>学员姓名</option>
+								</select> &nbsp;&nbsp;
+							</li>
+							<li>
+								<input type="text" name="user_con" style="width: 200px;" value="{$Think.request.user_con}" placeholder="请输入查询内容...">
+							</li>
+							<li>
+								课次：
+								<input type="text" name="course_times" style="width: 200px;" value="{$Think.request.course_times}" placeholder="请输入查询内容...">
+							</li>
+							<li>
+								通知状态
+								<select name="notice_status" style="width: 120px;">
+									<option value=''>全部</option>
+									<option value='1' <if condition="$Think.request.notice_status eq 1">selected</if>>已通知</option>
+									<option value='2' <if condition="$Think.request.notice_status eq 2">selected</if>>未通知</option>
+								</select> &nbsp;&nbsp;
+							</li>
+							<li>
+								回复状态：
+								<select name="reply_status" style="width: 120px;">
+									<option value=''>全部</option>
+									<option value='1' <if condition="$Think.request.reply_status eq 1">selected</if>>能来</option>
+									<option value='2' <if condition="$Think.request.reply_status eq 2">selected</if>>不能来</option>
+								</select> &nbsp;&nbsp;
+							</li>
+							<li>
+								签到状态：
+								<select name="sign_status" style="width: 120px;">
+									<option value=''>全部</option>
+									<option value='1' <if condition="$Think.request.sign_status eq 1">selected</if>>未签到</option>
+									<option value='2' <if condition="$Think.request.sign_status eq 2">selected</if>>已签到</option>
+								</select> &nbsp;&nbsp;
+							</li>
+						</ul>
+						<div class="frombtn">
+							<input type="submit" class="btn btn-primary" value="搜索" />
+							<input type="reset" class="btn btn-primary" value="清空" />
+						</div>
+					</form>
+						<table class="table table-striped table-hover">
+							<thead>
+								<tr>
+									<th width="50">分校</th>
+									<th width="70">校区</th>
+									<th width="50">班级</th>
+									<th width="50">学员姓名</th>
+									<th width="30">课次</th>
+									<th width="70">上课通知状态</th>
+									<th width="50">上课回复</th>
+									<th width="70">请假原因</th>
+									<th width="50">签到码</th>
+									<th width="70">签到状态</th>
+									<th width="70">班主任备注</th>
+									<th width="50">操作</th>
+								</tr>
+							</thead>
+							<tbody>
+								<foreach name="data" item="vo">
+								<tr>
+									<th>{$vo.zone_name}</td>
+									<th>{$vo.sub_zone_name}</td>
+									<th>{$vo.class_name}</td>
+									<th>{$vo.user_name}</td>
+									<th>{$vo.course_times}</td>
+									<th><if condition="$vo.notice_status eq 0">存盘<elseif condition="$vo.notice_status eq 1"/>已通知<elseif condition="$vo.notice_status eq 2"/>未通知</if></td>
+									<th><if condition="$vo.reply_status eq 0">存盘<elseif condition="$vo.reply_status eq 1"/>能来<elseif condition="$vo.reply_status eq 2"/>不能来</if></td>
+									<th>{$vo.leave_reason}</td>
+									<th>{$vo.sign_code}</td>
+									<th><if condition="$vo.sign_status eq 0">存盘<elseif condition="$vo.sign_status eq 1"/>未签到<elseif condition="$vo.sign_status eq 2"/>已签到</if></td>
+									<td height="50px">{$vo.remark}</td>
+									<td height="50px"><span id="id{$vo.id}"><if condition="$vo.sign_status neq 2"><a href="javascript:void(0);" id-value="{$vo.id}"  class="status" value="签到">签到</a><else />已签到</if></span>&nbsp;&nbsp;&nbsp;&nbsp;<p><a href="javascript:void(0);" id-value="{$vo.id}" class="remark" value="备注">备注</a></p></td>
+								</tr>
+								</foreach>
+							</tbody>
+						</table>
+						<div class="page clearfix">{$page}</div>
+				</div>
+				<!-- 右边主页面结束 -->
+				<script src="__PUBLIC__/js/common.js"></script>
+				<script type="text/javascript" src="__PUBLIC__/js/datePicker/datePicker.js?v="></script>
+				<script src="__PUBLIC__/js/layer/layer.js"></script>
+				<script>
+					// 操作单条数据屏蔽恢复的效果
+					$(function(){
+						$('td').on('click', 'span a', function(){
+							var value  = $(this).attr('value');
+							var _self  = $(this);
+							var index = layer.confirm("确认要"+value+"吗?",function(){
+								var id     = _self.attr('id-value');
+								var url    = "index.php?g=Admin&m=Stusign&a=sign";
+								$.ajax({
+									type:'POST',
+									url:url,
+									data:{id:id},
+									success:function(msg){
+										if(msg.code == '1'){
+											layer.msg(msg.msg);
+											var str = '已签到';
+											$("#id"+id).html(str);
+										}else{
+											layer.msg(msg.msg);
+										}
+									},
+									error:function(){
+										layer.msg('请求失败');
+									}
+								});
+								layer.close(index);
+							})
+						});
+					});
+					// 添加备注
+					 $(function(){
+						$('td').on('click', 'p a', function(){
+							var id     = $(this).attr('id-value');
+							var url    = "index.php?g=Admin&m=Stusign&a=remark";
+							var index = layer.prompt({
+								title:'请输入您要备注的内容'
+							},function(value, index, elem){
+								if (value){
+										$.ajax({
+											type:'POST',
+											url:url,
+											data:{id:id, value:value},
+											success:function(msg){
+												if(msg.code == '1'){
+													layer.msg(msg.msg);
+													location.reload();
+												}else{
+													layer.msg(msg.msg);
+												}
+											},
+											error:function(){
+												layer.msg('请求失败');
+											}
+										});
+										layer.close(index);
+								}
+							});
+						})
+					})
+					// 获取分校
+					$("#zone_id").delegate("option", "click", function(e){  // 点击校区
+						var zone_id = $(this).attr('value'); // 获取校区的id值
+						var zone_name = $(this).attr('name-value'); // 获取校区的name值
+						// $('#zone_name').val(zone_name);
+						$("#zone_sub_id").find("option").remove();
+
+						var url = '/index.php?g=Admin&m=Classnotice&a=getZone&zone_id='+zone_id;
+						$.ajax({
+					        url:url,
+					        type:'GET',
+					        dataType:'json',
+					        data:{},
+					        success:function(msg){
+					          var str = "<option value=''>--全部--</option>";
+					          $(msg).each(function(i){
+					          	var item = msg[i];
+					          	str += '<option value="'+item['id']+'" name-value="'+item['sz_name']+'">'+item['sz_name']+'</option>';
+					          });
+					          $("#zone_sub_id").html(str);
+	                        }
+	                    });
+					})
+				</script>
+			</div>
+			<!-- END PAGE CONTAINER-->
+
+		</div>
+
+		<!-- END PAGE -->
+
+	</div>
+<!-- 加载的右边框架 -->
+
+
+	<!-- END CONTAINER -->
+
+	<!-- 引入底部开始 -->
+
+	<admintpl file="footer" />
+
+	<!-- 引入底部结束 -->
+
+	<admintpl file="footer_js" />
+
+</body>
+
+<!-- END BODY -->
+
+</html>

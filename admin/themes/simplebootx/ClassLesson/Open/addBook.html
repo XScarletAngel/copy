@@ -1,0 +1,11 @@
+<form action="{:U('Open/addBookPost')}"  method="post">
+	<input name="class_id" value='{$class_id}' type="hidden">
+	名称：<input type="text" name="book_name" >
+	<br>
+	状态：<select name="book_status">
+			<option value="1">启用</option>
+			<option value="2">禁用</option>
+		</select>
+	<br>
+	<input type="submit" value="确定">
+</form>

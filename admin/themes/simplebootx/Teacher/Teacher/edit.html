@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+
+<!--[if !IE]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+
+<!-- BEGIN HEAD -->
+
+<head>
+
+	<meta charset="utf-8" />
+
+	<title>星空海天教育</title>
+
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+	<meta content="" name="description" />
+
+	<meta content="" name="author" />
+
+	<!-- 引入顶部样式文件 -->
+	<admintpl file="head_css" />
+	<script src="__PUBLIC__/js/jquery.js"></script>
+    <script src="__PUBLIC__/js/wind.js"></script>
+    <!-- <script src="__PUBLIC__/simpleboot/bootstrap/js/bootstrap.min.js"></script> -->
+    <script>
+    	$(function(){
+    		$("[data-toggle='tooltip']").tooltip();
+    	});
+    </script>
+	<style>
+		label{
+			display: inline-block;
+		}
+		.controls input[type="radio"] {margin-left:0px;}
+		* {margin:0;padding:0;}
+
+		.dropdown2 {display:inline-block;width:220px;height:20px;
+			position:relative;margin-left:20px;}
+		.dropdown2 .editor {display:block;border:0;padding:0;width:100%;box-shadow: inset 1px 2px 3px #ddd;height:inherit;}
+		.dropdown2 .trigger {position:absolute;top:0;right:0;padding:3px;}
+		.dropdown2 ul {display:none;width:98%;height:140px;padding:2px;position:absolute;top:100%;background-color:#FFF;border:1px solid #DDD;border-radius: 0 0 5px 5px;overflow-y:auto;overflow-x:hidden;margin:0px;z-index: 10;margin-top:8px;}
+		.dropdown2 ul li {height:20px;display:block;font-size:12px;overflow:hidden;cursor:pointer;}
+		.dropdown2 ul li .hot {color: red;}
+		.dropdown2 ul li:hover {background-color: #EEE;}
+		.dropdown2 ul .search {display:block;border-bottom: 1px solid #808080;}
+		.dropdown2 ul .search:hover{background-color:#FFF;}
+		.dropdown2 ul .search input {padding:2px;width:100%;border:0;font-size:14px;background:none;}
+	</style>
+
+</head>
+
+<!-- END HEAD -->
+
+<!-- BEGIN BODY -->
+
+<body class="page-header-fixed" >
+
+	<!-- 引入顶部开始 -->
+
+	<admintpl file="head" />
+
+	<!-- 引入顶部结束 -->
+
+	<!-- BEGIN CONTAINER -->
+
+	<div class="page-container">
+
+		<!-- 引入左侧边栏开始 -->
+
+		<admintpl file="lefter" />
+
+		<!-- 引入左侧边栏结束 -->
+
+		<!-- BEGIN PAGE -->
+
+		<div class="page-content">
+
+			<!-- BEGIN PAGE CONTAINER-->
+
+			<div class="container-fluid">
+
+				<admintpl file="style_bn" />
+
+				<!-- END PAGE HEADER-->
+
+				<!-- 右边主页面开始 -->
+
+				<form action="{:U('Teacher/update')}"  method="post" enctype="multipart/form-data">
+				<table  class="table table-hover table-bordered table-list">
+					<tr>
+						<td colspan="4" style="text-align: center;"><h5>教师基本信息</h5></td>
+						<input type="hidden" name="user_id" value="{$userData.id}">
+					</tr>
+					<tr>
+						<td>手机号（登录账号）</td>  <td><input type="text" name="user_login" value="{$userData.user_login}" readonly></td>
+						<td>真实姓名</td>    <td><input type="text" name="user_name" value="{$userData.user_name}"></td>
+					</tr>
+
+					<tr>
+						<td>头像</td>    <td><input type="hidden" name="avatar" value="{$userData.avatar}">
+						<img src="http://ooylo9ron.bkt.clouddn.com/{$userData.avatar}" width="100px" height="100px" />
+						<input type="file" name="filess" id="filess" autocomplete="off"/>
+
+					</td>
+						<td>邮箱</td> <td><input type="text" name="user_email" value="{$userData.user_email}"></td>
+					</tr>
+
+					<tr>
+						<td>个人网站</td> <td><input type="text" name="user_url" value="{$userData.user_url}"></td>
+						<td>性别</td>
+						<td>
+							<select name="sex">
+								<if condition="$userData.sex eq 1 ">
+									<option value="1" selected="selected">男</option>
+									<option value="2" >女</option>
+									<else />
+									<option value="1" >男</option>
+									<option value="2" selected="selected">女</option>
+								</if>
+							</select>
+						</td>
+					</tr>
+
+					<tr>
+						<td>生日</td> <td><input type="text" name="birthday" value="{$userData.birthday}"  class="js-datetime"></td>
+						<td>个性签名</td> <td><input type="text" name="signature" value="{$userData.signature}"></td>
+					</tr>
+
+					<tr>
+						<td>创建时间</td> <td><input type="text" name="create_time" value="{$userData.create_time}"  class="js-datetime"></td>
+						<td>用户状态</td>
+						<td>
+							<select name="user_status">
+								<option value="" >请选择</option>
+								<if condition="$userData.suser_statusex eq 0 ">
+									<option value="0" selected="selected">禁用</option>
+									<option value="1" >正常</option>
+									<option value="2" >未验证</option>
+									<else />
+									<if condition="$userData.suser_statusex eq 1 ">
+										<option value="0">禁用</option>
+										<option value="1" selected="selected">正常</option>
+										<option value="2" >未验证</option>
+										<else />
+										<option value="0" >禁用</option>
+										<option value="1" >正常</option>
+										<option value="2"  selected="selected">未验证</option>
+									</if>
+								</if>
+							</select>
+						</td>
+					</tr>
+
+					<tr>
+						<!--<td>积分</td> <td><input type="text" name="score" value="{$userData.score}"></td>-->
+						<td>是否同时是学生</td>
+						<td>
+							<select name="user_type">
+								<if condition="$userData.user_type eq 3 ">
+									<option value="3" selected="selected">是</option>
+									<option value="2" >否</option>
+									<else />
+									<option value="3" >是</option>
+									<option value="2" selected="selected">否</option>
+								</if>
+							</select>
+						</td>
+						<td>发言权限</td>
+						<td>
+							<select name="no_talk">
+								<if condition="$userData.no_talk eq 1 ">
+									<option value="1" selected="selected">可以发言</option>
+									<option value="2" >禁止发言</option>
+									<else />
+									<option value="1" >可以发言</option>
+									<option value="2" selected="selected">禁止发言</option>
+								</if>
+							</select>
+						</td>
+					</tr>
+
+					<tr>
+						<!--<td>金币</td> <td><input type="text" name="coin" value="{$userData.coin}" readonly></td>-->
+
+					</tr>
+
+					<tr>
+
+						<td>来源</td>
+						<td>
+						<select name="source">
+							<if condition="$userData.source eq 1 ">
+								<option value="1" selected="selected">后台创建</option>
+								<option value="2" >手机端注册</option>
+								<option value="3" >web端注册</option>
+								<else />
+								<if condition="$userData.source eq 2 ">
+									<option value="1" >后台创建</option>
+									<option value="2" selected="selected">手机端注册</option>
+									<option value="3" >web端注册</option>
+									<else />
+									<option value="1" >后台创建</option>
+									<option value="2" >手机端注册</option>
+									<option value="3" selected="selected">web端注册</option>
+								</if>
+							</if>
+						</select>
+					</td>
+						<td>联系方式</td> <td><input type="text" name="mobile" value="{$userData.mobile}" ></td>
+					</tr>
+					<tr>
+						<td colspan="4" style="text-align: center;"><h5>教师相关信息</h5></td>
+					</tr>
+					<tr>
+						<td>教师编号</td> <td><input type="text" name="tch_no" value="{$tcData.tch_no}" ></td>
+						<td>签约状态</td>
+						<td>
+							<select name="sign_status">
+								<if condition="$tcData.sign_status eq 1 ">
+									<option value="1" selected="selected">签约</option>
+									<option value="2" >解约</option>
+									<else />
+									<option value="1" >签约</option>
+									<option value="2" selected="selected">解约</option>
+								</if>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td>签约日期</td> <td><input type="text" name="sign_date" value="{$tcData.sign_date}"  class="js-datetime"></td>
+						<td>读研时间</td> <td><input type="text" name="graduate_time" value="{$tcData.graduate_time}" class="js-datetime"></td>
+					</tr>
+					<tr>
+						<td>读研学校</td>
+						<td>
+							<div class="dropdown2" id="dropdown_sel">  <!-- 模拟 select 的标记， -->
+								<input class="editor2" type="text" name="school" disabled="disabled" value="{$tcData.school}"/> <!-- 显示当前值的输入框 -->
+
+								<input class="trigger"  type="button" value="↓" /> <!-- 用于显示下拉列表的按钮 -->
+								<ul>   <!-- 列表菜单 -->
+									<li class="search"><input type="text"/></li>   <!-- 过滤输入的列表， -->
+									<!-- 添加数据的时候，都添加在这个地方 -->
+									<foreach name="schools" item="vo">
+										<li data-value="{$vo.school_name}" schoolid-value="{$vo.id}" id-value="{$vo.code}" code-value="{$vo.code}">{$vo.school_name}</li>
+									</foreach>
+								</ul>
+							</div>
+							<input class="school" type="hidden" name="school" id="school" value="{$tcData.school}"/>
+							<input class="school_id" type="hidden" name="school_id" id="school_id"/>
+						</td>
+						<td>读研学校编号</td> <td><input type="text" name="school_code" value="{$tcData.school_code}" id="school_code" readonly></td>
+					</tr>
+					<tr>
+						<td>读研院系</td>
+						<td>
+							<select name="school_dept" id="school_dept">
+								<option value="{$tcData.school_dept}" selected="selected">{$tcData.school_dept}</option>
+							</select>
+							<input name="dept_id" type="hidden" id="dept_id"/>
+						</td>
+						<td>读研院系编号</td>
+						<td><input type="text" name="school_dept_code"  id="dept_code" value="{$tcData.school_dept_code}" readonly></td>
+					</tr>
+					<tr>
+						<td>读研专业</td>
+						<td>
+
+							<select name="school_major" id="school_major">
+								<option value="{$tcData.school_major}" selected="selected">{$tcData.school_major}</option>
+							</select>
+							<input type="hidden" name="major_id" id="major_id">
+						</td>
+						<td>读研专业编号</td> <td><input type="text" name="school_major_code" id="major_code" value="{$tcData.school_major_code}" readonly></td>
+
+					</tr>
+					<tr>
+						<td>读研方向</td>
+						<td>
+
+							<select name="school_research" id="school_research">
+								<option value="{$tcData.school_research}">{$tcData.school_research}</option>
+							</select>
+						</td>
+						<td>读研方向编号</td> <td><input type="text" name="school_research_code"id="school_research_code" value="{$tcData.school_research_code}" readonly></td>
+					</tr>
+					<tr>
+						<td>居住城市</td>
+						<td>
+							<!--<input type="text" name="city" value="{$tcData.city}">-->
+							<div class="controls">
+								<select id="cmbProvince" name="cmbProvince" style="width:100px;">
+								</select>
+								<select id="cmbCity" name="cmbCity" style="width:100px;">
+								</select>
+								<select id="cmbArea" name="cmbArea" style="width:100px;">
+								</select>
+							</div>
+						</td>
+						<td>备注信息</td>
+						<td>
+							<textarea name="remark">{$tcData.remark}</textarea>
+						</td>
+
+					</tr>
+					<tr>
+						<td colspan="4" style="text-align: center;"><h5><input type="submit" class="btn btn-primary" value="更新" /></h5></td>
+					</tr>
+				</table>
+
+				</form>
+				<!-- 右边主页面结束 -->
+				<script src="__PUBLIC__/js/common.js"></script>
+				<script type="text/javascript" src="__PUBLIC__/js/datePicker/datePicker.js?v="></script>
+				<script src="__PUBLIC__/js/region.js"></script>
+				<script>
+                    addressInit('cmbProvince', 'cmbCity', 'cmbArea');
+
+                    $(function(){
+                        //当列表项被点击时，把列表项的值放在输入框里面，
+                        $(".dropdown2").delegate("li", "click", function(e){
+                            var v  = $(this).attr("data-value"),
+                                drop = $(this).closest(".dropdown2");
+                            var school_code = $(this).attr('id-value');
+                            $('#school_code').val(school_code);
+
+                            var school_id = $(this).attr('schoolid-value');
+                            $('#school_id').val(school_id);
+
+                            var school = $(this).attr('data-value');
+                            $('#school').val(school);
+
+
+                            drop.attr("data-value", v);
+                            drop.find(".editor2").val(v);
+                            $(this).parent().hide();
+                            e.stopPropagation();
+                            $("#sub_zone_id").find("option").remove();
+
+                            var url = '/index.php?g=Teacher&m=Teacher&a=getDept&school_code='+school_code;
+                            $.ajax({
+                                url:url,
+                                type:'GET',
+                                dataType:'json',
+                                data:{},
+                                success:function(msg){
+                                    var str = "<option value=''>--请选择--</option>";
+                                    $(msg).each(function(i){
+                                        var item = msg[i];
+                                        str += '<option value="'+item['dept_name']+'"  id-value="'+item['id']+'"   name-value="'+item['dept_code']+'">'+item['dept_name']+'</option>';
+                                    });
+                                    $("#school_dept").html(str);
+                                }
+                            });
+
+                        }).delegate(".trigger", "click", function(e){    //当下拉按钮被点击时，显示数据列表
+                            $(this).closest(".dropdown2").find("ul").show();
+                            e.stopPropagation();  //阻止冒泡，因为冒泡到 document 的时候，会隐藏列表
+                        }).delegate(".search input", "click", function(e){
+                            e.stopPropagation();
+                        }).delegate(".search input", "keyup", function(e){    //当检测到列表中的输入框的时候，启动过滤，不满足的项隐藏
+                            var v = $.trim(this.value), list = $(this).closest("ul").children("li");
+                            if(v == "") {    //特殊情况，过滤输入框中没有值的时候迭代所有的列表项并显示它们
+                                list.each(function(){
+                                    if(this.className.indexOf("search") != -1) {return;}//不考虑过滤输入框所在的列表项
+                                    $(this).text(this.innerText || this.textContent).show();
+                                });
+                            } else {
+                                list.each(function(){   //迭代列表，
+                                    if(this.className.indexOf("search") != -1) {return;}  //不考虑过滤输入框所在的列表项
+                                    var lv = $(this).text();   //列表的文本
+                                    if(lv.indexOf(v) === -1) {   //不匹配过滤文本，就隐藏
+                                        $(this).hide();
+                                    } else {                 //匹配，把匹配的文本替换会含有标记的文本（红色）
+                                        $(this).html(lv.replace(v, '<span class="hot">'+v+'</span>')).show();
+                                    }
+                                });
+                            }
+
+                        });
+
+                        $(this).click(function(){   //当数据列表在显示时，如果点击了页面其它区域，则隐藏列表
+                            $(".dropdown2 ul:visible").hide();
+                        });
+
+                        $("#school_dept").delegate("option", "click", function(e){
+                            var sv = $(this).attr('name-value');
+                            $('#dept_code').val(sv);
+                            var dept_id = $(this).attr('id-value');
+                            $('#dept_id').val(dept_id);
+                            var school_id = $('#school_id').val();
+                            var url = '/index.php?g=Teacher&m=Teacher&a=getmajors&dept_id='+dept_id+'&school_id='+school_id;
+                            $.ajax({
+                                url:url,
+                                type:'GET',
+                                dataType:'json',
+                                data:{},
+                                success:function(msg){
+                                    var str = "<option value=''>--请选择--</option>";
+                                    $(msg).each(function(i){
+                                        var item = msg[i];
+                                        str += '<option value="'+item['major_name']+'"  id-value="'+item['major_id']+'"   name-value="'+item['major_code']+'">'+item['major_name']+'</option>';
+                                    });
+                                    $("#school_major").html(str);
+                                }
+                            });
+                        });
+
+
+                        $("#school_major").delegate("option", "click", function(e){
+                            var major_code = $(this).attr('name-value');
+                            $('#major_code').val(major_code);
+
+                            var dept_id = $('#dept_id').val();;
+                            var school_id = $('#school_id').val();
+                            var major_id = $(this).attr('id-value');
+                            $('#major_id').val(major_id);
+
+                            var url = '/index.php?g=Teacher&m=Teacher&a=getResearchs&dept_id='+dept_id+'&major_id='+major_id+'&school_id='+school_id;
+
+                            $.ajax({
+                                url:url,
+                                type:'GET',
+                                dataType:'json',
+                                data:{},
+                                success:function(msg){
+                                    var str = "<option value=''>--请选择--</option>";
+                                    $(msg).each(function(i){
+                                        var item = msg[i];
+                                        str += '<option value="'+item['rch_name']+'" id-value="'+item['id']+'"  name-value="'+item['rch_code']+'">'+item['rch_name']+'</option>';
+                                    });
+                                    $("#school_research").html(str);
+                                }
+                            });
+                        });
+
+                        $("#school_research").delegate("option", "click", function(e){
+                            var rch_code = $(this).attr('name-value');
+                            $('#school_research_code').val(rch_code);
+
+                        });
+
+                    });
+
+				</script>
+			</div>
+			<!-- END PAGE CONTAINER-->    
+			
+		</div>
+
+		<!-- END PAGE -->
+
+	</div>
+<!-- 加载的右边框架 -->
+
+
+	<!-- END CONTAINER -->
+			
+	<!-- 引入底部开始 -->
+
+	<admintpl file="footer" />
+
+	<!-- 引入底部结束 -->
+
+	<admintpl file="footer_js" />
+
+</body>
+
+<!-- END BODY -->
+
+</html>
